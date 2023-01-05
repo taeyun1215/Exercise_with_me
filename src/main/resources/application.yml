@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mariadb://43.201.144.113:3306/ewm
+    username: root
+    password: 6548
+
