@@ -1,14 +1,15 @@
 package dev.ewm.domain.user;
 
+import dev.ewm.domain.user.request.UserLoginRequest;
 import dev.ewm.domain.user.request.UserRegisterRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -17,11 +18,16 @@ import javax.transaction.Transactional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
     public User registerUser(UserRegisterRequest userRegisterRequest) {
-        User user = userRegisterRequest.toEntity();
+        if (!Objects.equals(userRegisterRequest.getPassword(), userRegisterRequest.getConfirmPassword())) {
+            throw new RuntimeException("두개의 비밀번호가 맞지 않습니다.");
+        }
+
+        User user = userRegisterRequest.toEntity(passwordEncoder);
         userRepo.save(user);
         return user;
     }
@@ -36,6 +42,15 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public boolean checkNickname(String nickname) {
         return userRepo.existsByNickname(nickname);
+    }
+
+    @Override
+    @Transactional
+    public User loginUser(UserLoginRequest userLoginRequest) {
+        User user = userRepo.findByUsername(userLoginRequest.getUsername())
+                .orElseThrow(() -> new EntityNotFoundException("일치하는 아이디가 없습니다."));
+
+
     }
 
 }

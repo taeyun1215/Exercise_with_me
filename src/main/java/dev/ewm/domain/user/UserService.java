@@ -1,5 +1,6 @@
 package dev.ewm.domain.user;
 
+import dev.ewm.domain.user.request.UserLoginRequest;
 import dev.ewm.domain.user.request.UserRegisterRequest;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,6 @@ public interface UserService {
     boolean checkNickname(String nickname);
 
     // 유저 로그인
-//    User loginUser(UserLoginDto userLoginDto);
+    User loginUser(UserLoginRequest userLoginRequest);
 
 }
