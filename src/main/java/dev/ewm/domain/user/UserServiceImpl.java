@@ -1,9 +1,11 @@
 package dev.ewm.domain.user;
 
-import dev.ewm.domain.user.dto.UserLoginDto;
-import dev.ewm.domain.user.dto.UserRegisterDto;
+import dev.ewm.domain.user.request.UserRegisterRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,19 +18,24 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
 
-    // DB 유저 정보 저장
     @Override
     @Transactional
-    public User registerUser(UserRegisterDto userRegisterDto) {
-
+    public User registerUser(UserRegisterRequest userRegisterRequest) {
+        User user = userRegisterRequest.toEntity();
+        userRepo.save(user);
+        return user;
     }
 
-    // 유저 로그인
     @Override
     @Transactional
-    public User loginUser(UserLoginDto userLoginDto) {
-
+    public boolean checkUsername(String username) {
+        return userRepo.existsByUsername(username);
     }
 
+    @Override
+    @Transactional
+    public boolean checkNickname(String nickname) {
+        return userRepo.existsByNickname(nickname);
+    }
 
 }

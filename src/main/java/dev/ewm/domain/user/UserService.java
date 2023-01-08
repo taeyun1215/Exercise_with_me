@@ -1,7 +1,6 @@
 package dev.ewm.domain.user;
 
-import dev.ewm.domain.user.dto.UserLoginDto;
-import dev.ewm.domain.user.dto.UserRegisterDto;
+import dev.ewm.domain.user.request.UserRegisterRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -11,9 +10,15 @@ import javax.transaction.Transactional;
 public interface UserService {
 
     // DB 유저 정보 저장
-    User registerUser(UserRegisterDto userRegisterDto);
+    User registerUser(UserRegisterRequest userRegisterRequest);
+
+    // 아이디 중복 체크
+    boolean checkUsername(String username);
+
+    // 닉네임 중복 체크
+    boolean checkNickname(String nickname);
 
     // 유저 로그인
-    User loginUser(UserLoginDto userLoginDto);
+//    User loginUser(UserLoginDto userLoginDto);
 
 }
