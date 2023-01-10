@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 @RestController
@@ -23,7 +24,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<UserRegisterResponse> loginUser(
+    public ResponseEntity<UserRegisterResponse> registerUser(
             @Validated @RequestBody UserRegisterRequest userRegisterRequest
     ) {
         User user = userService.registerUser(userRegisterRequest);
@@ -49,23 +50,25 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<UserLoginResponse> loginUser(
-            @Validated @ModelAttribute("loginForm") UserLoginRequest userLoginRequest,
+            @Validated UserLoginRequest userLoginRequest,
             HttpServletRequest request
     ) {
         User user = userService.loginUser(userLoginRequest);
+        UserLoginResponse response = UserLoginResponse.from(user);
 
-        if (member == null) {
-            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-
-            return "login/loginForm";
-        }
-
-        // 로그인 성공 처리
-        // 세션이 있으면 있는 세션 반환, 없으면 신규 세션 생성
         HttpSession session = request.getSession();
+        session.setAttribute(LOGIN_MEMBER, response);
 
-        // 세션에 로그인 회원 정보 보관
-        session.setAttribute(LOGIN_MEMBER, member);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    public String logoutUser(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            session.invalidate();
+        }
 
         return "redirect:/";
     }

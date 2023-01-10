@@ -29,6 +29,8 @@ public class UserServiceImpl implements UserService {
 
         User user = userRegisterRequest.toEntity(passwordEncoder);
         userRepo.save(user);
+
+        log.info("회원가입한 아이디 : ", user.getUsername());
         return user;
     }
 
@@ -47,10 +49,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User loginUser(UserLoginRequest userLoginRequest) {
-        User user = userRepo.findByUsername(userLoginRequest.getUsername())
-                .orElseThrow(() -> new EntityNotFoundException("일치하는 아이디가 없습니다."));
+        userLoginRequest.getPassword()
+        User user = userRepo.findByUsernameAndPassword(userLoginRequest.getUsername(), userLoginRequest.getPassword())
+                .orElseThrow(() -> new EntityNotFoundException("일치하는 정보가 없습니다."));
 
-
+        log.info("로그인한 아이디 : ", user.getUsername());
+        return user;
     }
 
 }
