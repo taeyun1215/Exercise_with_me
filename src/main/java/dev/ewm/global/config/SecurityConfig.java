@@ -1,5 +1,6 @@
 package dev.ewm.global.config;
 
+import dev.ewm.global.OAuth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+    private final CustomOAuth2UserService customOAuth2UserService;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // csrf 보안 설정 끄기
@@ -23,7 +26,12 @@ public class SecurityConfig {
         http.csrf().disable();
 
         // 스프링 시큐리티가 세션을 생성하지 않고 기존 세션을 사용하지도 않음(JWT 사용을 위함)
-        http.authorizeRequests().antMatchers("/").permitAll();
+        http
+                .authorizeRequests().antMatchers("/").permitAll()
+                .and() /* OAuth */
+                .oauth2Login()
+                .userInfoEndpoint() // OAuth2 로그인 성공 후 가져올 설정들
+                .userService(customOAuth2UserService); // 서버에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능 명시
 
         return http.build();
     }

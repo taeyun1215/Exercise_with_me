@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -49,12 +50,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User loginUser(UserLoginRequest userLoginRequest) {
-        userLoginRequest.getPassword()
-        User user = userRepo.findByUsernameAndPassword(userLoginRequest.getUsername(), userLoginRequest.getPassword())
-                .orElseThrow(() -> new EntityNotFoundException("일치하는 정보가 없습니다."));
+        Optional<User> findUser = userRepo.findByUsername(userLoginRequest.getUsername());
 
-        log.info("로그인한 아이디 : ", user.getUsername());
-        return user;
+        if (passwordEncoder.matches(userLoginRequest.getPassword(), findUser.get().getPassword())) {
+            log.info("로그인한 아이디 : ", findUser.get().getUsername());
+            return findUser.get();
+        }
+        else throw new EntityNotFoundException("일치하는 정보가 없습니다.");
+
+
     }
 
 }
