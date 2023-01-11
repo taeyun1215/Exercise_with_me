@@ -18,13 +18,12 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false, unique = true)
     private String nickname;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String phone;
 
     @Column(nullable = false, unique = true)

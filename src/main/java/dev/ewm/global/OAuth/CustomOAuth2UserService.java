@@ -20,7 +20,7 @@ import java.util.Collections;
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
-    private final UserRepo userRepository;
+    private final UserRepo userRepo;
     private final HttpSession session;
 
     private static final String LOGIN_MEMBER = "LOGIN_MEMBER";
@@ -49,14 +49,15 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRoleValue())),
                 attributes.getAttributes(),
-                attributes.getNameAttributeKey());
+                attributes.getNameAttributeKey()
+        );
     }
 
     /* 소셜로그인시 기존 회원이 존재하면 수정날짜 정보만 업데이트해 기존의 데이터는 그대로 보존 */
     private User saveOrUpdate(OAuthAttributes attributes) {
-        User user = userRepository.findByEmail(attributes.getEmail())
+        User user = userRepo.findByEmail(attributes.getEmail())
                 .orElse(attributes.toEntity());
 
-        return userRepository.save(user);
+        return userRepo.save(user);
     }
 }
