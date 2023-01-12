@@ -1,6 +1,6 @@
 package dev.ewm.global.OAuth;
 
-import dev.ewm.domain.user.Role;
+import dev.ewm.domain.user.constant.Role;
 import dev.ewm.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

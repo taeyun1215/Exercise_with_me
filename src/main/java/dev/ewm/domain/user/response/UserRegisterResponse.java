@@ -1,6 +1,6 @@
 package dev.ewm.domain.user.response;
 
-import dev.ewm.domain.user.Role;
+import dev.ewm.domain.user.constant.Role;
 import dev.ewm.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;

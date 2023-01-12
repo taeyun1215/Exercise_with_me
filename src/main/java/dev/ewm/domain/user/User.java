@@ -1,8 +1,8 @@
 package dev.ewm.domain.user;
 
+import dev.ewm.domain.user.constant.Role;
 import lombok.*;
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 
 import static javax.persistence.GenerationType.AUTO;
 
