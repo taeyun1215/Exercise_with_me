@@ -63,15 +63,29 @@ public class UserController {
     }
 
     @GetMapping("/nickname/{nickname}/exists")
-    public ResponseEntity<?> checkNickname(
+    public ResponseEntity<ReturnObject> checkNickname(
             @PathVariable("nickname") String nickname
     ) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(ApiResponse.success(userService.checkNickname(nickname)));
+        User user = userService.checkNickname(nickname);
+        if (user == null) {
+            ReturnObject returnObject = ReturnObject.builder()
+                    .success(true)
+                    .data(nickname)
+                    .build();
+
+            ResponseEntity.status(HttpStatus.OK).body(returnObject);
+        }
+
+        ReturnObject returnObject = ReturnObject.builder()
+                .success(false)
+                .errorCode(ErrorCode.ALREADY_REGISTERED_MEMBER)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(returnObject);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserLoginResponse> loginUser(
+    public ResponseEntity<ReturnObject> loginUser(
             @Validated UserLoginRequest userLoginRequest,
             HttpServletRequest request
     ) {
@@ -81,18 +95,27 @@ public class UserController {
         HttpSession session = request.getSession();
         session.setAttribute(LOGIN_MEMBER, response);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        ReturnObject returnObject = ReturnObject.builder()
+                .success(true)
+                .data(response)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(returnObject);
     }
 
     @PostMapping("/logout")
-    public String logoutUser(HttpServletRequest request) {
+    public ResponseEntity<ReturnObject> logoutUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
         if (session != null) {
             session.invalidate();
         }
 
-        return "redirect:/"; // todo
+        ReturnObject returnObject = ReturnObject.builder()
+                .success(true)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(returnObject);
     }
 
 }

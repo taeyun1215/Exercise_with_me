@@ -17,7 +17,7 @@ public interface UserService {
     User checkUsername(String username);
 
     // 닉네임 중복 체크
-    boolean checkNickname(String nickname);
+    User checkNickname(String nickname);
 
     // 유저 로그인
     User loginUser(UserLoginRequest userLoginRequest);

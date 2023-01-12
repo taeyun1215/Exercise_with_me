@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean checkNickname(String nickname) {
-        return userRepo.existsByNickname(nickname);
+    public User checkNickname(String nickname) {
+        return userRepo.findByNickname(nickname);
     }
 
     @Override
@@ -57,7 +57,6 @@ public class UserServiceImpl implements UserService {
             return findUser;
         }
         else throw new EntityNotFoundException("일치하는 정보가 없습니다.");
-
 
     }
 
