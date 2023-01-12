@@ -1,5 +1,6 @@
 package dev.ewm.domain.user.request;
 
+import dev.ewm.domain.user.Role;
 import dev.ewm.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +40,10 @@ public class UserRegisterRequest {
     @NotBlank(message = "전화번호는 필수 입력값입니다.")
     private String phone;
 
+    @Email
+    @NotBlank(message = "이메일은 필수 입력값입니다.")
+    private String email;
+
 
     public User toEntity(PasswordEncoder passwordEncoder) {
         return User.builder()
@@ -46,6 +51,8 @@ public class UserRegisterRequest {
                 .password(passwordEncoder.encode(password))
                 .nickname(nickname)
                 .phone(phone)
+                .email(email)
+                .role(Role.USER)
                 .build();
     }
 }

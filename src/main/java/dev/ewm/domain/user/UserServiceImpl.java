@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean checkUsername(String username) {
-        return userRepo.existsByUsername(username);
+    public User checkUsername(String username) {
+        return userRepo.findByUsername(username);
     }
 
     @Override
@@ -50,11 +50,11 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User loginUser(UserLoginRequest userLoginRequest) {
-        Optional<User> findUser = userRepo.findByUsername(userLoginRequest.getUsername());
+        User findUser = userRepo.findByUsername(userLoginRequest.getUsername());
 
-        if (passwordEncoder.matches(userLoginRequest.getPassword(), findUser.get().getPassword())) {
-            log.info("로그인한 아이디 : ", findUser.get().getUsername());
-            return findUser.get();
+        if (passwordEncoder.matches(userLoginRequest.getPassword(), findUser.getPassword())) {
+            log.info("로그인한 아이디 : ", findUser.getUsername());
+            return findUser;
         }
         else throw new EntityNotFoundException("일치하는 정보가 없습니다.");
 

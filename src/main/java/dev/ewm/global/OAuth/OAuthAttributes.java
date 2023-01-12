@@ -61,14 +61,13 @@ public class OAuthAttributes {
     ) {
         /* JSON형태이기 때문에 Map을 통해 데이터를 가져온다. */
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
-        log.info("naver response : " + response);
 
-        String username = (String) response.get("email");
-        String[] usernameArr = username.split("@");
+        String email = (String) response.get("email");
+        String[] username = email.split("@");
 
         return OAuthAttributes.builder()
-                .username(usernameArr[0])
-                .email((String) response.get("email"))
+                .username(username[0])
+                .email(email)
                 .nickname((String) response.get("nickname"))
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
@@ -79,18 +78,18 @@ public class OAuthAttributes {
             String userNameAttributeName,
             Map<String, Object> attributes
     ) {
-        /* JSON형태이기 때문에 Map을 통해 데이터를 가져온다. */
-        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
-        log.info("kakao response : " + response);
+        Map<String, Object> kakaoAccount = (Map<String, Object>)attributes.get("kakao_account");
+        Map<String, Object> kakaoProfile = (Map<String, Object>)kakaoAccount.get("profile");
 
-        String username = (String) response.get("email");
-        String[] usernameArr = username.split("@");
+        String email = (String) kakaoAccount.get("email");
+        String[] username = email.split("@");
+        String nickname = (String) kakaoProfile.get("nickname");
 
         return OAuthAttributes.builder()
-                .username(usernameArr[0])
-                .email((String) response.get("email"))
-                .nickname((String) response.get("nickname"))
-                .attributes(response)
+                .username(username[0])
+                .email(email)
+                .nickname(nickname)
+                .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }

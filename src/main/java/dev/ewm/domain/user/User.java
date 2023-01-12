@@ -2,6 +2,7 @@ package dev.ewm.domain.user;
 
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 import static javax.persistence.GenerationType.AUTO;
 

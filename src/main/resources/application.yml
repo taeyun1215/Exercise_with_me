@@ -39,11 +39,11 @@ spring:
             scope: name,email,nickname
             client-name: Naver
           kakao:
-            client-id:
-            client-secret:
-            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}" # http://localhost:8080/login/oauth2/code/kakao
+            client-id: b6bfdae40b66d40d53308beb272c22db
+            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+            client-authentication-method: POST
             authorization-grant-type: authorization_code
-            scope: name,email,nickname # 수정 전
+            scope: profile_nickname, account_email
             client-name: Kakao
         provider:
           naver:
@@ -55,4 +55,4 @@ spring:
             authorization-uri: https://kauth.kakao.com/oauth/authorize
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
-            user-name-attribute: response
+            user-name-attribute: id
