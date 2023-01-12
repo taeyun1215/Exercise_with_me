@@ -25,13 +25,12 @@ import lombok.extern.slf4j.Slf4j;
 public class JwtFilter extends OncePerRequestFilter {
 	private final UserService userService;
 	private final String secretKey;
-//	private final JwtUtil jwtUtil;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		final String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-		log.info("auth: {}", authorization);
+//		log.info("auth: {}", authorization);
 		 
 		//token안보내면 block
 		if(authorization==null || !authorization.startsWith("ewm ")) {
@@ -40,15 +39,24 @@ public class JwtFilter extends OncePerRequestFilter {
 		}
 		
 		String token = authorization.replace("ewm ", "");
+		JwtUtil jwtUtil = new JwtUtil();
+
+		String userName = jwtUtil.getUserName(token, secretKey);
 		
 		//토큰이 expired되어있는지 여부
-//		if(jwtUtil.isExpired(token, secretKey)) {
-//			log.error("토큰 만료");
-//			filterChain.doFilter(request, response);
-//			return;
-//		}
+		if(jwtUtil.isExpired(token, secretKey)) {
+			log.error("토큰 만료");
+			
+			if(!jwtUtil.isExpired(request.getHeader("RefreshAuthorization"), secretKey)) {
+				response.addHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userName, 30 * 60 * 1000L)).toString());
+			} else {
+				filterChain.doFilter(request, response);
+				return;
+			}
+		}
 		
-		String userName = "";
+//		log.info("username: {}", userName);
+		
 		List<SimpleGrantedAuthority> simpleGrantedAuthority = new ArrayList<>();
 		simpleGrantedAuthority.add(new SimpleGrantedAuthority("USER"));
 		
@@ -61,5 +69,4 @@ public class JwtFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 
-	
 }

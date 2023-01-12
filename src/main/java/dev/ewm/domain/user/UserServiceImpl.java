@@ -56,19 +56,11 @@ public class UserServiceImpl implements UserService {
         
         if(user!=null) {
         	if(passwordEncoder.matches(userLoginRequest.getPassword(), user.getPassword())) {
-//        		log.info("login: {} {} {}", user.getNickname(), user.getPhone(), user.getUsername());
-//        		jwtService.createToken(userLoginRequest);
-//        		StringBuilder sb = new StringBuilder("ewm ");
-//        		String token = jwtUtil.createToken(userLoginRequest);
-//        		log.info("jwt: {}", token);
-//        		response.addHeader("Authorization", sb.append(token).toString());
-        		StringBuilder sb = new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest));
-        		
-        		response.addHeader("Authorization", sb.toString());
-//        		response.addHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest)).toString());
-        		log.info("jwt: {}", "1");
-        		
-        		
+//        		StringBuilder sb = new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest));
+//        		response.addHeader("Authorization", sb.toString());
+        		response.addHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 60 * 1000L)).toString());
+//        		response.addHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 30 * 60 * 1000L)).toString());
+        		response.addHeader("RefreshAuthorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 24 * 60 * 60 * 1000L)).toString());
         	} else {
         		throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         	}

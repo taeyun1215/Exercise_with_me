@@ -4,39 +4,37 @@ import java.security.Key;
 import java.util.Date;
 
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
+//import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import dev.ewm.domain.user.request.UserLoginRequest;
+//import dev.ewm.domain.user.request.UserLoginRequest;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class JwtUtil{
+public class JwtUtil {
 	@Value("${jwt.token.secret}")
 	private String secretKey;
 	
-	private long expTime = 60 * 60 * 1000L;
+	public String createToken(String username, long expTime) {
+//		public String createToken(UserLoginRequest userLoginRequest, long expTime) {
+		if(expTime<=0) {
+			throw new RuntimeException("0이상 입력");
+		}
 
-	public String createToken(UserLoginRequest userLoginRequest) {
-//		if(expTime<=0) {
-//			throw new RuntimeException("0이상 입력");
-//		}
-//
 		Claims claims = Jwts.claims();
-		claims.put("username", userLoginRequest.getUsername());
+//		claims.put("username", userLoginRequest.getUsername());
+		claims.put("username", username);
 		SignatureAlgorithm signatue = SignatureAlgorithm.HS256;
-		byte[] secretKeyBytes = DatatypeConverter.parseBase64Binary(secretKey);
-		Key signingKey = new SecretKeySpec(secretKeyBytes, signatue.getJcaName());
+//		byte[] secretKeyBytes = DatatypeConverter.parseBase64Binary(secretKey);
+		Key signingKey = new SecretKeySpec(secretKey.getBytes(), signatue.getJcaName());
 
-		log.info("key: {}", secretKey);
+//		log.info("key: {}", secretKey);
 		return Jwts.builder()
 //				.setSubject(userLoginRequest.getUsername())
 				.setClaims(claims)
@@ -47,12 +45,38 @@ public class JwtUtil{
 	}
 	
 	public boolean isExpired(String token, String secretKey) {
-		return Jwts.parserBuilder()
-				.setSigningKey(secretKey)
-				.build()
-				.parseClaimsJws(token)
-				.getBody()
-				.getExpiration()
-				.before(new Date());
+		boolean bool = true;
+		
+		try {
+			bool = Jwts.parserBuilder()
+					.setSigningKey(secretKey.getBytes())
+					.build()
+					.parseClaimsJws(token)
+					.getBody()
+					.getExpiration()
+					.before(new Date());
+//			log.info("bool: {}", bool);
+        } catch (Exception e) {
+        	log.error("timeout");
+        }
+		
+		return bool;
+	}
+	
+	public String getUserName(String token, String secretKey) {
+		String username = "";
+		
+		try {
+			username = Jwts.parserBuilder()
+					.setSigningKey(secretKey.getBytes())
+					.build()
+					.parseClaimsJws(token)
+					.getBody()
+					.get("username", String.class);
+        } catch (Exception e) {
+        	log.error("error");
+        }
+		
+		return username;
 	}
 }

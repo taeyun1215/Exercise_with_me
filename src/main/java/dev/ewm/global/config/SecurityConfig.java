@@ -22,7 +22,7 @@ public class SecurityConfig {
 	
 	@Value("${jwt.token.secret}")
 	private String secretKey;
-	
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // csrf 보안 설정 끄기
@@ -47,7 +47,6 @@ public class SecurityConfig {
                 .and()
                 .addFilterBefore(new JwtFilter(userService, secretKey), UsernamePasswordAuthenticationFilter.class).build();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
