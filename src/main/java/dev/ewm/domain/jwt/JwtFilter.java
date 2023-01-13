@@ -49,6 +49,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 			if(!jwtUtil.isExpired(refresh, secretKey)) {
 				userName = jwtUtil.getUserName(refresh, secretKey);
+				log.info("name: {}", userName);
 				response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userName, 30 * 60 * 1000L, secretKey)).toString());
 			} else {
 				log.error("리프레쉬 토큰 만료");
@@ -59,7 +60,7 @@ public class JwtFilter extends OncePerRequestFilter {
 			response.setHeader("Authorization", authorization);
 		}
 		
-		response.addHeader("RefreshAuthorization", jwtUtil.checkRefresh(refresh, secretKey));
+		response.addHeader("RefreshAuthorization", jwtUtil.checkRefresh(refresh, secretKey, userName));
 //		response.addHeader("RefreshAuthorization", refreshAuthorization);
 		
 		List<SimpleGrantedAuthority> simpleGrantedAuthority = new ArrayList<>();
