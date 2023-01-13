@@ -5,6 +5,8 @@ import dev.ewm.domain.user.request.UserLoginRequest;
 import dev.ewm.domain.user.request.UserRegisterRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,9 @@ public class UserServiceImpl implements UserService {
     private final JwtUtil jwtUtil;
     private final HttpServletResponse response;
 
+    @Value("${jwt.token.secret}")
+    private String secretKey;
+    
     @Override
     @Transactional
     public User registerUser(UserRegisterRequest userRegisterRequest) {
@@ -56,11 +61,9 @@ public class UserServiceImpl implements UserService {
         
         if(user!=null) {
         	if(passwordEncoder.matches(userLoginRequest.getPassword(), user.getPassword())) {
-//        		StringBuilder sb = new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest));
-//        		response.addHeader("Authorization", sb.toString());
-        		response.addHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 60 * 1000L)).toString());
-//        		response.addHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 30 * 60 * 1000L)).toString());
-        		response.addHeader("RefreshAuthorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 24 * 60 * 60 * 1000L)).toString());
+//        		response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 60 * 1000L, secretKey)).append(" ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 24 * 60 * 60 * 1000L, secretKey)).toString());
+        		response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 60 * 1000L, secretKey)).toString());
+        		response.addHeader("RefreshAuthorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 24 * 60 * 60 * 1000L, secretKey)).toString());
         	} else {
         		throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         	}

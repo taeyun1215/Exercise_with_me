@@ -23,9 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
-//    private static final String LOGIN_MEMBER = "LOGIN_MEMBER";
-
     private final UserService userService;
+    private final HttpServletRequest httpRequest;
     private final HttpServletResponse httpResponse;
     
     @PostMapping("/register")
@@ -41,9 +40,9 @@ public class UserController {
     public ResponseEntity<?> checkUsername(
             @PathVariable("username") String username
     ) {
-    	log.info("un HttpHeaders.AUTHORIZATION: {}", httpResponse.getHeader(HttpHeaders.AUTHORIZATION));
-    	log.info("un Authorization: {}", httpResponse.getHeader("Authorization"));
-        log.info("un RefreshAuthorization: {}", httpResponse.getHeader("RefreshAuthorization"));
+    	log.info("li HttpHeaders.AUTHORIZATION: {}", httpResponse.getHeader(HttpHeaders.AUTHORIZATION));
+    	log.info("un HttpHeaders.AUTHORIZATION: {}", httpRequest.getHeader(HttpHeaders.AUTHORIZATION));
+    	log.info("li HttpHeaders.AUTHORIZATION: {}", httpResponse.getHeader("RefreshAuthorization"));
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success(userService.checkUsername(username)));
     }
@@ -63,21 +62,10 @@ public class UserController {
             HttpServletRequest request
     ) {
         UserLoginResponse response = UserLoginResponse.from(userService.loginUser(userLoginRequest));
-//        if (user == null) {
-//            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-//        }
-//
-//        // 로그인 성공 처리
-//        // 세션이 있으면 있는 세션 반환, 없으면 신규 세션 생성
-//        HttpSession session = request.getSession();
-//
-//        // 세션에 로그인 회원 정보 보관
-//        session.setAttribute(LOGIN_MEMBER, member);
-//
-//        return "redirect:/";
+        
+        log.info("rq: {}", httpRequest.getHeader(HttpHeaders.AUTHORIZATION));
         log.info("li HttpHeaders.AUTHORIZATION: {}", httpResponse.getHeader(HttpHeaders.AUTHORIZATION));
-        log.info("li Authorization: {}", httpResponse.getHeader("Authorization"));
-        log.info("li RefreshAuthorization: {}", httpResponse.getHeader("RefreshAuthorization"));
+        log.info("li HttpHeaders.AUTHORIZATION: {}", httpResponse.getHeader("RefreshAuthorization"));
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 

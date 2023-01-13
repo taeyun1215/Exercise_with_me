@@ -30,32 +30,38 @@ public class JwtFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		final String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-//		log.info("auth: {}", authorization);
-		 
+		
 		//token안보내면 block
 		if(authorization==null || !authorization.startsWith("ewm ")) {
 			filterChain.doFilter(request, response);
 			return;
 		}
 		
+//		String token = authorization.split(" ")[1];
+//		String refresh = authorization.split(" ")[2];
 		String token = authorization.replace("ewm ", "");
+		String refresh = request.getHeader("RefreshAuthorization").replace("ewm ", "");
 		JwtUtil jwtUtil = new JwtUtil();
-
 		String userName = jwtUtil.getUserName(token, secretKey);
 		
 		//토큰이 expired되어있는지 여부
 		if(jwtUtil.isExpired(token, secretKey)) {
-			log.error("토큰 만료");
+			log.error("엑세스 토큰 만료");
 			
-			if(!jwtUtil.isExpired(request.getHeader("RefreshAuthorization"), secretKey)) {
-				response.addHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userName, 30 * 60 * 1000L)).toString());
+			if(!jwtUtil.isExpired(refresh, secretKey)) {
+				userName = jwtUtil.getUserName(refresh, secretKey);
+//				response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userName, 30 * 60 * 1000L, secretKey)).append(" ").append(refresh).toString());
+				response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userName, 60 * 1000L, secretKey)).toString());
 			} else {
+				log.error("리프레쉬 토큰 만료");
 				filterChain.doFilter(request, response);
 				return;
 			}
+		} else {
+			response.setHeader("Authorization", authorization);
 		}
 		
-//		log.info("username: {}", userName);
+		response.addHeader("RefreshAuthorization", new StringBuilder("ewm ").append(refresh).toString());
 		
 		List<SimpleGrantedAuthority> simpleGrantedAuthority = new ArrayList<>();
 		simpleGrantedAuthority.add(new SimpleGrantedAuthority("USER"));
