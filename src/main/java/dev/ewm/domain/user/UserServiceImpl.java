@@ -4,7 +4,7 @@ import dev.ewm.domain.jwt.JwtUtil;
 import dev.ewm.domain.user.request.UserLoginRequest;
 import dev.ewm.domain.user.request.UserRegisterRequest;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.Objects;
 
-@Slf4j
+//@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -61,9 +61,9 @@ public class UserServiceImpl implements UserService {
         
         if(user!=null) {
         	if(passwordEncoder.matches(userLoginRequest.getPassword(), user.getPassword())) {
-//        		response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 60 * 1000L, secretKey)).append(" ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 24 * 60 * 60 * 1000L, secretKey)).toString());
         		response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 60 * 1000L, secretKey)).toString());
-        		response.addHeader("RefreshAuthorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 24 * 60 * 60 * 1000L, secretKey)).toString());
+        		response.addHeader("RefreshAuthorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 7 * 24 * 60 * 60 * 1000L, secretKey)).toString());
+//        		response.addHeader("RefreshAuthorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userLoginRequest.getUsername(), 2* 60 * 1000L, secretKey)).toString());
         	} else {
         		throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         	}

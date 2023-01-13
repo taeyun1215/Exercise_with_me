@@ -13,12 +13,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import dev.ewm.domain.jwt.JwtFilter;
-import dev.ewm.domain.user.UserService;
+//import dev.ewm.domain.user.UserService;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
-	private UserService userService;
+//	private UserService userService;
 	
 	@Value("${jwt.token.secret}")
 	private String secretKey;
@@ -45,7 +45,8 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new JwtFilter(userService, secretKey), UsernamePasswordAuthenticationFilter.class).build();
+//                .addFilterBefore(new JwtFilter(userService, secretKey), UsernamePasswordAuthenticationFilter.class).build();
+                .addFilterBefore(new JwtFilter(secretKey), UsernamePasswordAuthenticationFilter.class).build();
     }
 
     @Bean

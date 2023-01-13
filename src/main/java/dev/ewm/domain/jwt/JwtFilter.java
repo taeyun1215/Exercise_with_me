@@ -16,14 +16,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import dev.ewm.domain.user.UserService;
+//import dev.ewm.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
-	private final UserService userService;
+//	private final UserService userService;
 	private final String secretKey;
 	
 	@Override
@@ -37,21 +37,19 @@ public class JwtFilter extends OncePerRequestFilter {
 			return;
 		}
 		
-//		String token = authorization.split(" ")[1];
-//		String refresh = authorization.split(" ")[2];
+		String refreshAuthorization = request.getHeader("RefreshAuthorization");
 		String token = authorization.replace("ewm ", "");
-		String refresh = request.getHeader("RefreshAuthorization").replace("ewm ", "");
+		String refresh = refreshAuthorization.replace("ewm ", "");
 		JwtUtil jwtUtil = new JwtUtil();
 		String userName = jwtUtil.getUserName(token, secretKey);
 		
 		//토큰이 expired되어있는지 여부
 		if(jwtUtil.isExpired(token, secretKey)) {
 			log.error("엑세스 토큰 만료");
-			
+
 			if(!jwtUtil.isExpired(refresh, secretKey)) {
 				userName = jwtUtil.getUserName(refresh, secretKey);
-//				response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userName, 30 * 60 * 1000L, secretKey)).append(" ").append(refresh).toString());
-				response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userName, 60 * 1000L, secretKey)).toString());
+				response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userName, 30 * 60 * 1000L, secretKey)).toString());
 			} else {
 				log.error("리프레쉬 토큰 만료");
 				filterChain.doFilter(request, response);
@@ -61,7 +59,8 @@ public class JwtFilter extends OncePerRequestFilter {
 			response.setHeader("Authorization", authorization);
 		}
 		
-		response.addHeader("RefreshAuthorization", new StringBuilder("ewm ").append(refresh).toString());
+		response.addHeader("RefreshAuthorization", jwtUtil.checkRefresh(refresh, secretKey));
+//		response.addHeader("RefreshAuthorization", refreshAuthorization);
 		
 		List<SimpleGrantedAuthority> simpleGrantedAuthority = new ArrayList<>();
 		simpleGrantedAuthority.add(new SimpleGrantedAuthority("USER"));

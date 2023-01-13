@@ -68,4 +68,14 @@ public class JwtUtil {
 		
 		return username;
 	}
+	
+	public String checkRefresh(String refresh, String secretKey) {
+		return System.currentTimeMillis() - Jwts.parserBuilder()
+				.setSigningKey(secretKey.getBytes())
+				.build()
+				.parseClaimsJws(refresh)
+				.getBody()
+				.getExpiration()
+				.getTime()<1000*60*60*6L ? createToken(refresh, 7 * 24 * 60 * 60 * 1000L, secretKey) : refresh;
+	}
 }
