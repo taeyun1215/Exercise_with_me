@@ -4,7 +4,7 @@ import dev.ewm.domain.user.constant.Role;
 import lombok.*;
 import javax.persistence.*;
 
-import static javax.persistence.GenerationType.AUTO;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Entity
@@ -13,7 +13,7 @@ import static javax.persistence.GenerationType.AUTO;
 @AllArgsConstructor
 public class User {
 
-    @Id @GeneratedValue(strategy = AUTO)
+    @Id @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)

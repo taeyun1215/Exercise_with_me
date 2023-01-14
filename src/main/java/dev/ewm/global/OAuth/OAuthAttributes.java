@@ -43,13 +43,14 @@ public class OAuthAttributes {
             String userNameAttributeName,
             Map<String, Object> attributes
     ) {
-        String username = (String) attributes.get("email");
-        String[] usernameArr = username.split("@");
+        String email = (String) attributes.get("email");
+        String[] username = email.split("@");
+        String nickname = (String) attributes.get("name");
 
         return OAuthAttributes.builder()
-                .username(usernameArr[0])
-                .email((String) attributes.get("email"))
-                .nickname((String) attributes.get("name"))
+                .username(username[0])
+                .email(email)
+                .nickname(nickname)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -64,11 +65,12 @@ public class OAuthAttributes {
 
         String email = (String) response.get("email");
         String[] username = email.split("@");
+        String nickname = (String) response.get("nickname");
 
         return OAuthAttributes.builder()
                 .username(username[0])
                 .email(email)
-                .nickname((String) response.get("nickname"))
+                .nickname(nickname)
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
