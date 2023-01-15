@@ -5,7 +5,6 @@ import dev.ewm.domain.user.request.UserRegisterRequest;
 import dev.ewm.domain.user.response.UserLoginResponse;
 import dev.ewm.domain.user.response.UserRegisterResponse;
 import dev.ewm.global.error.ErrorCode;
-import dev.ewm.global.respone.ApiResponse;
 import dev.ewm.global.utils.ReturnObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

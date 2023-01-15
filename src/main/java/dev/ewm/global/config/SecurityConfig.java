@@ -1,6 +1,7 @@
 package dev.ewm.global.config;
 
 import dev.ewm.global.OAuth.CustomOAuth2UserService;
+import dev.ewm.global.argumentResolver.LoginArgumentResolver;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
@@ -10,12 +11,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
 
+    // login annotation
+    private final LoginArgumentResolver loginArgumentResolver;
+    // sns login
     private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
@@ -36,10 +43,14 @@ public class SecurityConfig {
         return http.build();
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new LoginArgumentResolver());
     }
 
 }
