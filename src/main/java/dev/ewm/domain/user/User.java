@@ -3,7 +3,9 @@ package dev.ewm.domain.user;
 import lombok.*;
 import javax.persistence.*;
 
-import static javax.persistence.GenerationType.AUTO;
+import dev.ewm.domain.user.constant.Role;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Entity
@@ -12,19 +14,29 @@ import static javax.persistence.GenerationType.AUTO;
 @AllArgsConstructor
 public class User {
 
-    @Id @GeneratedValue(strategy = AUTO)
+	@Id @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false, unique = true)
     private String nickname;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String phone;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+    public String getRoleValue() {
+        return this.role.getValue();
+    }
 
 }

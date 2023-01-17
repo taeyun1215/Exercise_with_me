@@ -61,7 +61,6 @@ public class JwtFilter extends OncePerRequestFilter {
 		}
 		
 		response.addHeader("RefreshAuthorization", jwtUtil.checkRefresh(refresh, secretKey, userName));
-//		response.addHeader("RefreshAuthorization", refreshAuthorization);
 		
 		List<SimpleGrantedAuthority> simpleGrantedAuthority = new ArrayList<>();
 		simpleGrantedAuthority.add(new SimpleGrantedAuthority("USER"));

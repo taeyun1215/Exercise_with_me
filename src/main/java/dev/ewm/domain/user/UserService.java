@@ -14,12 +14,13 @@ public interface UserService {
     User registerUser(UserRegisterRequest userRegisterRequest);
 
     // 아이디 중복 체크
-    boolean checkUsername(String username);
+    User checkUsername(String username);
 
     // 닉네임 중복 체크
-    boolean checkNickname(String nickname);
+    User checkNickname(String nickname);
 
     // 유저 로그인
     User loginUser(UserLoginRequest userLoginRequest);
 
+    void logout();
 }
