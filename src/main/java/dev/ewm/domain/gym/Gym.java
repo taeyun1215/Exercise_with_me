@@ -27,4 +27,10 @@ public class Gym {
 	
 	@Column(nullable = false)
 	private Long userId;
+	
+	@Column
+	private String createDate;
+	
+	@Column
+	private String updateDate;
 }
