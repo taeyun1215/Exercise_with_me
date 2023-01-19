@@ -15,7 +15,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class matePost {
+public class MatePost {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

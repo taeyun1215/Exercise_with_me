@@ -1,4 +1,4 @@
-package dev.ewm.domain.matePost;
+package dev.ewm.domain.mate;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,5 +10,5 @@ import javax.transaction.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class matePostServiceImpl implements matePostService{
+public class MateServiceImpl implements MateService{
 }

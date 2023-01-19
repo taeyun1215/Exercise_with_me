@@ -1,7 +1,7 @@
-package dev.ewm.domain.matePost;
+package dev.ewm.domain.mate;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface matePostRepo {
+public interface MateRepo {
 }
