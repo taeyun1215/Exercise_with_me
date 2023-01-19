@@ -14,4 +14,17 @@ public class GymDTO {
 	private Integer priceOfMonth;
 	private Double countingStar;
 	private Long userId;
+	private String createDate;
+	private String updateDate;
+	
+	public Gym toEntity() {
+		return Gym.builder()
+				.id(id)
+				.gymName(gymName)
+				.address(address)
+				.priceOfMonth(priceOfMonth)
+				.countingStar(countingStar)
+				.userId(userId)
+				.build();
+	}
 }
