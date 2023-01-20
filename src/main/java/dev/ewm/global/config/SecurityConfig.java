@@ -1,5 +1,6 @@
 package dev.ewm.global.config;
 
+import dev.ewm.domain.user.UserRepo;
 import dev.ewm.global.OAuth.CustomOAuth2UserService;
 import dev.ewm.global.argumentResolver.LoginArgumentResolver;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +22,10 @@ import java.util.List;
 @Configuration
 public class SecurityConfig implements WebMvcConfigurer {
 
-    // login annotation
-    private final LoginArgumentResolver loginArgumentResolver;
     // sns login
     private final CustomOAuth2UserService customOAuth2UserService;
+
+    private final UserRepo userRepo;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -51,7 +52,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new LoginArgumentResolver());
+        resolvers.add(new LoginArgumentResolver(userRepo));
     }
 
 }

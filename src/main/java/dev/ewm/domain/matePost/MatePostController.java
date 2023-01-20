@@ -1,6 +1,8 @@
 package dev.ewm.domain.matePost;
 
 import dev.ewm.domain.matePost.request.MatePostCreateRequest;
+import dev.ewm.domain.matePost.response.MatePostCreateResponse;
+import dev.ewm.domain.user.User;
 import dev.ewm.global.annotation.LoginUser;
 import dev.ewm.global.utils.ReturnObject;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +26,13 @@ public class MatePostController {
             @LoginUser String username,
             @Validated @RequestBody MatePostCreateRequest matePostCreateRequest
     ) {
-//        User user = userService.registerUser(userRegisterRequest);
-//        UserRegisterResponse response = UserRegisterResponse.from(user);
+
+        MatePost matePost = matePostService.createMatePost(matePostCreateRequest, username);
+        MatePostCreateResponse response = MatePostCreateResponse.from(matePost);
 
         ReturnObject returnObject = ReturnObject.builder()
                 .success(true)
-                .data(username)
+                .data(response)
                 .build();
 
         return ResponseEntity.status(HttpStatus.OK).body(returnObject);

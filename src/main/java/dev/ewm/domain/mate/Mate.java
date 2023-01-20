@@ -24,7 +24,7 @@ public class Mate {
     private Long id;
 
     @ManyToOne(targetEntity = MatePost.class, fetch = FetchType.LAZY) // 실제로 요청하는 순간 가져오기 위해 LAZY로 사용함.
-//    @JoinColumn(name = "id")
+    @JoinColumn(name = "id")
     private MatePost matePost;
 
     @Enumerated(EnumType.STRING)

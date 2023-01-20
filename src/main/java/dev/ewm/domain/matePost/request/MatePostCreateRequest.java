@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 public class MatePostCreateRequest {
 
     @NotBlank(message = "내용은 필수 입력 값입니다.")
-    private String title; // 게시글 제목
+    private String title;
 
     @NotBlank(message = "내용은 필수 입력 값입니다.")
     private String content;
