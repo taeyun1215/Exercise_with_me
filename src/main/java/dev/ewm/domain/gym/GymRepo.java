@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 //@Repository
 public interface GymRepo extends JpaRepository<Gym, Long>{
-	List<Gym> findAll();
+//	List<Gym> findAll();
 	Gym findByUserName(String userName);
 }

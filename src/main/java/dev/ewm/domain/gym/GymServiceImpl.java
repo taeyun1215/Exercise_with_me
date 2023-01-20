@@ -35,4 +35,16 @@ public class GymServiceImpl implements GymService {
 		return gym;
 	}
 
+	@Override
+	public Gym modify(GymDTO gymDto) {
+		Gym gym = gymRepo.save(gymDto.toEntity());
+
+		return gym;
+	}
+
+	@Override
+	public void delete(Long id) {
+		gymRepo.deleteById(id);
+	}
+
 }

@@ -6,4 +6,6 @@ public interface GymService {
 	void register(GymDTO gymDto);
 	List<Gym> getList();
 	Gym getDetail(String userName);
+	Gym modify(GymDTO gymDto);
+	void delete(Long id);
 }

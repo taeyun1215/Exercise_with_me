@@ -16,7 +16,7 @@ public class Gym {
 	@GeneratedValue(strategy = IDENTITY)
     private Long id;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
     private String gymName;
 	
 	@Column(nullable = false)
