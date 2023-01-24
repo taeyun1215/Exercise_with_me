@@ -3,9 +3,9 @@ package dev.ewm.domain.gym;
 import java.util.List;
 
 public interface GymService {
-	void register(GymDTO gymDto);
+	Gym register(GymDTO gymDto);
 	List<Gym> getList();
-	Gym getDetail(String userName);
+	Gym getDetail(Long userId);
 	Gym modify(GymDTO gymDto);
 	void delete(Long id);
 }

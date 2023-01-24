@@ -8,9 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import lombok.Builder;
+import lombok.Getter;
 
 @Entity
 @Builder
+@Getter
 public class Gym {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

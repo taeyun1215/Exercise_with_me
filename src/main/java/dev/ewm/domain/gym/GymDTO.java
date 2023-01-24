@@ -27,4 +27,15 @@ public class GymDTO {
 				.userId(userId)
 				.build();
 	}
+	
+//	public GymDTO toGymDto(Gym gym) {
+//		return GymDTO.builder()
+//				.id(gym.getId())
+//				.gymName(gym.getGymName())
+//				.address(gym.getAddress())
+//				.priceOfMonth(gym.getPriceOfMonth())
+//				.countingStar(gym.getCountingStar())
+//				.userId(gym.getUserId())
+//				.build();
+//	}
 }

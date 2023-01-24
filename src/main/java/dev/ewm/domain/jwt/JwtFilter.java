@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import dev.ewm.domain.user.User;
 //import dev.ewm.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,16 +42,15 @@ public class JwtFilter extends OncePerRequestFilter {
 		String token = authorization.replace("ewm ", "");
 		String refresh = refreshAuthorization.replace("ewm ", "");
 		JwtUtil jwtUtil = new JwtUtil();
-		String userName = jwtUtil.getUserName(token, secretKey);
+		User user = jwtUtil.getUser(token, secretKey);
 		
 		//토큰이 expired되어있는지 여부
 		if(jwtUtil.isExpired(token, secretKey)) {
 			log.error("엑세스 토큰 만료");
-
+			
 			if(!jwtUtil.isExpired(refresh, secretKey)) {
-				userName = jwtUtil.getUserName(refresh, secretKey);
-				log.info("name: {}", userName);
-				response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userName, 30 * 60 * 1000L, secretKey)).toString());
+				response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(user, 30 * 60 * 1000L, secretKey)).toString());
+//				response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userName, 30 * 60 * 1000L, secretKey)).toString());
 			} else {
 				log.error("리프레쉬 토큰 만료");
 				filterChain.doFilter(request, response);
@@ -60,14 +60,14 @@ public class JwtFilter extends OncePerRequestFilter {
 			response.setHeader("Authorization", authorization);
 		}
 		
-		response.addHeader("RefreshAuthorization", jwtUtil.checkRefresh(refresh, secretKey, userName));
+		response.addHeader("RefreshAuthorization", jwtUtil.checkRefresh(refresh, secretKey, user));
 		
 		List<SimpleGrantedAuthority> simpleGrantedAuthority = new ArrayList<>();
 		simpleGrantedAuthority.add(new SimpleGrantedAuthority("USER"));
 		
 		//권한 부여
 		UsernamePasswordAuthenticationToken authenticationToken = 
-				new UsernamePasswordAuthenticationToken(userName, null, simpleGrantedAuthority);
+				new UsernamePasswordAuthenticationToken(user.getUsername(), null, simpleGrantedAuthority);
 		
 		authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 		SecurityContextHolder.getContext().setAuthentication(authenticationToken);

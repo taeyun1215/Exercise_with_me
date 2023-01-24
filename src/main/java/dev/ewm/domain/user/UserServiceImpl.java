@@ -57,11 +57,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User loginUser(UserLoginRequest userLoginRequest) {
         User user = userRepo.findByUsername(userLoginRequest.getUsername());
-        String username = userLoginRequest.getUsername();
         
         if(passwordEncoder.matches(userLoginRequest.getPassword(), user.getPassword())) {
-        	response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(username, 30 * 60 * 1000L, secretKey)).toString());
-        	response.addHeader("RefreshAuthorization", new StringBuilder("ewm ").append(jwtUtil.createToken(username, 7 * 24 * 60 * 60 * 1000L, secretKey)).toString());
+//        	Long userId = user.getId();
+//        	String username = user.getUsername();
+        	response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(user, 30 * 60 * 1000L, secretKey)).toString());
+        	response.addHeader("RefreshAuthorization", new StringBuilder("ewm ").append(jwtUtil.createToken(user, 7 * 24 * 60 * 60 * 1000L, secretKey)).toString());
+//        	response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(username, 30 * 60 * 1000L, secretKey)).toString());
+//        	response.addHeader("RefreshAuthorization", new StringBuilder("ewm ").append(jwtUtil.createToken(username, 7 * 24 * 60 * 60 * 1000L, secretKey)).toString());
         } else {
         	throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }

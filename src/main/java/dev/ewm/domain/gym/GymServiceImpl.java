@@ -15,8 +15,8 @@ public class GymServiceImpl implements GymService {
 	
 	@Override
 	@Transactional
-	public void register(GymDTO gymDto) {
-		gymRepo.save(gymDto.toEntity());
+	public Gym register(GymDTO gymDto) {
+		return gymRepo.save(gymDto.toEntity());
 	}
 
 	@Override
@@ -29,8 +29,8 @@ public class GymServiceImpl implements GymService {
 
 	@Override
 	@Transactional
-	public Gym getDetail(String userName) {
-		Gym gym = gymRepo.findByUserName(userName);
+	public Gym getDetail(Long userId) {
+		Gym gym = gymRepo.findByUserId(userId);
 		
 		return gym;
 	}
