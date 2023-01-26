@@ -20,12 +20,11 @@ public class MatePostServiceImpl implements MatePostService {
 
     @Override
     @Transactional
-    public MatePost createMatePost(MatePostCreateRequest matePostCreateRequest, String username) {
-//        MatePost matePost = matePostCreateRequest.toEntity(user);
-//        matePostRepo.save(matePost);
-//        log.info("운동 메이트 게시글이 추가됐습니다. : ", matePost.getTitle());
+    public MatePost createMatePost(MatePostCreateRequest matePostCreateRequest, User user) {
+        MatePost matePost = matePostCreateRequest.toEntity(user);
+        matePostRepo.save(matePost);
+        log.info("운동 메이트 게시글이 추가됐습니다. : ", matePost.getTitle());
 
-//        return matePost;
-        return null;
+        return matePost;
     }
 }

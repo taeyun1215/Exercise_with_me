@@ -1,8 +1,15 @@
 package dev.ewm.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import dev.ewm.domain.mate.Mate;
+import dev.ewm.domain.matePost.MatePost;
 import dev.ewm.domain.user.constant.Role;
 import lombok.*;
 import javax.persistence.*;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -11,7 +18,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User implements Serializable {
 
     @Id @GeneratedValue(strategy = IDENTITY)
     private Long id;
@@ -33,6 +40,14 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    private List<MatePost> matePosts = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    private List<Mate> mates = new ArrayList<>();
 
     public String getRoleValue() {
         return this.role.getValue();

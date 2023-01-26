@@ -1,5 +1,6 @@
 package dev.ewm.domain.mate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import dev.ewm.domain.mate.constant.Type;
 import dev.ewm.domain.matePost.MatePost;
 import dev.ewm.domain.user.User;
@@ -19,20 +20,20 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 public class Mate {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @Id @GeneratedValue(strategy = IDENTITY)
     private Long id;
-
-    @ManyToOne(targetEntity = MatePost.class, fetch = FetchType.LAZY) // 실제로 요청하는 순간 가져오기 위해 LAZY로 사용함.
-    @JoinColumn(name = "id")
-    private MatePost matePost;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Type type;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY) // 실제로 요청하는 순간 가져오기 위해 LAZY로 사용함.
-    @JoinColumn(name = "username")
+    @JsonBackReference
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "username", referencedColumnName = "username")
     private User user;
+
+    @JsonBackReference
+    @ManyToOne(targetEntity = MatePost.class, fetch = FetchType.LAZY)
+    private MatePost matePost;
 
 }

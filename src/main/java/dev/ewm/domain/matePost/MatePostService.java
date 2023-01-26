@@ -11,5 +11,6 @@ import javax.transaction.Transactional;
 public interface MatePostService {
 
     // DB 운동 메이트 게시글 저장
-    MatePost createMatePost(MatePostCreateRequest matePostCreateRequest, String username);
+    MatePost createMatePost(MatePostCreateRequest matePostCreateRequest, User user);
+
 }

@@ -23,11 +23,10 @@ public class MatePostController {
 
     @PostMapping("/create")
     public ResponseEntity<ReturnObject> createMatePost(
-            @LoginUser String username,
+            @LoginUser User user,
             @Validated @RequestBody MatePostCreateRequest matePostCreateRequest
     ) {
-
-        MatePost matePost = matePostService.createMatePost(matePostCreateRequest, username);
+        MatePost matePost = matePostService.createMatePost(matePostCreateRequest, user);
         MatePostCreateResponse response = MatePostCreateResponse.from(matePost);
 
         ReturnObject returnObject = ReturnObject.builder()
