@@ -1,6 +1,7 @@
 package dev.ewm.domain.matePost;
 
 import dev.ewm.domain.mate.Mate;
+import dev.ewm.domain.mate.response.MateJoinResponse;
 import dev.ewm.domain.matePost.request.MatePostCreateRequest;
 import dev.ewm.domain.matePost.response.MatePostCreateResponse;
 import dev.ewm.domain.user.User;
@@ -43,7 +44,8 @@ public class MatePostController {
             @PathVariable("matePostId") Long matePostId
     ) {
         List<Mate> matePost = matePostService.joinMate(matePostId, user);
-        MatePostCreateResponse response = MatePostCreateResponse.from(matePost);
+
+        MateJoinResponse response = MateJoinResponse.from(matePost);
 
         ReturnObject returnObject = ReturnObject.builder()
                 .success(true)

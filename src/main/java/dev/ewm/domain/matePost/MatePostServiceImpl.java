@@ -48,16 +48,21 @@ public class MatePostServiceImpl implements MatePostService {
         MatePost matePost = matePostRepo.findById(matePostId)
                 .orElseThrow(() -> new EntityNotFoundException());
 
-        Optional<Mate> findMate = mateRepo.findByMatePostAndUser(matePost, user);
-
-        findMate.ifPresentOrElse(
-                joinMate -> {
-                    mateRepo.delete(joinMate);
+        mateRepo.findByMatePostAndUser(matePost, user).ifPresentOrElse(
+                existMate -> {
+                    mateRepo.delete(existMate);
                 },
                 () -> {
-                    mateRepo.save(findMate.get());
+                    Mate joinMate = Mate.builder()
+                            .type(Type.PARTICIPANT)
+                            .user(user)
+                            .matePost(matePost)
+                            .build();
+
+                    mateRepo.save(joinMate);
                 }
         );
 
+        return mateRepo.findByMatePost(matePost);
     }
 }

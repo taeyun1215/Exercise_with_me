@@ -34,6 +34,7 @@ public class Mate {
 
     @JsonBackReference
     @ManyToOne(targetEntity = MatePost.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "matePostId")
     private MatePost matePost;
 
 }
