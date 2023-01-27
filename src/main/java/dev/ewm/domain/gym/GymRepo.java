@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 //@Repository
 public interface GymRepo extends JpaRepository<Gym, Long>{
-	Gym findByUserId(Long userId);
+//	Gym findByUserId(Long userId);
 }

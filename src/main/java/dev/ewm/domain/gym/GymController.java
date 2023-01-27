@@ -1,8 +1,9 @@
 package dev.ewm.domain.gym;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,12 +23,12 @@ public class GymController {
 	private final GymService gymService;
 	
 	@PostMapping("/register")
-	public ResponseEntity<ReturnObject> register(@Validated @RequestBody GymDTO gymDto) {
-		gymService.register(gymDto);
+	public ResponseEntity<ReturnObject> register(@RequestBody GymDTO gymDto) {
+		Gym gym = gymService.register(gymDto);
 		
 		ReturnObject returnObject = ReturnObject.builder()
                 .success(true)
-                .data(gymService.register(gymDto))
+                .data(gym)
                 .build();
 		
 		return ResponseEntity.status(HttpStatus.OK).body(returnObject);
@@ -35,23 +36,38 @@ public class GymController {
 	
 	@GetMapping("/list") 
 	public ResponseEntity<ReturnObject> list() {
-		gymService.getList();
+		List<Gym> list = gymService.getList();
 		
-		return ResponseEntity.status(HttpStatus.OK).body(null);
+		ReturnObject returnObject = ReturnObject.builder()
+                .success(true)
+                .data(list)
+                .build();
+		
+		return ResponseEntity.status(HttpStatus.OK).body(returnObject);
 	}
 	
-	@GetMapping("/detail/{userId}")
-	public ResponseEntity<ReturnObject> detail(@PathVariable("userId") Long userId) {
-		gymService.getDetail(userId);
+	@GetMapping("/detail/{id}")
+	public ResponseEntity<ReturnObject> detail(@PathVariable("id") Long id) {
+		Gym gym = gymService.getDetail(id);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(null);
+		ReturnObject returnObject = ReturnObject.builder()
+                .success(true)
+                .data(gym)
+                .build();
+		
+		return ResponseEntity.status(HttpStatus.OK).body(returnObject);
 	}
 	
 	@PutMapping("/modify")
-	public ResponseEntity<ReturnObject> modify(GymDTO gymDto) {
-		gymService.modify(gymDto);
+	public ResponseEntity<ReturnObject> modify(@RequestBody GymDTO gymDto) {
+		Gym gym = gymService.modify(gymDto);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(null);
+		ReturnObject returnObject = ReturnObject.builder()
+                .success(true)
+                .data(gym)
+                .build();
+		
+		return ResponseEntity.status(HttpStatus.OK).body(returnObject);
 	}
 	
 	@DeleteMapping("/delete/{id}")
