@@ -1,6 +1,8 @@
 package dev.ewm.domain.matePost;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import dev.ewm.domain.base.BaseTimeEntity;
+import dev.ewm.domain.mate.Mate;
 import dev.ewm.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +11,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import java.util.List;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
@@ -16,7 +20,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MatePost {
+public class MatePost extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = IDENTITY)
     private Long id;
@@ -43,5 +47,9 @@ public class MatePost {
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "username", referencedColumnName = "username")
     private User user;
+
+    @OneToMany(mappedBy = "matePost", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Mate> mateList;
 
 }

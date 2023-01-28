@@ -7,6 +7,8 @@ import dev.ewm.domain.matePost.request.MatePostCreateRequest;
 import dev.ewm.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -22,6 +24,12 @@ public class MatePostServiceImpl implements MatePostService {
 
     private final MatePostRepo matePostRepo;
     private final MateRepo mateRepo;
+
+    @Override
+    @Transactional
+    public Page<MatePost> pageMatePostList(Pageable pageable) {
+        return matePostRepo.findAll(pageable);
+    }
 
     @Override
     @Transactional
@@ -51,6 +59,7 @@ public class MatePostServiceImpl implements MatePostService {
         mateRepo.findByMatePostAndUser(matePost, user).ifPresentOrElse(
                 existMate -> {
                     mateRepo.delete(existMate);
+                    log.info("운동 그룹에서 삭제됐습니다.");
                 },
                 () -> {
                     Mate joinMate = Mate.builder()
@@ -60,6 +69,7 @@ public class MatePostServiceImpl implements MatePostService {
                             .build();
 
                     mateRepo.save(joinMate);
+                    log.info("운동 그룹에 등록됐습니다.");
                 }
         );
 

@@ -1,6 +1,7 @@
 package dev.ewm.domain.mate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import dev.ewm.domain.base.BaseTimeEntity;
 import dev.ewm.domain.mate.constant.Type;
 import dev.ewm.domain.matePost.MatePost;
 import dev.ewm.domain.user.User;
@@ -18,7 +19,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Mate {
+public class Mate extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = IDENTITY)
     private Long id;

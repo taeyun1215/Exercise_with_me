@@ -5,6 +5,8 @@ import dev.ewm.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 public class UserRegisterResponse {
@@ -15,6 +17,8 @@ public class UserRegisterResponse {
     private String phone;
     private String email;
     private Role role;
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
 
     public static UserRegisterResponse from(User user) {
         return UserRegisterResponse.builder()
