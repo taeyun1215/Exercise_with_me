@@ -3,6 +3,7 @@ package dev.ewm.domain.matePost;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import dev.ewm.domain.base.BaseTimeEntity;
 import dev.ewm.domain.mate.Mate;
+import dev.ewm.domain.matePost.request.MatePostModifyRequest;
 import dev.ewm.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,5 +52,13 @@ public class MatePost extends BaseTimeEntity {
     @OneToMany(mappedBy = "matePost", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Mate> mateList;
+
+    public void updateMatePost(MatePostModifyRequest matePostModifyRequest) {
+        this.title = matePostModifyRequest.getTitle();
+        this.content = matePostModifyRequest.getContent();
+        this.gym = matePostModifyRequest.getGym();
+        this.startTime = matePostModifyRequest.getStartTime();
+        this.endTime = matePostModifyRequest.getEndTime();
+    }
 
 }

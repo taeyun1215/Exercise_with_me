@@ -3,6 +3,7 @@ package dev.ewm.domain.matePost;
 import dev.ewm.domain.mate.Mate;
 import dev.ewm.domain.mate.response.MateJoinResponse;
 import dev.ewm.domain.matePost.request.MatePostCreateRequest;
+import dev.ewm.domain.matePost.request.MatePostModifyRequest;
 import dev.ewm.domain.matePost.response.MatePostCreateResponse;
 import dev.ewm.domain.matePost.response.MatePostPagingResponse;
 import dev.ewm.domain.user.User;
@@ -63,8 +64,25 @@ public class MatePostController {
             @LoginUser User user,
             @PathVariable("matePostId") Long matePostId
     ) {
-        List<Mate> matePosts = matePostService.joinMate(matePostId, user);
-        MateJoinResponse response = MateJoinResponse.from(matePosts);
+        List<Mate> mates = matePostService.joinMate(matePostId, user);
+        MateJoinResponse response = MateJoinResponse.from(mates);
+
+        ReturnObject returnObject = ReturnObject.builder()
+                .success(true)
+                .data(response)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(returnObject);
+    }
+
+    @PutMapping("modify/{matePostId}")
+    public ResponseEntity<ReturnObject> modifyMatePost(
+            @LoginUser User user,
+            @PathVariable("matePostId") Long matePostId,
+            @RequestBody MatePostModifyRequest matePostModifyRequest
+    ) {
+        MatePost matePost = matePostService.modifyMatePost(matePostModifyRequest, matePostId);
+        MatePostCreateResponse response = MatePostCreateResponse.from(matePost);
 
         ReturnObject returnObject = ReturnObject.builder()
                 .success(true)

@@ -4,6 +4,7 @@ import dev.ewm.domain.mate.Mate;
 import dev.ewm.domain.mate.MateRepo;
 import dev.ewm.domain.mate.constant.Type;
 import dev.ewm.domain.matePost.request.MatePostCreateRequest;
+import dev.ewm.domain.matePost.request.MatePostModifyRequest;
 import dev.ewm.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -75,4 +76,15 @@ public class MatePostServiceImpl implements MatePostService {
 
         return mateRepo.findByMatePost(matePost);
     }
+
+    @Override
+    @Transactional
+    public MatePost modifyMatePost(MatePostModifyRequest matePostModifyRequest, Long matePostId) {
+        MatePost matePost = matePostRepo.findById(matePostId)
+                .orElseThrow(() -> new EntityNotFoundException());
+
+        matePost.updateMatePost(matePostModifyRequest);
+        return matePostRepo.save(matePost);
+    }
+
 }
