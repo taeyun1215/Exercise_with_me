@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -30,6 +29,18 @@ public class MatePostServiceImpl implements MatePostService {
     @Transactional
     public Page<MatePost> pageMatePostList(Pageable pageable) {
         return matePostRepo.findAll(pageable);
+    }
+
+    @Override
+    @Transactional
+    public MatePost viewDetailMatePost(Long matePostId) {
+        return matePostRepo.findById(matePostId).get();
+    }
+
+    @Override
+    @Transactional
+    public void viewCountUpMatePost(Long matePostId) {
+        matePostRepo.viewCountUp(matePostId);
     }
 
     @Override

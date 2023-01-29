@@ -18,6 +18,12 @@ public interface MatePostService {
     // 운동 메이트 게시글 페이징
     Page<MatePost> pageMatePostList(Pageable pageable);
 
+    // 운동 메이스 게시글 상세 조회, 조회수 추가(session)
+    MatePost viewDetailMatePost(Long matePostId);
+
+    // 운동 메이스 게시글 조회수 추가(session)
+    void viewCountUpMatePost(Long matePostId);
+
     // DB 운동 메이트 게시글 저장
     MatePost createMatePost(MatePostCreateRequest matePostCreateRequest, User user);
 

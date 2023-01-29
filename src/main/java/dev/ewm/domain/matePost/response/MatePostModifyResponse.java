@@ -5,28 +5,20 @@ import dev.ewm.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 
-
 @Getter
 @Builder
-public class MatePostCreateResponse {
+public class MatePostModifyResponse {
 
     private Long id;
     private String title;
-    private String content;
     private String gym;
-    private String startTime;
-    private String endTime;
     private User user;
 
-    public static MatePostCreateResponse from(MatePost matePost) {
-        return MatePostCreateResponse.builder()
+    public static MatePostModifyResponse from(MatePost matePost) {
+        return MatePostModifyResponse.builder()
                 .id(matePost.getId())
                 .title(matePost.getTitle())
-                .content(matePost.getContent())
                 .gym(matePost.getGym())
-                .startTime(matePost.getStartTime())
-                .endTime(matePost.getEndTime())
-                .user(matePost.getUser())
                 .build();
     }
 }
