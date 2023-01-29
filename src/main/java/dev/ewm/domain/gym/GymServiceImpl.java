@@ -19,11 +19,8 @@ public class GymServiceImpl implements GymService {
 	@Override
 	@Transactional
 	public Gym register(GymDTO gymDto) {
-		gymDto.setCreateDate(LocalDateTime.now());
-		log.info("star: {}", gymDto.getCountingStar());
-		Gym gymd = gymDto.toEntity();
-		log.info("gym star: {}", gymd.getCountingStar());
-		Gym gym = gymRepo.save(gymd);
+//		gymDto.setCreateDate(LocalDateTime.now());
+		Gym gym = gymRepo.save(gymDto.toEntity());
 		
 		return gym;
 	}
@@ -48,14 +45,15 @@ public class GymServiceImpl implements GymService {
 
 	@Override
 	public Gym modify(GymDTO gymDto) {
-		gymDto.setUpdateDate(LocalDateTime.now());
+//		gymDto.setUpdateDate(LocalDateTime.now());
 		
-		return gymRepo.save(gymDto.gymUpdate());
+		return gymRepo.save(gymDto.toEntity());
 	}
 
 	@Override
 	public void delete(Long id) {
 		gymRepo.deleteById(id);
+		log.info("{} 삭제 완료", id);
 	}
 
 }

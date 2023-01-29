@@ -2,7 +2,9 @@ package dev.ewm.domain.gym;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
