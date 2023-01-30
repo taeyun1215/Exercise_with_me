@@ -42,11 +42,12 @@ jobs:
 
     ## docker compose up
     - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v0.1.6
       with:
         host: ${{ secrets.HOST }}
         username: ec2-user
         key: ${{ secrets.KEY }}
+        script_stop: true
         script: |
           sudo docker rm -f $(docker ps -qa)
           sudo docker pull ${{ secrets.DOCKER_REPO }}/ewm
