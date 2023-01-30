@@ -47,6 +47,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
+        timeout: 50s
         script_stop: true
         script: |
           sudo docker rm -f $(docker ps -qa)
