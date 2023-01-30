@@ -50,8 +50,8 @@ jobs:
     - name: web docker build and push
       run: |
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker build -t ${{ secrets.DOCKER_REPO }}/second-eyes-web .
-        docker push ${{ secrets.DOCKER_REPO }}/second-eyes-web
+        docker build -t ${{ secrets.DOCKER_REPO }}/ewm .
+        docker push ${{ secrets.DOCKER_REPO }}/ewm
 
     ## docker compose up
     - name: executing remote ssh commands using password
@@ -62,7 +62,6 @@ jobs:
         key: ${{ secrets.KEY }}
         script: |
           sudo docker rm -f $(docker ps -qa)
-          sudo docker pull ${{ secrets.DOCKER_REPO }}/second-eyes-web
-          sudo docker pull ${{ secrets.DOCKER_REPO }}/second-eyes-nginx
+          sudo docker pull ${{ secrets.DOCKER_REPO }}/ewm
           docker-compose up -d
           docker image prune -f
