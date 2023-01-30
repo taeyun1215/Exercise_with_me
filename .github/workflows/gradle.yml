@@ -50,5 +50,4 @@ jobs:
         timeout: 50s
         script_stop: true
         script: |
-          sudo docker rm -f $(docker ps -qa)
           sudo docker pull ${{ secrets.DOCKER_REPO }}/ewm
