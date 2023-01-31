@@ -44,20 +44,24 @@ jobs:
         docker build -t ${{ secrets.DOCKER_REPO }}/ewm .
         docker push ${{ secrets.DOCKER_REPO }}/ewm
         
-    ## docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-    ## docker build -t ${{ secrets.DOCKER_REPO }}/ewm .
-    ## docker tag ewm ${{ secrets.DOCKER_REPO }}/ewm:${GITHUB_SHA::7}
-    ## docker push ${{ secrets.DOCKER_REPO }}/ewm:${GITHUB_SHA::7}
+      # docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      # docker build -t ${{ secrets.DOCKER_REPO }}/ewm .
+      # docker tag ewm ${{ secrets.DOCKER_REPO }}/ewm:${GITHUB_SHA::7}
+      # docker push ${{ secrets.DOCKER_REPO }}/ewm:${GITHUB_SHA::7}
 
-    ## docker compose up
+      # docker compose up
     - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        timeout: 50s
-        envs: GITHUB_SHA
+#       uses: appleboy/ssh-action@master
+      uses: actions/checkout@v2 
+      env:
+        PRIVATE_KEY: ${{ secrets.KEY }}
+        HOSTNAME : ${{ secrets.HOST }}
+        USER_NAME : ${{ secrets.USERNAME }}
+#       with:
+#         host: ${{ secrets.HOST }}
+#         username: ${{ secrets.USERNAME }}
+#         key: ${{ secrets.KEY }}
+#         timeout: 50s
+#         envs: GITHUB_SHA
         script: |
           docker pull ${{ secrets.DOCKER_REPO }}/ewm:${GITHUB_SHA::7}
-          docker tag ${{ secrets.DOCKER_REPO }}/ewm:${GITHUB_SHA::7} ewm
