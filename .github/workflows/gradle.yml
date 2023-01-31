@@ -64,4 +64,6 @@ jobs:
 #         timeout: 50s
 #         envs: GITHUB_SHA
         script: |
-          docker pull ${{ secrets.DOCKER_REPO }}/ewm:${GITHUB_SHA::7}
+          docker pull ${{ secrets.DOCKER_REPO }}/ewm
+          docker-compose up -d
+          docker image prune -f
