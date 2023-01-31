@@ -38,7 +38,7 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker build -t ${{ secrets.DOCKER_REPO }}/ewm .
-        docker push ${{ secrets.DOCKER_REPO }}/ewm
+        docker push ${{ secrets.DOCKER_REPO }}/ewm:${GITHUB_SHA::7}
 
     ## docker compose up
     - name: executing remote ssh commands using password
@@ -48,6 +48,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         timeout: 50s
-        script_stop: true
+        envs: GITHUB_SHA
         script: |
-          sudo docker pull ${{ secrets.DOCKER_REPO }}/ewm
+          sudo docker pull ${{ secrets.DOCKER_REPO }}/ewm:${GITHUB_SHA::7}
