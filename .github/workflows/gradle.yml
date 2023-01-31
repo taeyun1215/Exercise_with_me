@@ -53,15 +53,11 @@ jobs:
     - name: executing remote ssh commands using password
 #       uses: appleboy/ssh-action@master
       uses: actions/checkout@v2 
-      env:
-        PRIVATE_KEY: ${{ secrets.KEY }}
-        HOSTNAME : ${{ secrets.HOST }}
-        USER_NAME : ${{ secrets.USERNAME }}
-#       with:
-#         host: ${{ secrets.HOST }}
-#         username: ${{ secrets.USERNAME }}
-#         key: ${{ secrets.KEY }}
-#         timeout: 50s
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        timeout: 50s
 #         envs: GITHUB_SHA
         script: |
           docker pull ${{ secrets.DOCKER_REPO }}/ewm
