@@ -51,18 +51,13 @@ jobs:
 
       # docker compose up
     - name: executing remote ssh commands using password
-#       uses: appleboy/ssh-action@master
-      uses: actions/checkout@v2 
-      env:
-        PRIVATE_KEY: ${{ secrets.KEY  }}
-        HOSTNAME : ${{ secrets.HOST  }}
-        USER_NAME : ${{ secrets.USERNAME  }}
-#       with:
-#         host: ${{ secrets.HOST }}
-#         username: ${{ secrets.USERNAME }}
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
 #         key: ${{ secrets.KEY }}
-#         timeout: 50s
-#         envs: GITHUB_SHA
         script: |
           docker pull ${{ secrets.DOCKER_REPO }}/ewm
           docker-compose up -d
