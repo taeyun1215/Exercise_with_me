@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -19,9 +21,9 @@ public class MatePostModifyRequest {
     private String gym;
 
     @NotBlank(message = "운동 시작하는 시간은 필수 입력 값입니다.")
-    private String startTime;
+    private LocalTime startTime;
 
     @NotBlank(message = "운동 끝나는 시간은 필수 입력 값입니다.")
-    private String endTime;
+    private LocalTime endTime;
 
 }

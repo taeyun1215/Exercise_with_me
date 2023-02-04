@@ -4,8 +4,11 @@ import dev.ewm.domain.matePost.MatePost;
 import dev.ewm.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -20,11 +23,13 @@ public class MatePostCreateRequest {
     @NotBlank(message = "헬스장은 필수 입력 값입니다.")
     private String gym;
 
-    @NotBlank(message = "운동 시작하는 시간은 필수 입력 값입니다.")
-    private String startTime;
+    @NotNull(message = "운동 시작하는 시간은 필수 입력 값입니다.")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    private LocalTime startTime;
 
-    @NotBlank(message = "운동 끝나는 시간은 필수 입력 값입니다.")
-    private String endTime;
+    @NotNull(message = "운동 끝나는 시간은 필수 입력 값입니다.")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    private LocalTime endTime;
 
     public MatePost toEntity(User user) {
         return MatePost.builder()

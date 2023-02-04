@@ -4,10 +4,8 @@ import dev.ewm.domain.mate.Mate;
 import dev.ewm.domain.mate.response.MateJoinResponse;
 import dev.ewm.domain.matePost.request.MatePostCreateRequest;
 import dev.ewm.domain.matePost.request.MatePostModifyRequest;
-import dev.ewm.domain.matePost.response.MatePostCreateResponse;
-import dev.ewm.domain.matePost.response.MatePostDetailViewResponse;
-import dev.ewm.domain.matePost.response.MatePostModifyResponse;
-import dev.ewm.domain.matePost.response.MatePostPagingResponse;
+import dev.ewm.domain.matePost.request.MatePostSearchRequireRequest;
+import dev.ewm.domain.matePost.response.*;
 import dev.ewm.domain.user.User;
 import dev.ewm.global.annotation.LoginUser;
 import dev.ewm.global.utils.ReturnObject;
@@ -39,6 +37,23 @@ public class MatePostController {
     ) {
         Page<MatePost> matePosts = matePostService.pageMatePostList(pageable);
         MatePostPagingResponse response = MatePostPagingResponse.from(matePosts);
+
+        ReturnObject returnObject = ReturnObject.builder()
+                .success(true)
+                .data(response)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(returnObject);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<ReturnObject> searchMatePost(
+            @LoginUser User user,
+            @RequestBody MatePostSearchRequireRequest matePostSearchRequireRequest
+    ) {
+        List<MatePost> matePosts = matePostService.searchMatePostList(matePostSearchRequireRequest);
+
+        MatePostSearchRequireResponse response = MatePostSearchRequireResponse.from(matePosts);
 
         ReturnObject returnObject = ReturnObject.builder()
                 .success(true)

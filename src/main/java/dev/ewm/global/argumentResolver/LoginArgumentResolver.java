@@ -11,6 +11,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import javax.persistence.EntityNotFoundException;
+
 @Component
 @RequiredArgsConstructor
 public class LoginArgumentResolver implements HandlerMethodArgumentResolver {
@@ -32,6 +34,10 @@ public class LoginArgumentResolver implements HandlerMethodArgumentResolver {
     ) {
         final String username = webRequest.getHeader(LOGIN_MEMBER);
         User user = userRepo.findByUsername(username);
+
+        if (user == null) {
+            throw new EntityNotFoundException("회원이 존재하지 않습니다.");
+        }
 
         return user;
     }

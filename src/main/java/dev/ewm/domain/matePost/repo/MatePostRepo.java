@@ -1,5 +1,6 @@
-package dev.ewm.domain.matePost;
+package dev.ewm.domain.matePost.repo;
 
+import dev.ewm.domain.matePost.MatePost;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface MatePostRepo extends JpaRepository<MatePost, Long> {
+public interface MatePostRepo extends JpaRepository<MatePost, Long>,  MatePostRepoCustom {
 
     Optional<MatePost> findById(Long postId);
 

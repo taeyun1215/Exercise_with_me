@@ -3,8 +3,10 @@ package dev.ewm.domain.matePost;
 import dev.ewm.domain.mate.Mate;
 import dev.ewm.domain.mate.MateRepo;
 import dev.ewm.domain.mate.constant.Type;
+import dev.ewm.domain.matePost.repo.MatePostRepo;
 import dev.ewm.domain.matePost.request.MatePostCreateRequest;
 import dev.ewm.domain.matePost.request.MatePostModifyRequest;
+import dev.ewm.domain.matePost.request.MatePostSearchRequireRequest;
 import dev.ewm.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +31,12 @@ public class MatePostServiceImpl implements MatePostService {
     @Transactional
     public Page<MatePost> pageMatePostList(Pageable pageable) {
         return matePostRepo.findAll(pageable);
+    }
+
+    @Override
+    @Transactional
+    public List<MatePost> searchMatePostList(MatePostSearchRequireRequest matePostSearchRequireRequest) {
+        return matePostRepo.searchAll(matePostSearchRequireRequest);
     }
 
     @Override

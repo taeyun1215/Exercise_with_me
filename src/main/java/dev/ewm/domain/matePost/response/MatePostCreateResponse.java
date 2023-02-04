@@ -5,6 +5,9 @@ import dev.ewm.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 
 @Getter
 @Builder
@@ -14,8 +17,8 @@ public class MatePostCreateResponse {
     private String title;
     private String content;
     private String gym;
-    private String startTime;
-    private String endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private User user;
 
     public static MatePostCreateResponse from(MatePost matePost) {

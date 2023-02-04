@@ -3,6 +3,7 @@ package dev.ewm.domain.matePost;
 import dev.ewm.domain.mate.Mate;
 import dev.ewm.domain.matePost.request.MatePostCreateRequest;
 import dev.ewm.domain.matePost.request.MatePostModifyRequest;
+import dev.ewm.domain.matePost.request.MatePostSearchRequireRequest;
 import dev.ewm.domain.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,9 @@ public interface MatePostService {
 
     // 운동 메이트 게시글 페이징
     Page<MatePost> pageMatePostList(Pageable pageable);
+
+    // 운동 메이트 게시글 검색
+    List<MatePost> searchMatePostList(MatePostSearchRequireRequest matePostSearchRequireRequest);
 
     // 운동 메이스 게시글 상세 조회, 조회수 추가(session)
     MatePost viewDetailMatePost(Long matePostId);

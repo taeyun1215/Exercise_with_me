@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -36,10 +38,10 @@ public class MatePost extends BaseTimeEntity {
     private String gym; // 헬스장 이름
 
     @Column(nullable = false)
-    private String startTime; // 운동 시작 시간
+    private LocalTime startTime; // 운동 시작 시간
 
     @Column(nullable = false)
-    private String endTime; // 운동 끝나는 시간
+    private LocalTime endTime; // 운동 끝나는 시간
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view = 0; // 조회수
