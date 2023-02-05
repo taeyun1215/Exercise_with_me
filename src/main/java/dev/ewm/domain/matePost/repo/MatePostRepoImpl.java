@@ -45,11 +45,12 @@ public class MatePostRepoImpl implements MatePostRepoCustom {
     private BooleanExpression betweenTime(LocalTime start, LocalTime end) {
 
         if (end == null) {
-            return matePost.startTime.goe(LocalDateTime.from(start).withNano(0));
+            return matePost.startTime.goe(start);
         } else if (start == null) {
-            return matePost.startTime.loe(LocalDateTime.from(end).withNano(0));
+            return matePost.endTime.loe(end);
         } else {
-            return matePost.startTime.between(LocalDateTime.from(start), LocalDateTime.from(end));
+            return matePost.startTime.between(start, end);
         }
     }
+
 }

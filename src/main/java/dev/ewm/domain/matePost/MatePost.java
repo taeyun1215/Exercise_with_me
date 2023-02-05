@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
@@ -38,10 +39,12 @@ public class MatePost extends BaseTimeEntity {
     private String gym; // 헬스장 이름
 
     @Column(nullable = false)
-    private LocalTime startTime; // 운동 시작 시간
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    private LocalTime startTime;
 
     @Column(nullable = false)
-    private LocalTime endTime; // 운동 끝나는 시간
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    private LocalTime endTime;
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view = 0; // 조회수
