@@ -5,11 +5,6 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,12 +32,8 @@ public class GymDTO {
 	@Min(1)
 	private Long userId;
 	
-//	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-//	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime createDate;
 	
-//	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-//	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime updateDate;
 	
 	public Gym toEntity() {

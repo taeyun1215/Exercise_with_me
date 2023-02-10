@@ -36,6 +36,8 @@ public class GymStarDTO {
 				.score(score)
 				.userId(userId)
 				.gymId(gymId)
+				.createDate(createDate)
+				.updateDate(updateDate)
 				.build();
 	}
 }

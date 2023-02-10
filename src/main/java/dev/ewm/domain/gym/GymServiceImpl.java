@@ -45,9 +45,14 @@ public class GymServiceImpl implements GymService {
 
 	@Override
 	public Gym modify(GymDTO gymDto) {
-//		gymDto.setUpdateDate(LocalDateTime.now());
+		gymDto.setUpdateDate(LocalDateTime.now());
 		
 		return gymRepo.save(gymDto.toEntity());
+	}
+
+	@Override
+	public Gym modify(Gym gym) {
+		return gymRepo.save(gym);
 	}
 
 	@Override

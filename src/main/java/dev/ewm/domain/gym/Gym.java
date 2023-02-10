@@ -16,13 +16,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -63,15 +57,11 @@ public class Gym {
 	
 	@Column(updatable=false)
 	@CreatedDate
-//	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-//	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-//	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDateTime createDate;
 	
 //	@Column
 	@LastModifiedDate
-//	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-//	@JsonSerialize(using = LocalDateTimeSerializer.class)
-//	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDateTime updateDate;
 }

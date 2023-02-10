@@ -7,5 +7,6 @@ public interface GymService {
 	List<Gym> getList();
 	Gym getDetail(Long id);
 	Gym modify(GymDTO gymDto);
+	Gym modify(Gym gym);
 	void delete(Long id);
 }

@@ -5,12 +5,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import dev.ewm.domain.gym.Gym;
+import dev.ewm.domain.gym.GymDTO;
+import dev.ewm.domain.gym.GymService;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class GymStarServiceImpl implements GymStarService {
 	private final GymStarRepo gymStarRepo;
+	private final GymService gymService;
 	
 	@Override
 	public GymStar register(GymStarDTO gymStarDto) {
@@ -36,6 +40,7 @@ public class GymStarServiceImpl implements GymStarService {
 		for(GymStar l : list) {
 			avg += l.getScore();
 		}
+		
 		return avg/list.size();
 	}
 
@@ -43,6 +48,9 @@ public class GymStarServiceImpl implements GymStarService {
 	public GymStar modify(GymStarDTO gymStarDto) {
 		gymStarDto.setUpdateDate(LocalDateTime.now());
 		GymStar gymStar = gymStarRepo.save(gymStarDto.toEntity());
+		
+		Gym gym = gymService.getDetail(gymStarDto.getGymId());
+		gym.builder().countingStar(avgScore())
 		
 		return gymStar;
 	}
