@@ -2,13 +2,13 @@
 ### 🏃🏻 A project to find someone to exercise with
 
 ### Software Used
-Java 11
-Spring Boot
-MariaDB
-Redis
-Github Action 
-Docker
-AWS
+* Java 11
+* Spring Boot
+* MariaDB
+* Redis
+* Github Action 
+* Docker
+* AWS
 
 ### Commit Convention
 * Type
