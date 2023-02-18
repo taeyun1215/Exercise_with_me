@@ -1,6 +1,15 @@
 # Exercise_with_me
 ### 🏃🏻 A project to find someone to exercise with
 
+### Software Used
+Java 11
+Spring Boot
+MariaDB
+Redis
+Github Action 
+Docker
+AWS
+
 ### Commit Convention
 * Type
   * feat : 새로운 기능 추가
