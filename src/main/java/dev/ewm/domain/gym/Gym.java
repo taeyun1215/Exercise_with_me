@@ -64,4 +64,17 @@ public class Gym {
 	@LastModifiedDate
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDateTime updateDate;
+	
+	public GymDTO toDto() {
+		return GymDTO.builder()
+				.id(id)
+				.gymName(gymName)
+				.address(address)
+				.priceOfMonth(priceOfMonth)
+				.countingStar(countingStar)
+				.userId(userId)
+				.createDate(createDate)
+				.updateDate(updateDate)
+				.build();
+	}
 }
