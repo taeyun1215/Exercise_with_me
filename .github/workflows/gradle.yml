@@ -50,15 +50,25 @@ jobs:
       # docker push ${{ secrets.DOCKER_REPO }}/ewm:${GITHUB_SHA::7}
 
       # docker compose up
-    - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@master
+      
+    - name: ls -a via ssh
+      uses: fifsky/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        port: 22
-#         key: ${{ secrets.KEY }}
-        script: |
+        command: |
           docker pull ${{ secrets.DOCKER_REPO }}/ewm
-          docker-compose up -d
-#          docker image prune -f
+        host: ${{ secrets.HOST }}
+        user: root
+        key: ${{ secrets.KEY}}
+    
+#     - name: executing remote ssh commands using password
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: ${{ secrets.HOST }}
+#         username: ${{ secrets.USERNAME }}
+#         password: ${{ secrets.PASSWORD }}
+#         port: 22
+# #         key: ${{ secrets.KEY }}
+#         script: |
+#           docker pull ${{ secrets.DOCKER_REPO }}/ewm
+#           docker-compose up -d
+# #          docker image prune -f
