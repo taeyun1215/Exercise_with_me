@@ -57,7 +57,7 @@ jobs:
         command: |
           docker pull ${{ secrets.DOCKER_REPO }}/ewm
         host: ${{ secrets.HOST }}
-        user: root
+        user: ec2-user
         key: ${{ secrets.KEY}}
     
 #     - name: executing remote ssh commands using password
