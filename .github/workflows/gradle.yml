@@ -1,0 +1,74 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    
+    - name: Get Github Actions IP
+      id: ip
+      uses: haythem/public-ip@v1.2
+
+    - name: checkout
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    ## gradle build
+    - name: Build with Gradle
+      run: ./gradlew bootJar
+
+
+    ## 웹 이미지 빌드 및 도커허브에 push
+    - name: web docker build and push
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker build -t ${{ secrets.DOCKER_REPO }}/ewm .
+        docker push ${{ secrets.DOCKER_REPO }}/ewm
+        
+      # docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      # docker build -t ${{ secrets.DOCKER_REPO }}/ewm .
+      # docker tag ewm ${{ secrets.DOCKER_REPO }}/ewm:${GITHUB_SHA::7}
+      # docker push ${{ secrets.DOCKER_REPO }}/ewm:${GITHUB_SHA::7}
+
+      # docker compose up
+      
+    - name: ls -a via ssh
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          docker pull ${{ secrets.DOCKER_REPO }}/ewm
+        host: ${{ secrets.HOST }}
+        user: ec2-user
+        key: ${{ secrets.KEY}}
+    
+#     - name: executing remote ssh commands using password
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: ${{ secrets.HOST }}
+#         username: ${{ secrets.USERNAME }}
+#         password: ${{ secrets.PASSWORD }}
+#         port: 22
+# #         key: ${{ secrets.KEY }}
+#         script: |
+#           docker pull ${{ secrets.DOCKER_REPO }}/ewm
+#           docker-compose up -d
+# #          docker image prune -f
