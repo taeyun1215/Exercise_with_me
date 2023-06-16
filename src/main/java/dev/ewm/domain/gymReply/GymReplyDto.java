@@ -1,8 +1,7 @@
-package dev.ewm.domain.gym;
+package dev.ewm.domain.gymReply;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 import lombok.AllArgsConstructor;
@@ -16,33 +15,27 @@ import lombok.Setter;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class GymDTO {
+public class GymReplyDto {
 	@Min(1)
-    private Long id;
-	
-    private String gymName;
-	private String address;
-	
-	@Min(0)
-	private Integer priceOfMonth;
-	
-	@Min(0) @Max(5)
-	private Double countingStar;
-	
+	private Long id;
+
+	private String reply;
+
 	@Min(1)
-	private Long userId;
-	
+	private Long writerId;
+
+	@Min(1)
+	private Long GymId;
+
 	private LocalDateTime createDate;
 	private LocalDateTime updateDate;
 	
-	public Gym toEntity() {
-		return Gym.builder()
+	public GymReply toEntity() {
+		return GymReply.builder()
 				.id(id)
-				.gymName(gymName)
-				.address(address)
-				.priceOfMonth(priceOfMonth)
-				.countingStar(countingStar)
-				.userId(userId)
+				.reply(reply)
+				.writerId(writerId)
+				.GymId(GymId)
 				.createDate(createDate)
 				.updateDate(updateDate)
 				.build();

@@ -1,4 +1,4 @@
-package dev.ewm.domain.GymStar;
+package dev.ewm.domain.gymStar;
 
 import java.time.LocalDateTime;
 import java.util.List;

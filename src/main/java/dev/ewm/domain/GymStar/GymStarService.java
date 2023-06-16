@@ -1,4 +1,4 @@
-package dev.ewm.domain.GymStar;
+package dev.ewm.domain.gymStar;
 
 public interface GymStarService {
 	GymStar register(GymStarDTO gymStarDto);

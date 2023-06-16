@@ -1,4 +1,4 @@
-package dev.ewm.domain.gym;
+package dev.ewm.domain.gymReply;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -10,7 +10,6 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
@@ -31,48 +30,35 @@ import lombok.NoArgsConstructor;
 @DynamicInsert
 @DynamicUpdate
 @EntityListeners(AuditingEntityListener.class)
-public class Gym {
+public class GymReply {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-    private Long id;
-	
-	@Column(nullable = false)
-    private String gymName;
-	
-	@Column(nullable = false)
-	private String address;
+	private Long id;
 	
 	@Column
-	private Integer priceOfMonth;
-	
-	@Column
-	@ColumnDefault("0")
-	private Double countingStar;
-	
-	@Column
-	private String description;
-	
+	private String reply;
+
 	@Column(nullable = false, updatable=false)
-	private Long userId;
+	private Long writerId;
+
+	@Column(nullable = false, updatable=false)
+	private Long GymId;
 	
 	@Column(updatable=false)
 	@CreatedDate
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDateTime createDate;
 	
-//	@Column
 	@LastModifiedDate
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDateTime updateDate;
 	
-	public GymDTO toDto() {
-		return GymDTO.builder()
+	public GymReplyDto toDto() {
+		return GymReplyDto.builder()
 				.id(id)
-				.gymName(gymName)
-				.address(address)
-				.priceOfMonth(priceOfMonth)
-				.countingStar(countingStar)
-				.userId(userId)
+				.reply(reply)
+				.writerId(writerId)
+				.GymId(GymId)
 				.createDate(createDate)
 				.updateDate(updateDate)
 				.build();
