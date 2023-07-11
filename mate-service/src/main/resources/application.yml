@@ -1,0 +1,52 @@
+
+#spring:
+#  profiles:
+#    active: dev
+#  datasource:
+#    url: jdbc:mariadb://15.164.188.74:3306/mate-db
+#    username: root
+#    password: 6548
+
+server:
+  port: 8080
+  servlet:
+    context-path: /mate-service
+
+spring:
+  application:
+    name: mate-service
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mariadb://15.164.188.74:3306/mate-db
+    username: root
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+#  kafka:
+#    bootstrap-servers: localhost:8081
+#    consumer:
+#      group-id: consumer-group-1
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://43.201.144.113:8761/eureka
