@@ -32,6 +32,7 @@ public class GymDTO {
 	@Min(1)
 	private Long userId;
 	
+	//private String description;
 	private LocalDateTime createDate;
 	private LocalDateTime updateDate;
 	

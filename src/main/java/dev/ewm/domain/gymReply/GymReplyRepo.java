@@ -1,5 +1,7 @@
 package dev.ewm.domain.gymReply;
 
-public interface GymReplyRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface GymReplyRepo extends JpaRepository<GymReply, Long> {
 
 }

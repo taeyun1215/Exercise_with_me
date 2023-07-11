@@ -17,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class JwtUtil {
 	
-//	public String createToken(String username, long expTime, String secretKey) {
 	public String createToken(User user, long expTime, String secretKey) {
 		if(expTime<=0) {
 			throw new RuntimeException("0이상 입력");
@@ -55,7 +54,6 @@ public class JwtUtil {
 		return bool;
 	}
 	
-//	public String getUserName(String token, String secretKey) {
 	public User getUser(String token, String secretKey) {
 		String username = "";
 		Long id = 0L;
@@ -67,12 +65,6 @@ public class JwtUtil {
 					.parseClaimsJws(token)
 					.getBody();
 			
-//			username = Jwts.parserBuilder()
-//					.setSigningKey(secretKey.getBytes())
-//					.build()
-//					.parseClaimsJws(token)
-//					.getBody()
-//					.get("username", String.class);
 			username = claims.get("username", String.class);
 			id = claims.get("id", Long.class);
         } catch (Exception e) {
@@ -85,14 +77,13 @@ public class JwtUtil {
 				.build();
 	}
 	
-//	public String checkRefresh(String refresh, String secretKey, String username) {
 	public String checkRefresh(String refresh, String secretKey, User user) {
-		return System.currentTimeMillis() - Jwts.parserBuilder()
+		return Jwts.parserBuilder()
 				.setSigningKey(secretKey.getBytes())
 				.build()
 				.parseClaimsJws(refresh)
 				.getBody()
 				.getExpiration()
-				.getTime()<1000*60*60*6L ? new StringBuilder("ewm ").append(createToken(user, 7 * 24 * 60 * 60 * 1000L, secretKey)).toString()  : refresh;
+				.getTime()-System.currentTimeMillis()<1000*60*60*6L ? "ewm " + createToken(user, 7 * 24 * 60 * 60 * 1000L, secretKey) : refresh;
 	}
 }

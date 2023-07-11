@@ -45,7 +45,6 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-//                .addFilterBefore(new JwtFilter(userService, secretKey), UsernamePasswordAuthenticationFilter.class).build();
                 .addFilterBefore(new JwtFilter(secretKey), UsernamePasswordAuthenticationFilter.class).build();
     }
 

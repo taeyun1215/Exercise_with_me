@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GymReplyController {
 	private final GymReplyService gymReplyService;
 	
-	@PostMapping("/")
+	@PostMapping("")
 	public ResponseEntity<ReturnObject> register(@RequestBody GymReplyDto gymReplyDto) {
 		gymReplyDto = gymReplyService.register(gymReplyDto);
 		
@@ -48,7 +48,7 @@ public class GymReplyController {
 		return ResponseEntity.status(HttpStatus.OK).body(returnObject);
 	}
 	
-	@PutMapping("/") 
+	@PutMapping("") 
 	public ResponseEntity<ReturnObject> modify(@RequestBody GymReplyDto gymReplyDto) {
 		gymReplyDto = gymReplyService.modify(gymReplyDto);
 		

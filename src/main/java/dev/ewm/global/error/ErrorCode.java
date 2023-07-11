@@ -11,7 +11,9 @@ public enum ErrorCode {
     LOGIN_ERROR(401, "아이디 또는 비밀번호를 확인해주세요"),
 
     // 게시글
-    MEMBER_NOT_EXISTS(400, "해당 회원은 존재하지 않습니다.");
+    MEMBER_NOT_EXISTS(400, "해당 회원은 존재하지 않습니다."),
+	
+	NOT_EXISTING_DATA(400, "해당 정보는 존재하지 않습니다.");
 
     private int code;
     private String message;

@@ -24,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
-//	private final UserService userService;
 	private final String secretKey;
 	
 	@Override
@@ -49,8 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
 			log.error("엑세스 토큰 만료");
 			
 			if(!jwtUtil.isExpired(refresh, secretKey)) {
-				response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(user, 30 * 60 * 1000L, secretKey)).toString());
-//				response.setHeader("Authorization", new StringBuilder("ewm ").append(jwtUtil.createToken(userName, 30 * 60 * 1000L, secretKey)).toString());
+				response.setHeader("Authorization", "ewm " + jwtUtil.createToken(user, 30 * 60 * 1000L, secretKey));
 			} else {
 				log.error("리프레쉬 토큰 만료");
 				filterChain.doFilter(request, response);

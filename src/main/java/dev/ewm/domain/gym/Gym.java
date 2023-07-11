@@ -49,8 +49,8 @@ public class Gym {
 	@ColumnDefault("0")
 	private Double countingStar;
 	
-	@Column
-	private String description;
+	//@Column
+	//private String description;
 	
 	@Column(nullable = false, updatable=false)
 	private Long userId;
@@ -60,7 +60,6 @@ public class Gym {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDateTime createDate;
 	
-//	@Column
 	@LastModifiedDate
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDateTime updateDate;

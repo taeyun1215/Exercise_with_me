@@ -2,9 +2,9 @@ package dev.ewm.domain.gym;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.ewm.global.error.ErrorCode;
 import dev.ewm.global.utils.ReturnObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 public class GymController {
 	private final GymService gymService;
 	
-	@PostMapping("/register")
+	@PostMapping("")
 	public ResponseEntity<ReturnObject> register(@RequestBody GymDTO gymDto) {
-		Gym gym = gymService.register(gymDto);
+		GymDTO gym = gymService.register(gymDto);
 		
 		ReturnObject returnObject = ReturnObject.builder()
                 .success(true)
@@ -40,7 +41,7 @@ public class GymController {
 	
 	@GetMapping("/list") 
 	public ResponseEntity<ReturnObject> list() {
-		List<Gym> list = gymService.getList();
+		List<GymDTO> list = gymService.getList();
 		
 		ReturnObject returnObject = ReturnObject.builder()
                 .success(true)
@@ -50,35 +51,83 @@ public class GymController {
 		return ResponseEntity.status(HttpStatus.OK).body(returnObject);
 	}
 	
-	@GetMapping("/detail/{id}")
-	public ResponseEntity<ReturnObject> detail(@PathVariable("id") Long id) {
-		Gym gym = gymService.getDetail(id);
+	@GetMapping("/{id}")
+	public ResponseEntity<ReturnObject> detail(@Valid @PathVariable("id") Long id) {
+		GymDTO gym = null;
+		boolean bool = true;
+		ErrorCode errorCode = null;
+		
+		try {
+			gym = gymService.getDetail(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			bool = false;
+			errorCode = ErrorCode.NOT_EXISTING_DATA;
+		}
 		
 		ReturnObject returnObject = ReturnObject.builder()
-                .success(true)
+                .success(bool)
                 .data(gym)
+                .errorCode(errorCode)
                 .build();
 		
 		return ResponseEntity.status(HttpStatus.OK).body(returnObject);
 	}
 	
-	@PutMapping("/modify")
-	public ResponseEntity<ReturnObject> modify(@RequestBody GymDTO gymDto) {
-		Gym gym = gymService.modify(gymDto);
+	@PutMapping("")
+	public ResponseEntity<ReturnObject> modify(@Valid @RequestBody GymModifyRequest gymDto) {
+		GymDTO gym = null;
+		boolean bool = true;
+		ErrorCode errorCode = null;
+		
+//		try {
+//			gym = gymService.modify(gymDto);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			bool = false;
+//			errorCode = ErrorCode.NOT_EXISTING_DATA;
+//		}
 		
 		ReturnObject returnObject = ReturnObject.builder()
-                .success(true)
+                .success(bool)
                 .data(gym)
+                .errorCode(errorCode)
                 .build();
 		
 		return ResponseEntity.status(HttpStatus.OK).body(returnObject);
 	}
+//	@PutMapping("")
+//	public ResponseEntity<ReturnObject> modify(@Valid @RequestBody GymDTO gymDto) {
+//		GymDTO gym = null;
+//		boolean bool = true;
+//		ErrorCode errorCode = null;
+//		
+//		try {
+//			gym = gymService.modify(gymDto);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			bool = false;
+//			errorCode = ErrorCode.NOT_EXISTING_DATA;
+//		}
+//		
+//		ReturnObject returnObject = ReturnObject.builder()
+//				.success(bool)
+//				.data(gym)
+//				.errorCode(errorCode)
+//				.build();
+//		
+//		return ResponseEntity.status(HttpStatus.OK).body(returnObject);
+//	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<ReturnObject> delete(@PathVariable("id") Long id) {
-		gymService.delete(id);
+		boolean bool = gymService.delete(id);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(null);
+		ReturnObject returnObject = ReturnObject.builder()
+                .success(bool)
+                .build();
+		
+		return ResponseEntity.status(HttpStatus.OK).body(returnObject);
 	}
 	
 	

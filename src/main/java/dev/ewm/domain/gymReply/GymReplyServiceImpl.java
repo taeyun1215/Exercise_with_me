@@ -1,31 +1,43 @@
 package dev.ewm.domain.gymReply;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class GymReplyServiceImpl implements GymReplyService {
+import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class GymReplyServiceImpl implements GymReplyService {
+	private final GymReplyRepo gymReplyRepo;
+	
 	@Override
 	public GymReplyDto register(GymReplyDto gymReplyDto) {
-		// TODO Auto-generated method stub
-		return null;
+		GymReply gymReply = gymReplyRepo.save(gymReplyDto.toEntity());
+		
+		return gymReply.toDto();
 	}
 
 	@Override
 	public List<GymReplyDto> getList(Long gymId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<GymReplyDto> list = new ArrayList<>();
+		
+		gymReplyRepo.findAll().forEach(l -> list.add(l.toDto()));
+
+		return list;
 	}
 
 	@Override
 	public GymReplyDto modify(GymReplyDto gymReplyDto) {
-		// TODO Auto-generated method stub
-		return null;
+		GymReply gymReply = gymReplyRepo.save(gymReplyDto.toEntity());
+		
+		return gymReply.toDto();
 	}
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
-
+		gymReplyRepo.deleteById(id);
 	}
 
 }

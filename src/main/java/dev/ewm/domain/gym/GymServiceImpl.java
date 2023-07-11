@@ -1,6 +1,6 @@
 package dev.ewm.domain.gym;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,53 +17,56 @@ public class GymServiceImpl implements GymService {
 	private final GymRepo gymRepo;
 	
 	@Override
-	@Transactional
-	public Gym register(GymDTO gymDto) {
-		Gym gym = gymRepo.save(gymDto.toEntity());
-		
-		return gym;
+	public GymDTO register(GymDTO gymDto) {
+		return gymRepo.save(gymDto.toEntity()).toDto();
 	}
 
 	@Override
-	@Transactional
-	public List<Gym> getList() {
-		List<Gym> list = gymRepo.findAll();
+	public List<GymDTO> getList() {
+		List<GymDTO> list = new ArrayList<>();
+		
+		gymRepo.findAll().forEach(l -> list.add(l.toDto()));
 
 		return list;
 	}
 
 	@Override
-	@Transactional
-	public Gym getDetail(Long id) {
+	public GymDTO getDetail(Long id) throws Exception {
 		Optional<Gym> optional = gymRepo.findById(id);
+		optional.orElseThrow(() -> new Exception("data is null"));
 		
-		Gym gym = optional.get();
-		
+		return optional.get().toDto();
+	}
+
+	@Override
+	@Transactional
+	public GymDTO modify(GymDTO gymDto) throws Exception {
+		GymDTO gym = gymRepo.save(gymDto.toEntity()).toDto();
 		return gym;
 	}
 
 	@Override
 	@Transactional
-	public Gym modify(GymDTO gymDto) {
-		gymDto.setUpdateDate(LocalDateTime.now());
+	public void modifyStarScore(Long gymId, Double avgStarScore) throws Exception {
+		GymDTO gymDto = getDetail(gymId);
 		
-		return gymRepo.save(gymDto.toEntity());
-	}
-
-	@Override
-	@Transactional
-	public void modifyStarScore(Long gymId, Double avgStarScore) {
-		GymDTO gymDto = getDetail(gymId).toDto();
 		gymDto.setCountingStar(avgStarScore);
 		modify(gymDto);
 	}
 
 	@Override
-	@Transactional
-	public void delete(Long id) {
-		//예외 처리를 위한 try-catch고려
-		gymRepo.deleteById(id);
-		log.info("{} 삭제 완료", id);
+	public boolean delete(Long id) {
+		boolean bool = true;
+		
+		try {
+			gymRepo.deleteById(id);
+			log.info("{} 삭제 완료", id);
+		} catch(Exception e) {
+			e.printStackTrace();
+			bool = false;
+		}
+		
+		return bool;
 	}
 
 }
