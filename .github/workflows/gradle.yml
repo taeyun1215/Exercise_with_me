@@ -25,7 +25,7 @@ jobs:
         run: echo ::set-output name=modified::$(git diff --name-only HEAD^ | grep -c 'mate-service/')
 
       - name: Build and Push user-service Docker Image
-        if: ${{ steps.user_service_changes.outputs.modified == '1' }}
+        if: ${{ steps.user_service_changes.outputs.modified == 'true' }}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -35,7 +35,7 @@ jobs:
           docker buildx build --platform linux/amd64 -t your-dockerhub-username/user-service:latest . --push
 
       - name: Build and Push mate-service Docker Image
-        if: ${{ steps.mate_service_changes.outputs.modified == '1' }}
+        if: ${{ steps.mate_service_changes.outputs.modified == 'true' }}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
