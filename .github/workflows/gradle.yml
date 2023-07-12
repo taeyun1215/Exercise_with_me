@@ -18,7 +18,7 @@ jobs:
 
       - name: Build and Push user-service Docker Image
 #        if: ${{ github.event.head_commit.modified.includes('user-service') }}
-        if: ${{ contains(github.event.head_commit.modified, 'user-service') }}
+        if: ${{ github.event.head_commit.modified != '' }}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -29,7 +29,7 @@ jobs:
 
       - name: Build and Push mate-service Docker Image
 #        if: ${{ github.event.head_commit.modified.includes('mate-service') }}
-        if: ${{ contains(github.event.head_commit.modified, 'mate-service') }}
+        if: ${{ github.event.head_commit.modified != '' }}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
