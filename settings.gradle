@@ -6,7 +6,6 @@ pluginManagement {
 	}
 }
 rootProject.name = 'demo'
-include 'user-service1'
 include 'user-service'
 include 'mate-service'
 
