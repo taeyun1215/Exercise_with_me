@@ -12,9 +12,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
-      - name: git log1
+      - name: git log
         run: git log --name-only --oneline -1
 
       - name: Set up JDK 11
@@ -30,7 +30,7 @@ jobs:
 
       - name: Check modified directories
         run: |
-          if git log -1 --name-only ${{ github.sha }} -- 'user-service' | grep -q 'user-service'; then
+          if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q 'user-service'; then
             echo "Directory modified: user-service"
             cd user-service
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
@@ -41,7 +41,7 @@ jobs:
             echo "No modifications in user-service directory"
           fi
 
-          if git log -1 --name-only ${{ github.sha }} -- 'mate-service' | grep -q 'mate-service'; then
+          if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q 'mate-service'; then
             echo "Directory modified: mate-service"
             cd mate-service
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
