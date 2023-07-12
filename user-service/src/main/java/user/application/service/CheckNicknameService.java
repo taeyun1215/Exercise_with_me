@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import user.application.port.in.query.CheckNicknameQuery;
 import user.application.port.out.LoadUserPort;
 import user.domain.User;
-import user.global.annotation.UseCase;
+import global.annotation.UseCase;
 
 import javax.transaction.Transactional;
 

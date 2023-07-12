@@ -1,4 +1,4 @@
-package user.global.kafka;
+package user.application.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;

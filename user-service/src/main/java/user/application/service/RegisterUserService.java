@@ -6,7 +6,7 @@ import user.application.port.in.command.RegisterUserCommand;
 import user.application.port.in.usecase.RegisterUserUseCase;
 import user.application.port.out.SaveUserPort;
 import user.domain.User;
-import user.global.annotation.UseCase;
+import global.annotation.UseCase;
 
 import javax.transaction.Transactional;
 import java.util.Objects;

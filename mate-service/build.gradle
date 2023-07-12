@@ -61,6 +61,9 @@ dependencies {
 
     // kafka
     implementation 'org.springframework.kafka:spring-kafka'
+
+    // global module
+//    implementation project(path: ':global')
 }
 
 dependencyManagement {

@@ -1,5 +1,6 @@
 package user.adapter.in.web;
 
+import global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import user.application.port.in.query.CheckNicknameQuery;
 import user.application.port.in.query.CheckUsernameQuery;
 import user.domain.User;
-import user.global.error.ErrorCode;
-import user.global.utils.ReturnObject;
+import global.utils.ReturnObject;
 
 @RestController
 @RequiredArgsConstructor

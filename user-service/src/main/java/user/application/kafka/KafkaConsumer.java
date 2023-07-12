@@ -1,4 +1,4 @@
-package user.global.kafka;
+package user.application.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

@@ -1,12 +1,12 @@
 package user.adapter.out.persistence;
 
+import global.annotation.PersistenceAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import user.application.port.out.LoadUserPort;
 import user.application.port.out.SaveUserPort;
 import user.application.port.out.UpdateUserStatePort;
 import user.domain.User;
-import user.global.annotation.PersistenceAdapter;
 
 import javax.persistence.EntityNotFoundException;
 

@@ -1,4 +1,4 @@
-package user.global.common;
+package global.common;
 
 import javax.validation.*;
 import java.util.Set;

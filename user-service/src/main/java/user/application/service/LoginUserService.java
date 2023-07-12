@@ -1,12 +1,12 @@
 package user.application.service;
 
+import global.annotation.UseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import user.adapter.in.request.LoginUserRequest;
 import user.application.port.in.query.CheckUsernameQuery;
 import user.application.port.in.usecase.LoginUserUseCase;
 import user.domain.User;
-import user.global.annotation.UseCase;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;

@@ -13,7 +13,7 @@ import user.adapter.out.response.RegisterUserResponse;
 import user.application.port.in.command.RegisterUserCommand;
 import user.application.port.in.usecase.RegisterUserUseCase;
 import user.domain.User;
-import user.global.utils.ReturnObject;
+import global.utils.ReturnObject;
 
 @RestController
 @RequiredArgsConstructor

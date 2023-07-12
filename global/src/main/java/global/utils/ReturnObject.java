@@ -1,8 +1,8 @@
-package user.global.utils;
+package global.utils;
 
+import global.error.ErrorCode;
 import lombok.Builder;
 import lombok.Data;
-import user.global.error.ErrorCode;
 
 @Builder
 @Data

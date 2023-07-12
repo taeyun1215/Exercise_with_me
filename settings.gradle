@@ -8,4 +8,5 @@ pluginManagement {
 rootProject.name = 'demo'
 include 'user-service'
 include 'mate-service'
+include 'global'
 

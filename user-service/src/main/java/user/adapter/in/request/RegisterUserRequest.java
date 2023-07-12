@@ -2,7 +2,7 @@ package user.adapter.in.request;
 
 import lombok.EqualsAndHashCode;
 import lombok.Value;
-import user.global.common.SelfValidating;
+import global.common.SelfValidating;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

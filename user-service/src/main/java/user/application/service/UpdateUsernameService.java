@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import user.application.port.in.usecase.UpdateUsernameUseCase;
 import user.application.port.out.UpdateUserStatePort;
 import user.domain.User;
-import user.global.annotation.UseCase;
+import global.annotation.UseCase;
 
 import javax.transaction.Transactional;
 

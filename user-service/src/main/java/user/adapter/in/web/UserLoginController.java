@@ -1,5 +1,6 @@
 package user.adapter.in.web;
 
+import global.utils.ReturnObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import user.adapter.out.persistence.UserResponseMapper;
 import user.adapter.out.response.LoginUserResponse;
 import user.application.port.in.usecase.LoginUserUseCase;
 import user.domain.User;
-import user.global.utils.ReturnObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

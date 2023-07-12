@@ -1,10 +1,10 @@
 package user.application.service;
 
+import global.annotation.UseCase;
 import lombok.RequiredArgsConstructor;
 import user.application.port.in.query.CheckUsernameQuery;
 import user.application.port.out.LoadUserPort;
 import user.domain.User;
-import user.global.annotation.UseCase;
 
 import javax.transaction.Transactional;
 

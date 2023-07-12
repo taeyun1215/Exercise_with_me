@@ -1,11 +1,11 @@
 package user.adapter.out.persistence;
 
+import global.baseEntity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import user.domain.constant.Role;
-import user.global.baseEntity.BaseTimeEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;

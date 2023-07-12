@@ -1,12 +1,12 @@
 package user.domain;
 
+import global.baseEntity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import user.adapter.out.persistence.UserJpaEntity;
 import user.domain.constant.Role;
-import user.global.baseEntity.BaseTimeEntity;
 
 import java.io.Serializable;
 import java.util.List;
