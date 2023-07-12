@@ -16,26 +16,30 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
+      - name: Check for changes in user-service
+        id: user_service_changes
+        run: echo ::set-output name=modified::$(git diff --name-only HEAD^ | grep -c 'user-service/')
+
+      - name: Check for changes in mate-service
+        id: mate_service_changes
+        run: echo ::set-output name=modified::$(git diff --name-only HEAD^ | grep -c 'mate-service/')
+
       - name: Build and Push user-service Docker Image
-#        if: ${{ github.event.head_commit.modified.includes('user-service') }}
-#        if: ${{ github.event.head_commit.modified != '' }}
-        if: ${{ steps.user_service_changes.outputs.modified == 'true' }}
+        if: ${{ steps.user_service_changes.outputs.modified == '1' }}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         working-directory: ./user-service
         run: |
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker buildx build --platform linux/amd64 -t $DOCKER_USERNAME/ewm-user:latest . --push
+          docker buildx build --platform linux/amd64 -t your-dockerhub-username/user-service:latest . --push
 
       - name: Build and Push mate-service Docker Image
-#        if: ${{ github.event.head_commit.modified.includes('mate-service') }}
-#        if: ${{ github.event.head_commit.modified != '' }}
-        if: ${{ steps.mate_service_changes.outputs.modified == 'true' }}
+        if: ${{ steps.mate_service_changes.outputs.modified == '1' }}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         working-directory: ./mate-service
         run: |
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker buildx build --platform linux/amd64 -t $DOCKER_USERNAME/ewm-mate:latest . --push
+          docker buildx build --platform linux/amd64 -t your-dockerhub-username/mate-service:latest . --push
