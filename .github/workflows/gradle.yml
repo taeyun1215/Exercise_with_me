@@ -27,7 +27,12 @@ jobs:
 
       - name: Check for changes in mate-service
         id: mate_service_changes
-        run: echo ::set-output name=modified::$(git diff --name-only HEAD^ | grep -c 'mate-service/')
+        run: |
+          if git log --name-only --oneline -1 | grep -q 'mate-service/'; then
+            echo ::set-output name=modified::true
+          else
+            echo ::set-output name=modified::false
+          fi
 
       - name: Build and Push user-service Docker Image
         if: ${{ steps.user_service_changes.outputs.modified == 'true' }}
@@ -37,7 +42,7 @@ jobs:
         working-directory: ./user-service
         run: |
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker buildx build --platform linux/amd64 -t your-dockerhub-username/user-service:latest . --push
+#          docker buildx build --platform linux/amd64 -t your-dockerhub-username/user-service:latest . --push
 
       - name: Build and Push mate-service Docker Image
         if: ${{ steps.mate_service_changes.outputs.modified == 'true' }}
@@ -47,4 +52,4 @@ jobs:
         working-directory: ./mate-service
         run: |
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker buildx build --platform linux/amd64 -t your-dockerhub-username/mate-service:latest . --push
+#          docker buildx build --platform linux/amd64 -t your-dockerhub-username/mate-service:latest . --push
