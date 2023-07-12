@@ -18,7 +18,12 @@ jobs:
 
       - name: Check for changes in user-service
         id: user_service_changes
-        run: echo ::set-output name=modified::$(git diff --name-only HEAD^ | grep -c 'user-service/')
+        run: |
+          if git log --name-only --oneline -1 | grep -q 'user-service/'; then
+            echo ::set-output name=modified::true
+          else
+            echo ::set-output name=modified::false
+          fi
 
       - name: Check for changes in mate-service
         id: mate_service_changes
