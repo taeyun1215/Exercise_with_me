@@ -34,6 +34,7 @@ jobs:
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             docker build -t ${{ secrets.DOCKER_REPO }}/ewm-user .
             docker push ${{ secrets.DOCKER_REPO }}/ewm-user
+            cd -
           else
             echo "No modifications in user-service directory"
           fi
@@ -44,6 +45,7 @@ jobs:
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             docker build -t ${{ secrets.DOCKER_REPO }}/ewm-mate .
             docker push ${{ secrets.DOCKER_REPO }}/ewm-mate
+            cd -
           else
             echo "No modifications in mate-service directory"
           fi
