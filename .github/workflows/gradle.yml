@@ -1,4 +1,4 @@
-name: Docker Build and Push
+name: Build and Push Docker Image
 
 on:
   push:
@@ -6,59 +6,31 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: git log
-        run: git diff --name-only HEAD^
-
-      - name: Check for changes in user-service
-        id: user_service_changes
+      - name: Check modified directories
         run: |
-          if git log --name-only --oneline -1 | grep -q 'user-service/'; then
-            echo ::set-output name=modified::true
-            echo 1
+          if [[ $(git diff --name-only HEAD^ HEAD) == *'user-service'* ]]; then
+            echo "Directory modified: user-service"
+            cd user-service
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            docker build -t ${{ secrets.DOCKER_REPO }}/ewm-user .
+            docker push ${{ secrets.DOCKER_REPO }}/ewm-user
           else
-            echo ::set-output name=modified::false
-            echo 2
+            echo "No modifications in user-service directory"
           fi
 
-      - name: Check for changes in mate-service
-        id: mate_service_changes
-        run: |
-          if git log --name-only --oneline -1 | grep -q 'mate-service/'; then
-            echo ::set-output name=modified::true
-            echo 3
+          if [[ $(git diff --name-only HEAD^ HEAD) == *'mate-service'* ]]; then
+            echo "Directory modified: mate-service"
+            cd mate-service
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            docker build -t ${{ secrets.DOCKER_REPO }}/ewm-mate .
+            docker push ${{ secrets.DOCKER_REPO }}/ewm-mate
           else
-            echo ::set-output name=modified::false
-            echo 4
+            echo "No modifications in mate-service directory"
           fi
-
-      - name: Build and Push user-service Docker Image
-        if: ${{ steps.user_service_changes.outputs.modified == 'true' }}
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        working-directory: ./user-service
-        run: |
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          echo 5
-#          docker buildx build --platform linux/amd64 -t your-dockerhub-username/user-service:latest . --push
-
-      - name: Build and Push mate-service Docker Image
-        if: ${{ steps.mate_service_changes.outputs.modified == 'true' }}
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        working-directory: ./mate-service
-        run: |
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          echo 6
-#          docker buildx build --platform linux/amd64 -t your-dockerhub-username/mate-service:latest . --push
