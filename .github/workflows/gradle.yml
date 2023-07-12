@@ -13,8 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Git log
+      - name: git log1
         run: git log --oneline -n 1
+
+      - name: git log2
+        run: git diff --name-only HEAD^
 
       - name: Check modified directories
         run: |
