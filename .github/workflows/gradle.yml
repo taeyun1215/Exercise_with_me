@@ -13,8 +13,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
+      - name: git log
         uses: docker/setup-buildx-action@v1
+
+      - name: Set up Docker Buildx
+        run: git log --name-only --oneline -1
 
       - name: Check for changes in user-service
         id: user_service_changes
