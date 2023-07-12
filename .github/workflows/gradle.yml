@@ -18,22 +18,24 @@ jobs:
 
       - name: Build and Push user-service Docker Image
 #        if: ${{ github.event.head_commit.modified.includes('user-service') }}
-        if: ${{ github.event.head_commit.modified != '' }}
+#        if: ${{ github.event.head_commit.modified != '' }}
+        if: ${{ steps.user_service_changes.outputs.modified == 'true' }}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         working-directory: ./user-service
         run: |
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker buildx build --platform linux/amd64 -t your-dockerhub-username/user-service:latest . --push
+          docker buildx build --platform linux/amd64 -t $DOCKER_USERNAME/ewm-user:latest . --push
 
       - name: Build and Push mate-service Docker Image
 #        if: ${{ github.event.head_commit.modified.includes('mate-service') }}
-        if: ${{ github.event.head_commit.modified != '' }}
+#        if: ${{ github.event.head_commit.modified != '' }}
+        if: ${{ steps.mate_service_changes.outputs.modified == 'true' }}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         working-directory: ./mate-service
         run: |
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker buildx build --platform linux/amd64 -t your-dockerhub-username/mate-service:latest . --push
+          docker buildx build --platform linux/amd64 -t $DOCKER_USERNAME/ewm-mate:latest . --push

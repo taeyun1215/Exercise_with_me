@@ -25,7 +25,7 @@ public class HealthCheckController {
     @GetMapping("/check")
     public String check(HttpServletRequest request) {
         log.info("Server port = {}", request.getServerPort());
-        return String.format("TTttthis is a message from user Service on PORT %s",
+        return String.format("TtttttTttthis is a message from user Service on PORT %s",
                 env.getProperty("local.server.port"));
     }
 }
