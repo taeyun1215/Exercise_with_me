@@ -16,6 +16,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
+      - name: Print Recent Commit
+        run: git log --max-count=1
+
       - name: Check for changes in user-service
         id: user_service_changes
         run: |
