@@ -17,7 +17,7 @@ jobs:
 
       - name: Check modified directories
         run: |
-          if git log -1 --name-only --pretty= --diff-filter=AM | grep -q 'user-service'; then
+          if git log -1 --name-only ${{ github.sha }} | grep -q 'user-service'; then
             echo "Directory modified: user-service"
             cd user-service
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
@@ -27,7 +27,7 @@ jobs:
             echo "No modifications in user-service directory"
           fi
 
-          if git log -1 --name-only --pretty= --diff-filter=AM | grep -q 'mate-service'; then
+          if git log -1 --name-only ${{ github.sha }} | grep -q 'mate-service'; then
             echo "Directory modified: mate-service"
             cd mate-service
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
