@@ -25,13 +25,25 @@ jobs:
 
       - name: Build with Gradle directories
         run: |
-          cd user-service
-          ./gradlew bootJar
-          cd -
-          
-          cd mate-service
-          ./gradlew bootJar
-          cd -
+          if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q 'user-service'; then
+            echo "Building: user-service"
+            cd user-service
+            chmod +x gradlew
+            ./gradlew bootJar
+            cd -
+          else
+            echo "No modifications in user-service directory, skip building."
+          fi
+
+          if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q 'mate-service'; then
+            echo "Building: mate-service"
+            cd mate-service
+            chmod +x gradlew
+            ./gradlew bootJar
+            cd -
+          else
+            echo "No modifications in mate-service directory, skip building."
+          fi
 
       - name: Check modified directories
         run: |
