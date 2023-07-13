@@ -23,10 +23,16 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Build with Gradle
+      - name: Build with Gradle directories
         run: |
+          cd user-service
           chmod +x gradlew
           ./gradlew bootJar
+          cd -
+          cd mate-service
+          chmod +x gradlew
+          ./gradlew bootJar
+          cd -
 
       - name: Check modified directories
         run: |
