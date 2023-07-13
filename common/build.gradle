@@ -69,6 +69,10 @@ compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
 }
 
+bootJar {
+    enabled = false
+}
+
 test {
     useJUnitPlatform()
 }
