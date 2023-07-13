@@ -1,14 +1,13 @@
 package mate.application.service.matePost;
 
+import global.annotation.UseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mate.adapter.in.request.CreateMatePostRequest;
 import mate.application.port.in.usecase.CreateMatePostUseCase;
 import mate.application.port.out.matePost.SaveMatePostPort;
 import mate.domain.MatePost;
-import mate.global.annotation.UseCase;
-import mate.global.kafka.KafkaProducer;
-import org.apache.kafka.common.internals.Topic;
+import mate.application.kafka.KafkaProducer;
 
 import javax.transaction.Transactional;
 

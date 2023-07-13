@@ -1,8 +1,10 @@
 package global.error;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public enum ErrorCode {
 
     // 유저

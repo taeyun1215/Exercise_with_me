@@ -1,9 +1,9 @@
 package mate.adapter.in.web.matePost;
 
+import global.utils.ReturnObject;
 import lombok.RequiredArgsConstructor;
 import mate.adapter.in.request.ModifyMatePostRequest;
 import mate.application.port.in.usecase.ModifyMatePostUseCase;
-import mate.global.utils.ReturnObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

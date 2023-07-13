@@ -6,14 +6,13 @@ import lombok.Builder;
 import lombok.Getter;
 import mate.adapter.out.persistence.mate.MateJpaEntity;
 import mate.domain.constant.Type;
-import mate.global.baseEntity.BaseTimeEntity;
 
 import java.io.Serializable;
 
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Mate extends BaseTimeEntity implements Serializable {
+public class Mate implements Serializable {
 
     private Long mateId;
     private Type type;

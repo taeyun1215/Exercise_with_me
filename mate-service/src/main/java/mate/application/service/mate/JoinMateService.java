@@ -1,5 +1,6 @@
 package mate.application.service.mate;
 
+import global.annotation.UseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mate.application.port.in.usecase.JoinMateUseCase;
@@ -10,7 +11,6 @@ import mate.application.port.out.matePost.LoadMatePostPort;
 import mate.domain.Mate;
 import mate.domain.MatePost;
 import mate.domain.constant.Type;
-import mate.global.annotation.UseCase;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;

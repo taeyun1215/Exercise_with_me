@@ -1,5 +1,6 @@
 package mate.application.service.matePost;
 
+import global.annotation.UseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mate.adapter.in.request.ModifyMatePostRequest;
@@ -7,7 +8,6 @@ import mate.application.port.in.query.LoadMatePostQuery;
 import mate.application.port.in.usecase.ModifyMatePostUseCase;
 import mate.application.port.out.matePost.SaveMatePostPort;
 import mate.domain.MatePost;
-import mate.global.annotation.UseCase;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j

@@ -1,9 +1,9 @@
 package mate.adapter.out.persistence.matePost;
 
+import global.annotation.PersistenceAdapter;
 import lombok.RequiredArgsConstructor;
 import mate.application.port.out.matePost.*;
 import mate.domain.MatePost;
-import mate.global.annotation.PersistenceAdapter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

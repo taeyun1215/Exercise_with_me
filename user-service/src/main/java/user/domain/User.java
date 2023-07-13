@@ -1,6 +1,5 @@
 package user.domain;
 
-import global.baseEntity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +13,7 @@ import java.util.List;
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class User extends BaseTimeEntity implements Serializable {
+public class User implements Serializable {
 
     private Long userId;
     private String username;

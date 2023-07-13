@@ -1,9 +1,9 @@
 package mate.adapter.in.request;
 
+import global.common.SelfValidating;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 import mate.domain.MatePost;
-import mate.global.common.SelfValidating;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalTime;

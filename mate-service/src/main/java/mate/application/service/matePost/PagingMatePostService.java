@@ -1,11 +1,11 @@
 package mate.application.service.matePost;
 
+import global.annotation.UseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mate.application.port.in.query.PagingMatePostQuery;
 import mate.application.port.out.matePost.PagingMatePostPort;
 import mate.domain.MatePost;
-import mate.global.annotation.UseCase;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;

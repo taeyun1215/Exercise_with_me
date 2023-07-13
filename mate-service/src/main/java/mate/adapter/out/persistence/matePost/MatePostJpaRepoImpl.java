@@ -23,7 +23,6 @@ public class MatePostJpaRepoImpl implements MatePostJpaRepoCustom {
                         eqGym(matePostJpaEntity.getGym()),
                         betweenTime(matePostJpaEntity.getStartTime(), matePostJpaEntity.getEndTime())
                 )
-                .orderBy(qMatePostJpaEntity.createdDate.desc())
                 .fetch();
     }
 

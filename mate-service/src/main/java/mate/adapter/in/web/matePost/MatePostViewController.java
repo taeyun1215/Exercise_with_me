@@ -1,11 +1,11 @@
 package mate.adapter.in.web.matePost;
 
+import global.utils.ReturnObject;
 import lombok.RequiredArgsConstructor;
 import mate.adapter.out.persistence.matePost.response.ViewMatePostResponse;
 import mate.application.port.in.query.LoadMatePostQuery;
 import mate.application.port.in.usecase.ViewCountUpMatePostUseCase;
 import mate.domain.MatePost;
-import mate.global.utils.ReturnObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

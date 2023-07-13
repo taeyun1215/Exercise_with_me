@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mate.global.baseEntity.BaseTimeEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -19,7 +18,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MatePostJpaEntity extends BaseTimeEntity {
+public class MatePostJpaEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import mate.adapter.in.request.ModifyMatePostRequest;
 import mate.adapter.out.persistence.matePost.MatePostJpaEntity;
-import mate.global.baseEntity.BaseTimeEntity;
 
 import java.io.Serializable;
 import java.time.LocalTime;
@@ -15,7 +14,7 @@ import java.util.List;
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class MatePost extends BaseTimeEntity implements Serializable {
+public class MatePost implements Serializable {
 
     private Long matePostId;
     private String title;

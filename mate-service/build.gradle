@@ -11,7 +11,7 @@ plugins {
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
-group = 'user'
+group = 'mate'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -63,7 +63,7 @@ dependencies {
     implementation 'org.springframework.kafka:spring-kafka'
 
     // global module
-//    implementation project(path: ':global')
+    implementation project(path: ':common')
 }
 
 dependencyManagement {

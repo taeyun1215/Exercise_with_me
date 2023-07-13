@@ -1,5 +1,6 @@
 package mate.adapter.out.persistence.mate;
 
+import global.annotation.PersistenceAdapter;
 import lombok.RequiredArgsConstructor;
 import mate.application.port.out.mate.DeleteMatePort;
 import mate.application.port.out.mate.ExistMatePort;
@@ -7,7 +8,6 @@ import mate.application.port.out.mate.LoadMatePort;
 import mate.application.port.out.mate.SaveMatePort;
 import mate.domain.Mate;
 import mate.domain.MatePost;
-import mate.global.annotation.PersistenceAdapter;
 
 @RequiredArgsConstructor
 @PersistenceAdapter

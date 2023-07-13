@@ -1,10 +1,10 @@
 package mate.adapter.in.web.matePost;
 
+import global.utils.ReturnObject;
 import lombok.RequiredArgsConstructor;
 import mate.adapter.in.request.CreateMatePostRequest;
 import mate.application.port.in.usecase.CreateMatePostUseCase;
-import mate.global.kafka.KafkaProducer;
-import mate.global.utils.ReturnObject;
+import mate.application.kafka.KafkaProducer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,8 +1,8 @@
 package mate.adapter.in.web.mate;
 
+import global.utils.ReturnObject;
 import lombok.RequiredArgsConstructor;
 import mate.application.port.in.usecase.JoinMateUseCase;
-import mate.global.utils.ReturnObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

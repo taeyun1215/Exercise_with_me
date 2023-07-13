@@ -1,10 +1,10 @@
 package mate.adapter.in.web.matePost;
 
+import global.utils.ReturnObject;
 import lombok.RequiredArgsConstructor;
 import mate.adapter.out.persistence.matePost.response.PagingMatePostResponse;
 import mate.application.port.in.query.PagingMatePostQuery;
 import mate.domain.MatePost;
-import mate.global.utils.ReturnObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
