@@ -26,11 +26,11 @@ jobs:
       - name: Build with Gradle directories
         run: |
           cd user-service
-          chmod +x gradlew
+#          chmod +x gradlew
           ./gradlew bootJar
           cd -
           cd mate-service
-          chmod +x gradlew
+#          chmod +x gradlew
           ./gradlew bootJar
           cd -
 
