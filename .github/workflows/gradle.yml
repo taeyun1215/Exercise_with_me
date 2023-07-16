@@ -25,46 +25,33 @@ jobs:
 
       - name: Build with Gradle directories
         run: |
-          if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q 'user-service'; then
-            echo "Building: user-service"
-            cd user-service
-            chmod +x gradlew
-            ./gradlew bootJar
-            cd -
-          else
-            echo "No modifications in user-service directory, skip building."
-          fi
-
-          if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q 'mate-service'; then
-            echo "Building: mate-service"
-            cd mate-service
-            chmod +x gradlew
-            ./gradlew bootJar
-            cd -
-          else
-            echo "No modifications in mate-service directory, skip building."
-          fi
-
+          for service in user-service mate-service
+          do
+            if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q $service; then
+              echo "Building: $service"
+              cd $service
+              chmod +x gradlew
+              ./gradlew bootJar
+              cd -
+            else
+              echo "No modifications in $service directory, skip building."
+            fi
+          done
+          
       - name: Check modified directories
         run: |
-          if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q 'user-service'; then
-            echo "Directory modified: user-service"
-            cd user-service
-            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-            docker build -t ${{ secrets.DOCKER_REPO }}/ewm-user .
-            docker push ${{ secrets.DOCKER_REPO }}/ewm-user
-            cd -
-          else
-            echo "No modifications in user-service directory"
-          fi
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-          if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q 'mate-service'; then
-            echo "Directory modified: mate-service"
-            cd mate-service
-            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-            docker build -t ${{ secrets.DOCKER_REPO }}/ewm-mate .
-            docker push ${{ secrets.DOCKER_REPO }}/ewm-mate
-            cd -
-          else
-            echo "No modifications in mate-service directory"
-          fi
+          for full_service_name in user-service mate-service
+          do
+            if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q $full_service_name; then
+              service=${full_service_name%-service}  # Remove "-service" from the end of $full_service_name
+              echo "Directory modified: $service"
+              cd $full_service_name
+              docker build -t ${{ secrets.DOCKER_REPO }}/ewm-$service .
+              docker push ${{ secrets.DOCKER_REPO }}/ewm-$service
+              cd -
+            else
+              echo "No modifications in $full_service_name directory"
+            fi
+          done
