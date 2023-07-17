@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to server 1
+      - name: Deploy to user server
         uses: fifsky/ssh-action@master
         with:
           command: |
@@ -21,17 +21,17 @@ jobs:
           user: ec2-user
           key: ${{ secrets.KEY1 }}
 
-      - name: Deploy to server 2
+      - name: Deploy to mate server
         uses: fifsky/ssh-action@master
         with:
           command: |
-            docker rmi taeyun1215/ewm-user
-            docker pull ${{ secrets.DOCKER_REPO }}/ewm-user
+            docker rmi taeyun1215/ewm-mate
+            docker pull ${{ secrets.DOCKER_REPO }}/ewm-mate
           host: ${{ secrets.HOST2 }}
           user: ec2-user
           key: ${{ secrets.KEY2 }}
 
-      - name: Deploy to server 3
+      - name: Deploy to product server
         uses: fifsky/ssh-action@master
         with:
           command: |
