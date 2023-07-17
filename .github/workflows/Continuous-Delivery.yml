@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: ["Build and Push Docker Image"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to server 1
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            docker rmi taeyun1215/ewm-user
+            docker pull ${{ secrets.DOCKER_REPO }}/ewm-user
+          host: ${{ secrets.HOST1 }}
+          user: ec2-user
+          key: ${{ secrets.KEY1 }}
+
+      - name: Deploy to server 2
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            docker rmi taeyun1215/ewm-user
+            docker pull ${{ secrets.DOCKER_REPO }}/ewm-user
+          host: ${{ secrets.HOST2 }}
+          user: ec2-user
+          key: ${{ secrets.KEY2 }}
