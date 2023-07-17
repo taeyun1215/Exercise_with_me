@@ -11,4 +11,5 @@ include 'mate-service'
 include 'common'
 include 'product-service'
 include 'product-service'
+include 'stock-service'
 
