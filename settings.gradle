@@ -9,5 +9,6 @@ rootProject.name = 'demo'
 include 'user-service'
 include 'mate-service'
 include 'common'
-
+include 'product-service'
+include 'product-service'
 

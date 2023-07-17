@@ -1,0 +1,43 @@
+
+#spring:
+#  profiles:
+#    active: dev
+#  datasource:
+#    url: jdbc:mariadb://43.201.144.113:3306/ewm
+#    username: root
+#    password: 6548
+
+server:
+  port: 8080
+  servlet:
+    context-path: /product-service
+
+spring:
+  application:
+    name: product-service
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mariadb://localhost:3306/product-db
+    username: root
+    password: taeyun1215
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+
