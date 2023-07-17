@@ -12,4 +12,5 @@ include 'common'
 include 'product-service'
 include 'product-service'
 include 'stock-service'
+include 'order-service'
 
