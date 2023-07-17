@@ -37,6 +37,6 @@ jobs:
           command: |
             docker rmi taeyun1215/ewm-product
             docker pull ${{ secrets.DOCKER_REPO }}/ewm-product
-          host: ${{ secrets.HOST2 }}
+          host: ${{ secrets.HOST1 }}
           user: ec2-user
-          key: ${{ secrets.KEY2 }}
+          key: ${{ secrets.KEY1 }}
