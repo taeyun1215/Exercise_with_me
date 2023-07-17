@@ -30,3 +30,13 @@ jobs:
           host: ${{ secrets.HOST2 }}
           user: ec2-user
           key: ${{ secrets.KEY2 }}
+
+      - name: Deploy to server 3
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            docker rmi taeyun1215/ewm-product
+            docker pull ${{ secrets.DOCKER_REPO }}/ewm-product
+          host: ${{ secrets.HOST2 }}
+          user: ec2-user
+          key: ${{ secrets.KEY2 }}
