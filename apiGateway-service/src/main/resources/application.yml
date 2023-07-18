@@ -1,0 +1,31 @@
+server:
+  port: 8000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://ewm-eureka:8761/eureka
+
+spring:
+  application:
+    name: ApiGateway-service
+  cloud:
+    gateway:
+      routes:
+        - uri: lb://user-service
+          predicates:
+            - Path=/user-service/**
+        - uri: http://15.164.188.74:8080
+          predicates:
+            - Path=/mate-service/**
+        - uri: lb://product-service
+          predicates:
+            - Path=/product-service/**
+        - uri: lb://stock-service
+          predicates:
+            - Path=/stock-service/**
+        - uri: lb://order-service
+          predicates:
+            - Path=/order-service/**
