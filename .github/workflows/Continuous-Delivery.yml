@@ -40,3 +40,33 @@ jobs:
           host: ${{ secrets.HOST1 }}
           user: ec2-user
           key: ${{ secrets.KEY1 }}
+
+      - name: Deploy to stock server
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            docker rmi taeyun1215/ewm-stock
+            docker pull ${{ secrets.DOCKER_REPO }}/ewm-stock
+          host: ${{ secrets.HOST1 }}
+          user: ec2-user
+          key: ${{ secrets.KEY1 }}
+
+      - name: Deploy to order server
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            docker rmi taeyun1215/ewm-order
+            docker pull ${{ secrets.DOCKER_REPO }}/ewm-order
+          host: ${{ secrets.HOST1 }}
+          user: ec2-user
+          key: ${{ secrets.KEY1 }}
+
+      - name: Deploy to api-gateway server
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            docker rmi taeyun1215/ewm-apigateway
+            docker pull ${{ secrets.DOCKER_REPO }}/ewm-apigateway
+          host: ${{ secrets.HOST1 }}
+          user: ec2-user
+          key: ${{ secrets.KEY1 }}
