@@ -70,3 +70,13 @@ jobs:
           host: ${{ secrets.HOST1 }}
           user: ec2-user
           key: ${{ secrets.KEY1 }}
+
+      - name: Deploy to eureka server
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            docker rmi taeyun1215/ewm-eureka
+            docker pull ${{ secrets.DOCKER_REPO }}/ewm-eureka
+          host: ${{ secrets.HOST1 }}
+          user: ec2-user
+          key: ${{ secrets.KEY1 }}
