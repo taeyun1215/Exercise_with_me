@@ -11,12 +11,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to user server
+      - name: Deploy services
         uses: fifsky/ssh-action@master
         with:
           command: |
-            docker rmi taeyun1215/ewm-user
-            docker pull ${{ secrets.DOCKER_REPO }}/ewm-user
+            for full_service_name in user-service mate-service product-service stock-service order-service apigateway-service eureka-service
+            do
+              if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q $full_service_name; then
+                service=${full_service_name%-service}  # Remove "-service" from the end of $full_service_name
+                echo "Docker image to be pulled: $service"
+                docker rmi taeyun1215/ewm-$service
+                docker pull ${{ secrets.DOCKER_REPO }}/ewm-$service
+              else
+                echo "No modifications in $service directory, skip docker rmi, pull."
+              fi
+            done
           host: ${{ secrets.HOST1 }}
           user: ec2-user
           key: ${{ secrets.KEY1 }}
@@ -30,53 +39,3 @@ jobs:
           host: ${{ secrets.HOST2 }}
           user: ec2-user
           key: ${{ secrets.KEY2 }}
-
-      - name: Deploy to product server
-        uses: fifsky/ssh-action@master
-        with:
-          command: |
-            docker rmi taeyun1215/ewm-product
-            docker pull ${{ secrets.DOCKER_REPO }}/ewm-product
-          host: ${{ secrets.HOST1 }}
-          user: ec2-user
-          key: ${{ secrets.KEY1 }}
-
-      - name: Deploy to stock server
-        uses: fifsky/ssh-action@master
-        with:
-          command: |
-            docker rmi taeyun1215/ewm-stock
-            docker pull ${{ secrets.DOCKER_REPO }}/ewm-stock
-          host: ${{ secrets.HOST1 }}
-          user: ec2-user
-          key: ${{ secrets.KEY1 }}
-
-      - name: Deploy to order server
-        uses: fifsky/ssh-action@master
-        with:
-          command: |
-            docker rmi taeyun1215/ewm-order
-            docker pull ${{ secrets.DOCKER_REPO }}/ewm-order
-          host: ${{ secrets.HOST1 }}
-          user: ec2-user
-          key: ${{ secrets.KEY1 }}
-
-      - name: Deploy to api-gateway server
-        uses: fifsky/ssh-action@master
-        with:
-          command: |
-            docker rmi taeyun1215/ewm-apigateway
-            docker pull ${{ secrets.DOCKER_REPO }}/ewm-apigateway
-          host: ${{ secrets.HOST1 }}
-          user: ec2-user
-          key: ${{ secrets.KEY1 }}
-
-      - name: Deploy to eureka server
-        uses: fifsky/ssh-action@master
-        with:
-          command: |
-            docker rmi taeyun1215/ewm-eureka
-            docker pull ${{ secrets.DOCKER_REPO }}/ewm-eureka
-          host: ${{ secrets.HOST1 }}
-          user: ec2-user
-          key: ${{ secrets.KEY1 }}
