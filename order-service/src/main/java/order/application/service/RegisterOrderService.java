@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import order.adapter.in.request.OrderItemRegisterRequest;
 import order.adapter.in.request.OrderRegisterRequest;
+import order.application.kafka.KafkaProducer;
 import order.application.port.in.RegisterOrderUseCase;
 import order.application.port.out.SaveOrderItemPort;
 import order.application.port.out.SaveOrderPort;
@@ -21,9 +22,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RegisterOrderService implements RegisterOrderUseCase {
 
-    private final ReduceStockUseCase reduceStockUseCase; // todo : kafka producer
     private final SaveOrderPort saveOrderPort;
     private final SaveOrderItemPort saveOrderItemPort;
+
+    private final KafkaProducer kafkaProducer;
 
     @Override
     public void registerOrder(Long userId, OrderRegisterRequest orderRegisterRequest) {
@@ -37,7 +39,7 @@ public class RegisterOrderService implements RegisterOrderUseCase {
         Order order = orderRegisterRequest.toEntity(userId);
 
         for (OrderItem orderItem : orderItems) {
-            reduceStockUseCase.reduceStock(orderItem);
+            kafkaProducer.reduceStock("reduce-stock", orderItem);
         }
         save(order, orderItems);
     }
