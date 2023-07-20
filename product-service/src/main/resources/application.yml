@@ -10,7 +10,7 @@ spring:
     active: dev
   datasource:
 #    url: jdbc:mariadb://localhost:3306/product-db
-    url: jdbc:mariadb://43.201.144.113:3306/product-db
+    url: jdbc:mariadb://15.164.188.74:3306/product-db
     username: root
 #    password: taeyun1215 #localhost
     password: 6548

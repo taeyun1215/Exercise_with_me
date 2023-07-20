@@ -10,7 +10,7 @@ spring:
     active: dev
   datasource:
 #    url: jdbc:mariadb://localhost:3306/mate-db
-    url: jdbc:mariadb://43.201.144.113:3306/mate-db
+    url: jdbc:mariadb://15.164.188.74:3306/mate-db
     username: root
 #    password: taeyun1215
     password: 6548
@@ -43,4 +43,4 @@ eureka:
     fetch-registry: true
     service-url:
 #      defaultZone: http://localhost:8761/eureka
-      defaultZone: http://43.201.144.113:8761/eureka
+      defaultZone: http://ewm-eureka:8761/eureka
