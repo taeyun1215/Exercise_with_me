@@ -1,6 +1,5 @@
 package product.adapter.in.request;
 
-import com.sun.istack.NotNull;
 import global.common.SelfValidating;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
@@ -20,7 +19,6 @@ public class RegisterProductRequest extends SelfValidating<RegisterProductReques
     @Range(min = 10, message = "제품가격은 최소 10원 이상이어야 합니다")
     private int price;
 
-    @NotNull
     private Status status;
 
     @NotBlank(message = "상품 설명을 입력해주세요")

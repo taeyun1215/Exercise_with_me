@@ -19,7 +19,7 @@ public class HealthCheckController {
 
     @GetMapping("/welcome")
     public String welcome() {
-        return "Welcome to the user service.";
+        return "Welcome to the order service.";
     }
 
     @GetMapping("/check")
