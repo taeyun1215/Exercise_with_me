@@ -15,6 +15,7 @@ public class AddStockRequest extends SelfValidating<AddStockRequest> {
 
     public AddStockRequest(int quantity) {
         this.quantity = quantity;
+        this.validateSelf();
     }
 
     public Stock toEntity(Long productId) {
