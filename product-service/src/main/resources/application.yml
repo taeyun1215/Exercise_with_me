@@ -1,14 +1,5 @@
-
-#spring:
-#  profiles:
-#    active: dev
-#  datasource:
-#    url: jdbc:mariadb://43.201.144.113:3306/ewm
-#    username: root
-#    password: 6548
-
 server:
-  port: 8080
+  port: 8083
   servlet:
     context-path: /product-service
 
@@ -18,9 +9,11 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mariadb://localhost:3306/product-db
+#    url: jdbc:mariadb://localhost:3306/product-db
+    url: jdbc:mariadb://43.201.144.113:3306/product-db
     username: root
-    password: taeyun1215
+#    password: taeyun1215 #localhost
+    password: 6548
 
   jpa:
     hibernate:
@@ -38,6 +31,6 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
-
+#      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://ewm-eureka:8761/eureka
 

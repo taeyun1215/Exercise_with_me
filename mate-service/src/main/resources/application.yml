@@ -1,14 +1,5 @@
-
-#spring:
-#  profiles:
-#    active: dev
-#  datasource:
-#    url: jdbc:mariadb://15.164.188.74:3306/mate-db
-#    username: root
-#    password: 6548
-
 server:
-  port: 8080
+  port: 8082
   servlet:
     context-path: /mate-service
 
@@ -18,9 +9,11 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mariadb://localhost:3306/mate-db
+#    url: jdbc:mariadb://localhost:3306/mate-db
+    url: jdbc:mariadb://43.201.144.113:3306/mate-db
     username: root
-    password: taeyun1215
+#    password: taeyun1215
+    password: 6548
 
   jpa:
     hibernate:
@@ -49,5 +42,5 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
-      #defaultZone: http://43.201.144.113:8761/eureka
+#      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://43.201.144.113:8761/eureka

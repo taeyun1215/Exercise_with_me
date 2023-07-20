@@ -8,7 +8,7 @@
 #    password: 6548
 
 server:
-  port: 8080
+  port: 8081
   servlet:
     context-path: /user-service
 
@@ -18,9 +18,12 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mariadb://localhost:3306/user-db
+#    url: jdbc:mariadb://localhost:3306/user-db
+    url: jdbc:mariadb://43.201.144.113:3306/user-db
     username: root
-    password: taeyun1215
+#    password: taeyun1215 #localhost
+    password: 6548
+
 
   jpa:
     hibernate:
@@ -72,6 +75,6 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
-
+#      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://ewm-eureka:8761/eureka
 
