@@ -13,6 +13,6 @@ include 'product-service'
 include 'product-service'
 include 'stock-service'
 include 'order-service'
-include 'apiGateway-service'
 include 'eureka-service'
+include 'apigateway-service'
 
