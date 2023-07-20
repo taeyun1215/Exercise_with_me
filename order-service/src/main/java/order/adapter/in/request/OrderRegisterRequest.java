@@ -6,7 +6,9 @@ import lombok.Value;
 import order.domain.Order;
 import order.domain.constant.OrderStatus;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Value
@@ -22,7 +24,8 @@ public class OrderRegisterRequest extends SelfValidating<OrderRegisterRequest> {
     @NotBlank(message = "주소는 필수 입력 값입니다.")
     private String receiverAddress;
 
-    @NotBlank(message = "상품은 필수 입력 값입니다.")
+    @Valid
+    @NotEmpty(message = "상품은 필수 입력 값입니다.")
     private List<OrderItemRegisterRequest> orderItemRegisterRequests;
 
     public OrderRegisterRequest(

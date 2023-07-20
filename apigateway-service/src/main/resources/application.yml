@@ -6,7 +6,8 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://ewm-eureka:8761/eureka
+      defaultZone: http://localhost:8761/eureka
+#      defaultZone: http://ewm-eureka:8761/eureka
 
 spring:
   application:

@@ -1,5 +1,7 @@
 package stock.adapter.in.request;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import global.common.SelfValidating;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
@@ -13,7 +15,8 @@ public class AddStockRequest extends SelfValidating<AddStockRequest> {
     @Range(min = 1, message = "재고 수량은 최소 1개 이상이어야 합니다")
     private int quantity;
 
-    public AddStockRequest(int quantity) {
+    @JsonCreator
+    public AddStockRequest(@JsonProperty("quantity") int quantity) {
         this.quantity = quantity;
         this.validateSelf();
     }

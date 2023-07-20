@@ -33,7 +33,6 @@ public class RegisterOrderService implements RegisterOrderUseCase {
 
         for (OrderItemRegisterRequest orderItemRegisterRequest : orderRegisterRequest.getOrderItemRegisterRequests()) {
             OrderItem orderItem = orderItemRegisterRequest.toEntity();
-            orderItemRegisterRequest.getProductId();
             orderItems.add(orderItem);
         }
         Order order = orderRegisterRequest.toEntity(userId);
@@ -47,7 +46,7 @@ public class RegisterOrderService implements RegisterOrderUseCase {
     private void save(Order order, List<OrderItem> orderItems) {
         saveOrderPort.saveOrder(order);
         for (OrderItem orderItem : orderItems) {
-            orderItem.setOrderId(order.getOrderId());
+            orderItem.setOrderId(order.getOrderId()); // todo : order 저장하고 나서 싱글톤이라 같은 객체를 사용하는줄 알았는데 아님.
             saveOrderItemPort.saveOrderItem(orderItem);
         }
     }
