@@ -28,6 +28,7 @@ jobs:
               docker rmi taeyun1215/ewm-$service
               docker pull ${{ secrets.DOCKER_REPO }}/ewm-$service
             done
+            docker-compose up -d
           host: ${{ secrets.HOST1 }}
           user: ec2-user
           key: ${{ secrets.KEY1 }}
@@ -36,8 +37,10 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
+            docker-compose down
             docker rmi taeyun1215/ewm-mate
             docker pull ${{ secrets.DOCKER_REPO }}/ewm-mate
+            docker-compose up -d
           host: ${{ secrets.HOST2 }}
           user: ec2-user
           key: ${{ secrets.KEY2 }}

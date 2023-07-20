@@ -8,6 +8,7 @@ import product.domain.Product;
 import product.domain.constant.Status;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Value
 @EqualsAndHashCode(callSuper = false)
@@ -24,7 +25,7 @@ public class RegisterProductRequest extends SelfValidating<RegisterProductReques
     @NotBlank(message = "상품 설명을 입력해주세요")
     private String description;
 
-    @NotBlank(message = "카테고리를 선택해주세요.")
+    @NotNull(message = "카테고리 ID는 필수입니다")
     private Long categoryId;
 
     public RegisterProductRequest(
