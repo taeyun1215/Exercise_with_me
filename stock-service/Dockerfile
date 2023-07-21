@@ -12,4 +12,4 @@ COPY ${JAR_FILE} app.jar
 
 #ENTRYPOINT ["java","-jar","/app.jar"]
 
-ENTRYPOINT ["java", "-Dspring.config.location=/home/ec2-user/secret/application.yml","-jar","/app.jar"]
+ENTRYPOINT ["java", "-Dspring.config.location=/home/ec2-user/secret/stock-application.yml","-jar","/app.jar"]
