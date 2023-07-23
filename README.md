@@ -6,7 +6,7 @@
 ### Infrastructures
 
 ### Review
-- [Clean Architecture 도입기](https://velog.io/@devty/MSA-Phase-1.-Springboot1)  
+- [Clean Architecture 도입기](https://velog.io/@devty/Clean-Architecture)  
 
 - [우당탕 동시성 제어하기](https://velog.io/@devty/%EC%9A%B0%EB%8B%B9%ED%83%95-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4%ED%95%98%EA%B8%B0)  
 
