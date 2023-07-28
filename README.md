@@ -13,3 +13,5 @@
 - [엉금엉금 Kafka 도입기](https://velog.io/@devty/%EC%97%89%EA%B8%88%EC%97%89%EA%B8%88-Kafka-%EB%8F%84%EC%9E%85%EA%B8%B0)  
 
 - [MSA Phase 1. Springboot(1)](https://velog.io/@devty/MSA-Phase-1.-Springboot1)  
+
+- [MSA Phase 1. Springboot(2)](https://velog.io/@devty/MSA-Phase-1.-Springboot2) 
