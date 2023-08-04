@@ -1,147 +1,103 @@
 package controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import global.utils.ReturnObject;
 import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import user.adapter.in.request.RegisterUserRequest;
-import user.adapter.out.persistence.UserJpaEntity;
-import user.adapter.out.persistence.UserJpaRepo;
+import user.adapter.in.web.UserRegisterController;
+import user.adapter.out.persistence.UserResponseMapper;
+import user.adapter.out.response.RegisterUserResponse;
+import user.application.port.in.usecase.RegisterUserUseCase;
+import user.domain.User;
 import user.domain.constant.Role;
 
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Transactional
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ExtendWith(MockitoExtension.class)
 public class UserRegisterControllerTest {
 
-    @Autowired
-    MockMvc mockMvc;
+    @Mock
+    private RegisterUserUseCase registerUserUseCase;
 
-    @Autowired
-    UserJpaRepo userJpaRepo;
+    @Mock
+    private UserResponseMapper userResponseMapper;
+
+    @InjectMocks
+    private UserRegisterController userRegisterController;
+
+    RegisterUserRequest request;
+    User mockUser;
+    RegisterUserResponse mockResponse;
 
     @BeforeEach
-    public void init() {
-        UserJpaEntity user = UserJpaEntity.builder()
-                .username("test111")
-                .password("비밀번호486!")
-                .nickname("test")
-                .phone("010-2415-6806")
-                .email("test@naver.com")
+    public void setUp() {
+        // RegisterUserRequest 객체 생성
+        request = new RegisterUserRequest(
+                "testuser",
+                "test111!!!",
+                "test111!!!",
+                "testNickname",
+                "010-1234-5678",
+                "testuser@example.com"
+        );
+
+        // User 객체 생성
+        mockUser = User.builder()
+                .userId(1L)
+                .username("testuser")
+                .password("test111!!!")
+                .nickname("testNickname")
+                .phone("010-1234-5678")
+                .email("testuser@example.com")
                 .role(Role.USER)
                 .build();
 
-        userJpaRepo.save(user);
+        // RegisterUserResponse 객체 생성
+        mockResponse = RegisterUserResponse.builder()
+                .username("testuser")
+                .nickname("testNickname")
+                .phone("010-1234-5678")
+                .email("testuser@example.com")
+                .role(Role.USER)
+                .build();
     }
 
-    @AfterEach
-    public void clear() {
-        // 테스트용 게시글 데이터 삭제
-        userJpaRepo.deleteAll();
+    @Test
+    public void shouldRegisterUser() throws Exception {
+        /*
+        * given
+        * UserRegisterController에 영향을 미치는 즉, 의존성을 주입하는 메소드만 받아서 사용하면 된다.
+        */
+        when(registerUserUseCase.registerUser(any())).thenReturn(mockUser);
+        when(userResponseMapper.mapToRegisterUserResponse(any())).thenReturn(mockResponse);
+
+        /*
+        * when
+        * 테스트하려는 메소드를 실행하는 단계이다.
+        */
+        ResponseEntity<ReturnObject> response = userRegisterController.registerUser(request);
+
+        /*
+        * then
+        * 테스트한 메소드에 대한 결과를 검증한다.
+        */
+        // 응답 상태 코드가 OK(200)인지 확인한다.
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        // 응답 본문의 데이터가 우리가 mocking한 response 객체와 동일한지 확인한다.
+        assertEquals(mockResponse, response.getBody().getData());
+        // UserRegisterController에서 registerUserUseCase.registerUser()가 1번 실행됐는지 확인하기.
+        verify(registerUserUseCase, times(1)).registerUser(any());
+        // UserRegisterController에서 userResponseMapper.mapToRegisterUserResponse()가 1번 실행됐는지 확인하기.
+        verify(userResponseMapper, times(1)).mapToRegisterUserResponse(any());
     }
-
-    @Test // @Test : 테스트가 수행되는 메소드를 가르킨다.
-    @DisplayName("회원가입 성공 테스트")
-    public void registerUserTest() throws Exception {
-        // Given
-        RegisterUserRequest request = new RegisterUserRequest(
-                "devty1215",
-                "woogi101^^",
-                "woogi101^^",
-                "test22222",
-                "010-1111-2222",
-                "taeyun1215@naver.com"
-        );
-
-        // When
-        final ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/user-service/users/register")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(request))
-        );
-
-        // then
-        resultActions
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.username", is("devty1215")))
-                .andExpect(jsonPath("$.data.nickname", is("test22222")))
-                .andExpect(jsonPath("$.data.phone", is("010-1111-2222")))
-                .andExpect(jsonPath("$.data.email", is("taeyun1215@naver.com")));
-    }
-
-    @Nested
-    @DisplayName("실패 테스트")
-    class FailCases {
-        @Nested
-        @DisplayName("username")
-        class userId {
-            @Test
-            @DisplayName("null")
-            void failUserId1() throws Exception {
-                // Given
-                RegisterUserRequest request = new RegisterUserRequest(
-                        null,
-                        "woogi101^^",
-                        "woogi101^^",
-                        "test22222",
-                        "010-1111-2222",
-                        "taeyun1215@naver.com"
-                );
-
-                // When
-                final ResultActions resultActions = mockMvc.perform(
-                        MockMvcRequestBuilders.post("/user-service/users/register")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(new ObjectMapper().writeValueAsString(request))
-                );
-
-                // Then
-                resultActions
-                        .andDo(print())
-                        .andExpect(status().isBadRequest())
-                        .andExpect(jsonPath("$.message", is("username는 필수 값입니다.")));
-            }
-
-            @Test
-            @DisplayName("mismatch pattern")
-            void failUserId2() throws Exception {
-                // Given
-                RegisterUserRequest request = new RegisterUserRequest(
-                        "tttttttt",
-                        "woogi101^^",
-                        "woogi101^^",
-                        "test22222",
-                        "010-1111-2222",
-                        "taeyun1215@naver.com"
-                );
-
-                // When
-                final ResultActions resultActions = mockMvc.perform(
-                        MockMvcRequestBuilders.post("/user-service/users/register")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(new ObjectMapper().writeValueAsString(request))
-                );
-
-                // Then
-                resultActions
-                        .andDo(print())
-                        .andExpect(status().isBadRequest())
-                        .andExpect(jsonPath("$.message", is("username가 패턴에 맞지 않습니다.")));
-            }
-        }
-    }
-
 }
+
+
+
