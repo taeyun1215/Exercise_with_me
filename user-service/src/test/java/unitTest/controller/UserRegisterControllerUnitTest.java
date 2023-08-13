@@ -1,4 +1,4 @@
-package controller;
+package unitTest.controller;
 
 import global.utils.ReturnObject;
 import org.junit.jupiter.api.*;
@@ -21,7 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class UserRegisterControllerTest {
+public class UserRegisterControllerUnitTest {
 
     @Mock
     private RegisterUserUseCase registerUserUseCase;
