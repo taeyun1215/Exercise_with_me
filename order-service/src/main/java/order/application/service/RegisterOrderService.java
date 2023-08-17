@@ -11,6 +11,9 @@ import order.application.port.out.SaveOrderItemPort;
 import order.application.port.out.SaveOrderPort;
 import order.domain.Order;
 import order.domain.OrderItem;
+import order.domain.events.OrderCreatedEvent;
+import org.axonframework.eventhandling.gateway.EventGateway;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -27,9 +30,15 @@ public class RegisterOrderService implements RegisterOrderUseCase {
 
     private final KafkaProducer kafkaProducer;
 
+    @Autowired
+    private EventGateway eventGateway;
+
     @Override
     public void registerOrder(Long userId, OrderRegisterRequest orderRegisterRequest) {
         List<OrderItem> orderItems = new ArrayList<>();
+
+        // todo : 주문 생성후 orchestration에 보내주기
+        // eventGateway.publish(new OrderCreatedEvent(order.getId(), order.getProductId(), order.getCount()));
 
         for (OrderItemRegisterRequest orderItemRegisterRequest : orderRegisterRequest.getOrderItemRegisterRequests()) {
             OrderItem orderItem = orderItemRegisterRequest.toEntity();
