@@ -7,6 +7,7 @@ import order.adapter.in.request.OrderItemRegisterRequest;
 import order.adapter.in.request.OrderRegisterRequest;
 import order.application.kafka.KafkaProducer;
 import order.application.port.in.RegisterOrderUseCase;
+import order.application.port.out.LoadOrderPort;
 import order.application.port.out.SaveOrderItemPort;
 import order.application.port.out.SaveOrderPort;
 import order.domain.Order;
@@ -28,6 +29,8 @@ public class RegisterOrderService implements RegisterOrderUseCase {
     private final SaveOrderPort saveOrderPort;
     private final SaveOrderItemPort saveOrderItemPort;
 
+    private final LoadOrderPort loadOrderPort;
+
     private final KafkaProducer kafkaProducer;
 
     @Autowired
@@ -35,29 +38,29 @@ public class RegisterOrderService implements RegisterOrderUseCase {
 
     @Override
     public void registerOrder(Long userId, OrderRegisterRequest orderRegisterRequest) {
-        List<OrderItem> orderItems = new ArrayList<>();
+        Order order = orderRegisterRequest.toEntity(userId);
+        saveOrderPort.saveOrder(order);
 
-        // todo : 주문 생성후 orchestration에 보내주기
-        // eventGateway.publish(new OrderCreatedEvent(order.getId(), order.getProductId(), order.getCount()));
+        List<OrderCreatedEvent.OrderItemInfo> orderItemInfos = new ArrayList<>();
+        List<OrderItem> orderItems = new ArrayList<>();
 
         for (OrderItemRegisterRequest orderItemRegisterRequest : orderRegisterRequest.getOrderItemRegisterRequests()) {
             OrderItem orderItem = orderItemRegisterRequest.toEntity();
+            orderItem.setOrderId(order.getOrderId());
             orderItems.add(orderItem);
-        }
-        Order order = orderRegisterRequest.toEntity(userId);
-
-        for (OrderItem orderItem : orderItems) {
-            kafkaProducer.reduceStock("reduce-stock", orderItem);
-        }
-        save(order, orderItems);
-    }
-
-    private void save(Order order, List<OrderItem> orderItems) {
-        saveOrderPort.saveOrder(order);
-        for (OrderItem orderItem : orderItems) {
-            orderItem.setOrderId(order.getOrderId()); // todo : order 저장하고 나서 싱글톤이라 같은 객체를 사용하는줄 알았는데 아님.
             saveOrderItemPort.saveOrderItem(orderItem);
+
+            orderItemInfos.add(new OrderCreatedEvent.OrderItemInfo(orderItem.getProductId(), orderItem.getCount()));
         }
+
+        // 주문 생성 이벤트 발행 (주문 아이템 정보 포함)
+        eventGateway.publish(new OrderCreatedEvent(order.getOrderId(), orderItemInfos));
     }
 
+    @Override
+    public void completeOrder(Long orderId) {
+        Order order = loadOrderPort.loadOrder(orderId);
+        order.complete();
+        saveOrderPort.saveOrder(order);
+    }
 }

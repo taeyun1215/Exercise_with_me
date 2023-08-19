@@ -9,6 +9,7 @@ public enum OrderStatus {
 
     ORDER_CREATED("주문시작"),
     ORDER_CANCEL("주문취소"),
+    ORDER_COMPLETE("주문완료"),
     PAYED("결제완료"),
     BEING_PREPARED("배송준비중"),
     SHIPPING("배송중"),

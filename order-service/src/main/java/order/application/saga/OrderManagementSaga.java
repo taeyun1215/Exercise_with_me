@@ -1,5 +1,11 @@
 package order.application.saga;
 
+import lombok.extern.slf4j.Slf4j;
+import order.application.port.in.command.CompleteOrderCommand;
+import global.command.ReduceStockCommand;
+import global.event.StockReducedEvent;
+import global.event.StockSoldOutEvent;
+import order.domain.events.OrderCompletedEvent;
 import order.domain.events.OrderCreatedEvent;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.modelling.saga.EndSaga;
@@ -9,6 +15,7 @@ import org.axonframework.spring.stereotype.Saga;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Saga
+@Slf4j
 public class OrderManagementSaga {
 
     @Autowired
@@ -18,7 +25,10 @@ public class OrderManagementSaga {
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(OrderCreatedEvent event) {
         // 주문 생성 후 재고 감소 커맨드 전송
-        commandGateway.send(new ReduceStockCommand(event.getProductId(), event.getCount()));
+        for (OrderCreatedEvent.OrderItemInfo orderItemInfo : event.getOrderItems()) {
+            // 각 주문 아이템에 대한 재고 감소 커맨드 전송
+            commandGateway.send(new ReduceStockCommand(orderItemInfo.getProductId(), orderItemInfo.getCount(), event.getOrderId()));
+        }
     }
 
     @SagaEventHandler(associationProperty = "productId")
@@ -28,7 +38,7 @@ public class OrderManagementSaga {
     }
 
     @SagaEventHandler(associationProperty = "productId")
-    public void handle(StockInsufficientEvent event) {
+    public void handle(StockSoldOutEvent event) {
         // 재고 부족 시 주문 취소 커맨드 전송
         commandGateway.send(new CancelOrderCommand(event.getOrderId()));
     }
@@ -36,7 +46,7 @@ public class OrderManagementSaga {
     @EndSaga
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(OrderCompletedEvent event) {
-        // 주문이 완료되면 Saga 종료
+        log.info("Order with ID: " + event.getOrderId() + " has been successfully completed.");
     }
 
     @EndSaga

@@ -30,6 +30,10 @@ public class Order {
                 .build();
     }
 
+    public void complete() {
+        orderStatus = OrderStatus.ORDER_COMPLETE;
+    }
+
     public void cancelOrder() {
         orderStatus = OrderStatus.ORDER_CANCEL;
     }

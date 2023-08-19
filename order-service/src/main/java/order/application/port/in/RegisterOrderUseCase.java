@@ -6,4 +6,6 @@ public interface RegisterOrderUseCase {
 
     void registerOrder(Long userId, OrderRegisterRequest orderRegisterRequest);
 
+    void completeOrder(Long orderId);
+
 }
