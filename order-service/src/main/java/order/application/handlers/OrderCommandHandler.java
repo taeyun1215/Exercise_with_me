@@ -2,8 +2,11 @@ package order.application.handlers;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import order.application.port.in.CancelOrderUseCase;
 import order.application.port.in.RegisterOrderUseCase;
+import order.application.port.in.command.CancelOrderCommand;
 import order.application.port.in.command.CompleteOrderCommand;
+import order.domain.events.OrderCancelledEvent;
 import order.domain.events.OrderCompletedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventhandling.gateway.EventGateway;
@@ -19,6 +22,7 @@ public class OrderCommandHandler {
     private EventGateway eventGateway;
 
     private final RegisterOrderUseCase registerOrderUseCase;
+    private final CancelOrderUseCase cancelOrderUseCase;
 
     @CommandHandler
     public void handle(CompleteOrderCommand command) {
@@ -26,4 +30,12 @@ public class OrderCommandHandler {
         eventGateway.publish(new OrderCompletedEvent(command.getOrderId()));
         log.info("Order completed with ID: " + command.getOrderId());
     }
+
+    @CommandHandler
+    public void handle(CancelOrderCommand command) {
+        cancelOrderUseCase.CancelOrder(command.getOrderId());
+        eventGateway.publish(new OrderCancelledEvent(command.getOrderId()));
+        log.info("Order cancel with ID: " + command.getOrderId());
+    }
+
 }

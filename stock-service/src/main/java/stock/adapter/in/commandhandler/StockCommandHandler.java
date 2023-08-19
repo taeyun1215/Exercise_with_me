@@ -30,7 +30,7 @@ public class StockCommandHandler {
 
         } catch (RuntimeException e) {
             // 재고 부족시 StockSoldOutEvent 발행
-            eventGateway.publish(new StockSoldOutEvent(command.getProductId()));
+            eventGateway.publish(new StockSoldOutEvent(command.getProductId(), command.getOrderId()));
         }
     }
 }

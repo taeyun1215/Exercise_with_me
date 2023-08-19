@@ -27,7 +27,7 @@ public class CancelOrderService implements CancelOrderUseCase {
     private final KafkaProducer kafkaProducer;
 
     @Override
-    public void CancelOrder(Long orderId, Long userId) {
+    public void CancelOrder(Long orderId) {
         Order order = loadOrderPort.loadOrder(orderId);
         order.cancelOrder();
         saveOrderPort.saveOrder(order);

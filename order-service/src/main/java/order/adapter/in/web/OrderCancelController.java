@@ -26,7 +26,7 @@ public class OrderCancelController {
             @PathVariable("orderId") Long orderId
     ) {
         Long userId = Long.valueOf(httpServletRequest.getHeader("LOGIN_MEMBER"));
-        cancelOrderUseCase.CancelOrder(orderId, userId);
+        cancelOrderUseCase.CancelOrder(orderId);
 
         ReturnObject returnObject = ReturnObject.builder()
                 .success(true)

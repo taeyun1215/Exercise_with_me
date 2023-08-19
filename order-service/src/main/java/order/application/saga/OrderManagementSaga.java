@@ -1,10 +1,12 @@
 package order.application.saga;
 
 import lombok.extern.slf4j.Slf4j;
+import order.application.port.in.command.CancelOrderCommand;
 import order.application.port.in.command.CompleteOrderCommand;
 import global.command.ReduceStockCommand;
 import global.event.StockReducedEvent;
 import global.event.StockSoldOutEvent;
+import order.domain.events.OrderCancelledEvent;
 import order.domain.events.OrderCompletedEvent;
 import order.domain.events.OrderCreatedEvent;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -52,6 +54,6 @@ public class OrderManagementSaga {
     @EndSaga
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(OrderCancelledEvent event) {
-        // 주문이 취소되면 Saga 종료
+        log.info("Order with ID: " + event.getOrderId() + " has been cancel completed.");
     }
 }
