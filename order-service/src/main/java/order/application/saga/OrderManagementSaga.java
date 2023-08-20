@@ -45,7 +45,7 @@ public class OrderManagementSaga {
         commandGateway.send(new CancelOrderCommand(event.getOrderId()));
     }
 
-    @EndSaga
+    @EndSaga // saga에 생명주기가 끝났음을 나타냄.
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(OrderCompletedEvent event) {
         log.info("Order with ID: " + event.getOrderId() + " has been successfully completed.");

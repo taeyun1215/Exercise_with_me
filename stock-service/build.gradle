@@ -52,9 +52,8 @@ dependencies {
     implementation 'org.redisson:redisson-spring-boot-starter:3.17.4'
 
     // Axon Framework
-    implementation 'org.axonframework:axon-core:4.5.3' // 최신 버전에 따라 업데이트 필요
     implementation 'org.axonframework:axon-spring-boot-starter:4.5.3' // 최신 버전에 따라 업데이트 필요
-    implementation 'org.axonframework:axon-kafka:4.5.3' // 최신 버전에 따라 업데이트 필요
+//    implementation 'org.axonframework:axon-kafka:4.5' // 최신 버전에 따라 업데이트 필요
 }
 
 test {
