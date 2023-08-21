@@ -27,7 +27,6 @@ public class StockCommandHandler {
 
             // 재고 감소에 성공하면 StockReducedEvent 발행
             eventGateway.publish(new StockReducedEvent(command.getProductId(), command.getCount(), command.getOrderId()));
-
         } catch (RuntimeException e) {
             // 재고 부족시 StockSoldOutEvent 발행
             eventGateway.publish(new StockSoldOutEvent(command.getProductId(), command.getOrderId()));

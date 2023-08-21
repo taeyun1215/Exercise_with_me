@@ -1,11 +1,13 @@
 package stock.application.service;
 
 import global.annotation.UseCase;
+import global.command.ReduceStockCommand;
 import global.dto.OrderItemDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import stock.adapter.out.persistence.StockJpaRepo;
 import stock.adapter.out.persistence.StockPersistenceMapper;
+import stock.application.port.in.ReduceStockHandlerUseCase;
 import stock.application.port.in.ReduceStockUseCase;
 import stock.application.port.out.LoadStockPort;
 import stock.application.port.out.SaveStockPort;
@@ -18,7 +20,7 @@ import javax.transaction.Transactional;
 @UseCase
 @Transactional
 @RequiredArgsConstructor
-public class ReduceStockService implements ReduceStockUseCase {
+public class ReduceStockService implements ReduceStockUseCase, ReduceStockHandlerUseCase {
 
     private final LoadStockPort loadStockPort;
     private final SaveStockPort saveStockPort;
@@ -39,6 +41,21 @@ public class ReduceStockService implements ReduceStockUseCase {
             throw new RuntimeException("수량이 없습니다.");
         } else {
             stock.reduceStock(orderItemDto.getCount());
+            saveStockPort.saveStock(stock);
+        }
+    }
+
+    @Override
+    public void reduceStock(ReduceStockCommand command) {
+        Stock stock = loadStockPort.loadStock(command.getProductId());
+
+        if (stock == null) {
+            throw new EntityNotFoundException("상품이 없습니다.");
+        }
+        if (stock.getQuantity() < command.getCount()) {
+            throw new RuntimeException("수량이 없습니다.");
+        } else {
+            stock.reduceStock(command.getCount());
             saveStockPort.saveStock(stock);
         }
     }
