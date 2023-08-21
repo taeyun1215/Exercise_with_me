@@ -33,13 +33,13 @@ public class OrderManagementSaga {
         }
     }
 
-    @SagaEventHandler(associationProperty = "productId")
+    @SagaEventHandler(associationProperty = "orderId")
     public void handle(StockReducedEvent event) {
         // 재고가 성공적으로 줄어들면 주문 완료 커맨드 전송
         commandGateway.send(new CompleteOrderCommand(event.getOrderId()));
     }
 
-    @SagaEventHandler(associationProperty = "productId")
+    @SagaEventHandler(associationProperty = "orderId")
     public void handle(StockSoldOutEvent event) {
         // 재고 부족 시 주문 취소 커맨드 전송
         commandGateway.send(new CancelOrderCommand(event.getOrderId()));
