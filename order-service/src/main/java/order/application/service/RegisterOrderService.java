@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @UseCase
@@ -39,6 +40,7 @@ public class RegisterOrderService implements RegisterOrderUseCase {
     @Override
     public void registerOrder(Long userId, OrderRegisterRequest orderRegisterRequest) {
         Order order = orderRegisterRequest.toEntity(userId);
+        order.setOrderId(UUID.randomUUID().getMostSignificantBits());
         saveOrderPort.saveOrder(order);
 
         List<OrderCreatedEvent.OrderItemInfo> orderItemInfos = new ArrayList<>();

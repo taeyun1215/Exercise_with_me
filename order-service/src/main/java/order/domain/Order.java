@@ -1,13 +1,11 @@
 package order.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import order.adapter.out.persistence.order.OrderJpaEntity;
 import order.domain.constant.OrderStatus;
 
 @Getter
+@Setter // todo : 수정 예정 테스트용으로 넣어둠.
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Order {
