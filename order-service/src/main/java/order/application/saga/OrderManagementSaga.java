@@ -26,6 +26,7 @@ public class OrderManagementSaga {
     @StartSaga
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(OrderCreatedEvent event) {
+        log.info("OrderCreatedEvent received for Order ID: " + event.getOrderId() + ". Reducing stock for order items.");
         // 주문 생성 후 재고 감소 커맨드 전송
         for (OrderCreatedEvent.OrderItemInfo orderItemInfo : event.getOrderItems()) {
             // 각 주문 아이템에 대한 재고 감소 커맨드 전송
@@ -35,12 +36,14 @@ public class OrderManagementSaga {
 
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(StockReducedEvent event) {
+        log.info("Stock successfully reduced for Order ID: " + event.getOrderId() + ". Completing the order.");
         // 재고가 성공적으로 줄어들면 주문 완료 커맨드 전송
         commandGateway.send(new CompleteOrderCommand(event.getOrderId()));
     }
 
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(StockSoldOutEvent event) {
+        log.info("Stock fail sold out for Order ID: " + event.getOrderId() + ". Cancelling the order.");
         // 재고 부족 시 주문 취소 커맨드 전송
         commandGateway.send(new CancelOrderCommand(event.getOrderId()));
     }
