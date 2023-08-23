@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import order.application.port.in.command.CancelOrderCommand;
 import order.application.port.in.command.CompleteOrderCommand;
+import order.application.port.in.command.CreateOrderCommand;
 import order.domain.constant.OrderStatus;
 import order.domain.events.OrderCancelledEvent;
 import order.domain.events.OrderCompletedEvent;
@@ -29,11 +30,10 @@ public class OrderAggregate {
     private OrderStatus orderStatus; // 주문 상태 (ex: CREATED, COMPLETED, CANCELLED)
     private List<OrderCreatedEvent.OrderItemInfo> orderItems;
 
-//    @CommandHandler
-//    public OrderAggregate(CreateOrderCommand command) {
-//        Assert.notNull(command.getOrderId(), "Order ID should not be null");
-//        apply(new OrderCreatedEvent(command.getOrderId(), command.getOrderItems()));
-//    }
+    @CommandHandler
+    public OrderAggregate(CreateOrderCommand command) {
+        apply(new OrderCreatedEvent(command.getOrderId(), command.getOrderItemInfos()));
+    }
 
     @EventSourcingHandler
     public void on(OrderCreatedEvent event) {
