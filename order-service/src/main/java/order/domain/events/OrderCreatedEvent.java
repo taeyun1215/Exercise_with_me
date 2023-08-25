@@ -3,6 +3,7 @@ package order.domain.events;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.ToString;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 import java.util.List;
@@ -16,7 +17,8 @@ public class OrderCreatedEvent {
 
     private final List<OrderItemInfo> orderItems;
 
-    @Data
+    @Getter
+    @ToString
     @AllArgsConstructor
     public static class OrderItemInfo {
         private final Long productId;

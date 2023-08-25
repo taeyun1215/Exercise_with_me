@@ -29,7 +29,11 @@ public class OrderManagementSaga {
         log.info("OrderCreatedEvent received for Order ID: " + event.getOrderId() + ". Reducing stock for order items.");
         // 주문 생성 후 재고 감소 커맨드 전송
         for (OrderCreatedEvent.OrderItemInfo orderItemInfo : event.getOrderItems()) {
+            log.info("0000" + orderItemInfo.toString());
             // 각 주문 아이템에 대한 재고 감소 커맨드 전송
+            log.info("11111" + event.getOrderId());
+            log.info("22222" + orderItemInfo.getProductId());
+            log.info("33333" + orderItemInfo.getCount());
             commandGateway.send(new ReduceStockCommand(orderItemInfo.getProductId(), orderItemInfo.getCount(), event.getOrderId()));
         }
     }

@@ -3,6 +3,7 @@ package order.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import order.application.port.in.command.CancelOrderCommand;
 import order.application.port.in.command.CompleteOrderCommand;
 import order.application.port.in.command.CreateOrderCommand;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
+@Slf4j
 @Aggregate
 @NoArgsConstructor
 public class OrderAggregate {

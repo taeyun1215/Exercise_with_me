@@ -7,8 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ReduceStockCommand {
 
-    private final long productId;
-    private final int count;
-    private final long orderId;
+    private long productId;
+    private int count;
+    private long orderId;
 
 }

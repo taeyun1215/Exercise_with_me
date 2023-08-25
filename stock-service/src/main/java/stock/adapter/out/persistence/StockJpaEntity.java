@@ -2,7 +2,7 @@ package stock.adapter.out.persistence;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,8 +10,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "product_stock")
-@Data
 @Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class StockJpaEntity implements Serializable {

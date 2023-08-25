@@ -31,7 +31,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.13.1'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.0'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
@@ -52,7 +52,7 @@ dependencies {
     implementation 'org.redisson:redisson-spring-boot-starter:3.17.4'
 
     // Axon Framework
-    implementation 'org.axonframework:axon-spring-boot-starter:4.5.3' // 최신 버전에 따라 업데이트 필요
+    implementation 'org.axonframework:axon-spring-boot-starter:4.5.8' // 최신 버전에 따라 업데이트 필요
 //    implementation 'org.axonframework:axon-kafka:4.5' // 최신 버전에 따라 업데이트 필요
 }
 
