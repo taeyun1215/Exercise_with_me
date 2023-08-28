@@ -15,7 +15,7 @@ public class OrderCreatedEvent {
     @TargetAggregateIdentifier
     private final Long orderId;
 
-    private final List<OrderItemInfo> orderItems;
+    public final List<OrderItemInfo> orderItems;
 
     @Getter
     @ToString

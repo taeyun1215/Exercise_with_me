@@ -7,12 +7,14 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventhandling.gateway.EventGateway;
+import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import stock.application.port.in.ReduceStockHandlerUseCase;
 
 @Slf4j
-@Component
+//@Component
+@Aggregate()
 @AllArgsConstructor
 public class StockCommandHandler {
 

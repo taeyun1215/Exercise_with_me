@@ -72,7 +72,8 @@ public class RegisterOrderService implements RegisterOrderUseCase {
 //        eventGateway.publish(new OrderCreatedEvent(order.getOrderId(), orderItemInfos));
 
         // Command 발행
-        command.setOrderId(UUID.randomUUID().getMostSignificantBits());
+//        command.setOrderId(UUID.randomUUID().getMostSignificantBits());
+        command.setOrderId(1L);
         commandGateway.sendAndWait(command);
     }
 
