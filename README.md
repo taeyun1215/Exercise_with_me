@@ -4,6 +4,7 @@
 ### Back-end skill
 
 ### Infrastructures
+![image](https://github.com/taeyun1215/Exercise_with_me/assets/65766105/61d0154a-e752-47e3-9efa-b3861e15ef9f)
 
 ### Review
 - [Clean Architecture 도입기](https://velog.io/@devty/Clean-Architecture)  
