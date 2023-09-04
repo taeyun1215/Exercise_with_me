@@ -19,4 +19,6 @@
 
 - [MSA Phase 1. Springboot(2)](https://velog.io/@devty/MSA-Phase-1.-Springboot2) 
 
-- [MSA Phase 2. DDD](https://velog.io/@devty/MSA-Phase-2.-DDD) 
+- [MSA Phase 2. DDD](https://velog.io/@devty/MSA-Phase-2.-DDD)
+
+- [배치 프로그램 튜닝](https://velog.io/@devty/배치-프로그램-튜닝) 
