@@ -21,4 +21,6 @@
 
 - [MSA Phase 2. DDD](https://velog.io/@devty/MSA-Phase-2.-DDD)
 
-- [배치 프로그램 튜닝](https://velog.io/@devty/배치-프로그램-튜닝) 
+- [배치 프로그램 튜닝](https://velog.io/@devty/배치-프로그램-튜닝)
+
+- [MSA Phase 3. Common Module]()
