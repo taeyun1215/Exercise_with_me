@@ -31,7 +31,6 @@ public class OrderManagementSaga {
         for (OrderCreatedEvent.OrderItemInfo orderItemInfo : event.getOrderItems()) {
             // 각 주문 아이템에 대한 재고 감소 커맨드 전송
             commandGateway.send(new ReduceStockCommand(orderItemInfo.getProductId(), orderItemInfo.getCount(), event.getOrderId()));
-//            commandGateway.send(new ReduceStockCommand(1L, 3, 1L));
         }
     }
 

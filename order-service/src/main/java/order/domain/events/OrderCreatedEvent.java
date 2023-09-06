@@ -13,9 +13,9 @@ import java.util.List;
 public class OrderCreatedEvent {
 
     @TargetAggregateIdentifier
-    private final Long orderId;
+    private final String orderId;
 
-    public final List<OrderItemInfo> orderItems;
+    private final List<OrderItemInfo> orderItems;
 
     @Getter
     @ToString

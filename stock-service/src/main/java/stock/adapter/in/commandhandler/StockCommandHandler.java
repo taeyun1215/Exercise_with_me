@@ -13,8 +13,7 @@ import org.springframework.stereotype.Component;
 import stock.application.port.in.ReduceStockHandlerUseCase;
 
 @Slf4j
-//@Component
-@Aggregate()
+@Component
 @AllArgsConstructor
 public class StockCommandHandler {
 
@@ -31,10 +30,10 @@ public class StockCommandHandler {
             reduceStockHandlerUseCase.reduceStock(command);
 
             // 재고 감소에 성공하면 StockReducedEvent 발행
-            eventGateway.publish(new StockReducedEvent(command.getProductId(), command.getCount(), command.getOrderId()));
+            eventGateway.publish(new StockReducedEvent(command.getProductId(), command.getCount(), 1L));
         } catch (RuntimeException e) {
             // 재고 부족시 StockSoldOutEvent 발행
-            eventGateway.publish(new StockSoldOutEvent(command.getProductId(), command.getOrderId()));
+            eventGateway.publish(new StockSoldOutEvent(command.getProductId(), 1L));
         }
     }
 }

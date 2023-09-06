@@ -27,13 +27,14 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 public class OrderAggregate {
 
     @AggregateIdentifier
-    private Long orderId;
+    private String orderId;
 
     private OrderStatus orderStatus; // 주문 상태 (ex: CREATED, COMPLETED, CANCELLED)
     private List<OrderCreatedEvent.OrderItemInfo> orderItems;
 
     @CommandHandler
     public OrderAggregate(CreateOrderCommand command) {
+        this.orderId = command.getOrderId();
         apply(new OrderCreatedEvent(command.getOrderId(), command.getOrderItemInfos()));
     }
 

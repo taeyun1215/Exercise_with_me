@@ -50,7 +50,7 @@ public class RegisterOrderService implements RegisterOrderUseCase {
                 .orderStatus(OrderStatus.ORDER_CREATED)
                 .build();
 
-        saveOrderPort.saveOrder(order);
+        Order saveOrder = saveOrderPort.saveOrder(order);
 
         List<OrderCreatedEvent.OrderItemInfo> orderItemInfos = new ArrayList<>();
         List<OrderItem> orderItems = new ArrayList<>();
@@ -72,8 +72,8 @@ public class RegisterOrderService implements RegisterOrderUseCase {
 //        eventGateway.publish(new OrderCreatedEvent(order.getOrderId(), orderItemInfos));
 
         // Command 발행
-//        command.setOrderId(UUID.randomUUID().getMostSignificantBits());
-        command.setOrderId(1L);
+        command.setOrderId(UUID.randomUUID().toString());
+//        command.setOrderId(saveOrder.getOrderId());
         commandGateway.sendAndWait(command);
     }
 
