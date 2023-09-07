@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class CreateOrderCommand {
 
-    @TargetAggregateIdentifier
+//    @TargetAggregateIdentifier
     private String orderId;
     private Long userId;
     private String receiverName;

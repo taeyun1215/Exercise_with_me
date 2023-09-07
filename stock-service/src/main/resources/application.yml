@@ -38,7 +38,7 @@ eureka:
 kafka:
   bootstrap-servers: localhost:9092
 
-#axon:
-#  axonserver:
-#    servers: localhost:8124 # 비워두면 Axon Server에 연결하지 않도록 설정
-#    enabled: true
+axon:
+  axonserver:
+    servers: localhost:8124 # 비워두면 Axon Server에 연결하지 않도록 설정
+    enabled: true
