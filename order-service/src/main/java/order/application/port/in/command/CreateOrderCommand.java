@@ -3,6 +3,7 @@ package order.application.port.in.command;
 import lombok.Builder;
 import lombok.Data;
 import order.domain.events.OrderCreatedEvent;
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Data
 public class CreateOrderCommand {
 
+    @TargetAggregateIdentifier
     private String orderId;
     private Long userId;
     private String receiverName;
