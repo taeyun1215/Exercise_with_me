@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 public class CreateOrderCommand {
 
-    private Long orderId;
+    private String orderId;
     private Long userId;
     private String receiverName;
     private String receiverPhone;

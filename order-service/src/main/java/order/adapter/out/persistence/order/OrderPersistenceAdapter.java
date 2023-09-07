@@ -7,6 +7,7 @@ import order.application.port.out.SaveOrderPort;
 import order.domain.Order;
 
 import java.util.List;
+import java.util.Optional;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
@@ -17,8 +18,8 @@ public class OrderPersistenceAdapter implements
     private final OrderPersistenceMapper orderPersistenceMapper;
 
     @Override
-    public void saveOrder(Order order) {
-        orderJpaRepo.save(orderPersistenceMapper.mapToJpaEntity(order));
+    public Order saveOrder(Order order) {
+        return orderPersistenceMapper.mapToDomainEntity(orderJpaRepo.save(orderPersistenceMapper.mapToJpaEntity(order)));
     }
 
     @Override

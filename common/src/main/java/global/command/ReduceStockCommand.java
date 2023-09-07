@@ -9,6 +9,6 @@ public class ReduceStockCommand {
 
     private long productId;
     private int count;
-    private long orderId;
+    private String orderId;
 
 }
