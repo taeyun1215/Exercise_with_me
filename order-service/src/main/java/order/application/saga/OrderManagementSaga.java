@@ -16,6 +16,9 @@ import org.axonframework.modelling.saga.StartSaga;
 import org.axonframework.spring.stereotype.Saga;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Saga
 @Slf4j
 public class OrderManagementSaga {
@@ -27,11 +30,13 @@ public class OrderManagementSaga {
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(OrderCreatedEvent event) {
         log.info("OrderCreatedEvent received for Order ID: " + event.getOrderId() + ". Reducing stock for order items.");
+
+        List<ReduceStockCommand.OrderItem> items = event.getOrderItems().stream()
+                .map(orderItemInfo -> new ReduceStockCommand.OrderItem(orderItemInfo.getProductId(), orderItemInfo.getCount()))
+                .collect(Collectors.toList());
+
         // 주문 생성 후 재고 감소 커맨드 전송
-        for (OrderCreatedEvent.OrderItemInfo orderItemInfo : event.getOrderItems()) {
-            // 각 주문 아이템에 대한 재고 감소 커맨드 전송
-            commandGateway.send(new ReduceStockCommand(orderItemInfo.getProductId(), orderItemInfo.getCount(), event.getOrderId()));
-        }
+        commandGateway.send(new ReduceStockCommand(event.getOrderId(), items));
     }
 
     @SagaEventHandler(associationProperty = "orderId")

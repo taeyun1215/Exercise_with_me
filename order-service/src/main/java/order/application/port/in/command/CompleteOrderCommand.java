@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CompleteOrderCommand {
 
-    private final long orderId;
+    private final String orderId;
 
 }

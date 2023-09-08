@@ -46,16 +46,16 @@ public class ReduceStockService implements ReduceStockUseCase, ReduceStockHandle
     }
 
     @Override
-    public void reduceStock(ReduceStockCommand command) {
-        Stock stock = loadStockPort.loadStock(command.getProductId());
+    public void reduceStock(ReduceStockCommand.OrderItem orderItem) {
+        Stock stock = loadStockPort.loadStock(orderItem.getProductId());
 
         if (stock == null) {
             throw new EntityNotFoundException("상품이 없습니다.");
         }
-        if (stock.getQuantity() < command.getCount()) {
+        if (stock.getQuantity() < orderItem.getCount()) {
             throw new RuntimeException("수량이 없습니다.");
         } else {
-            stock.reduceStock(command.getCount());
+            stock.reduceStock(orderItem.getCount());
             saveStockPort.saveStock(stock);
         }
     }

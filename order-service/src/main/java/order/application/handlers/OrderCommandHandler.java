@@ -26,8 +26,8 @@ public class OrderCommandHandler {
 
     @CommandHandler
     public void handle(CompleteOrderCommand command) {
-        registerOrderUseCase.completeOrder(command.getOrderId());
-        eventGateway.publish(new OrderCompletedEvent(command.getOrderId()));
+//        registerOrderUseCase.completeOrder(command.getOrderId());
+//        eventGateway.publish(new OrderCompletedEvent(command.getOrderId()));
         log.info("Order completed with ID: " + command.getOrderId());
     }
 

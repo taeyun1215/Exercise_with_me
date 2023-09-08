@@ -49,7 +49,7 @@ dependencies {
     // Axon Framework
     implementation 'org.axonframework:axon-spring-boot-starter:4.8.0' // 최신 버전에 따라 업데이트 필요
 
-    // XStream
+//    // XStream
 //    implementation 'com.thoughtworks.xstream:xstream:1.4.16'
 }
 
