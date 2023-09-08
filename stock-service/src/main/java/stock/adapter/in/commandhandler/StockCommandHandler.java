@@ -10,11 +10,13 @@ import org.axonframework.eventhandling.gateway.EventGateway;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import stock.application.port.in.ReduceStockHandlerUseCase;
 
 @Slf4j
 @Component
 @AllArgsConstructor
+@Transactional
 public class StockCommandHandler {
 
     @Autowired
@@ -25,15 +27,17 @@ public class StockCommandHandler {
     @CommandHandler
     public void handle(ReduceStockCommand command) {
         try {
-            log.info("여기까지 옴.");
+            log.info("여기까지 옴1.");
             // 재고 감소 로직
             reduceStockHandlerUseCase.reduceStock(command);
 
             // 재고 감소에 성공하면 StockReducedEvent 발행
             eventGateway.publish(new StockReducedEvent(command.getProductId(), command.getCount(), 1L));
         } catch (RuntimeException e) {
+            log.info("여기까지 옴2.");
+
             // 재고 부족시 StockSoldOutEvent 발행
-            eventGateway.publish(new StockSoldOutEvent(command.getProductId(), 1L));
+            eventGateway.publish(new StockSoldOutEvent(command.getProductId(), command.getOrderId()));
         }
     }
 }

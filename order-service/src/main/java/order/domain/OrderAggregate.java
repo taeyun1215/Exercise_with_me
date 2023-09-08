@@ -1,5 +1,6 @@
 package order.domain;
 
+import global.event.StockSoldOutEvent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,6 +46,12 @@ public class OrderAggregate {
         this.orderStatus = OrderStatus.ORDER_CREATED;
     }
 
+    @EventSourcingHandler
+    public void on(StockSoldOutEvent event) {
+        this.orderId = event.getOrderId();
+        this.orderStatus = OrderStatus.ORDER_CANCEL;
+    }
+
     @CommandHandler
     public void handle(CompleteOrderCommand command) {
         Assert.isTrue(orderStatus == OrderStatus.ORDER_CREATED,
@@ -57,15 +64,17 @@ public class OrderAggregate {
         this.orderStatus = OrderStatus.ORDER_COMPLETE;
     }
 
-    @CommandHandler
-    public void handle(CancelOrderCommand command) {
-        Assert.isTrue(orderStatus == OrderStatus.ORDER_CREATED,
-                () -> "Order can only be cancelled if it's in CREATED state");
-        apply(new OrderCancelledEvent(command.getOrderId()));
-    }
-
-    @EventSourcingHandler
-    public void on(OrderCancelledEvent event) {
-        this.orderStatus = OrderStatus.ORDER_CANCEL;
-    }
+//    @CommandHandler
+//    public void handle(CancelOrderCommand command) {
+//        log.info("3333333");
+//        Assert.isTrue(orderStatus == OrderStatus.ORDER_CREATED,
+//                () -> "Order can only be cancelled if it's in CREATED state");
+//        apply(new OrderCancelledEvent(command.getOrderId()));
+//    }
+//
+//    @EventSourcingHandler
+//    public void on(OrderCancelledEvent event) {
+//        log.info("444444");
+//        this.orderStatus = OrderStatus.ORDER_CANCEL;
+//    }
 }

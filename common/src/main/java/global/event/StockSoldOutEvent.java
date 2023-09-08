@@ -8,6 +8,6 @@ import lombok.Getter;
 public class StockSoldOutEvent {
 
     private final Long productId;  // 품절된 제품의 ID
-    private final Long orderId;
+    private final String orderId;
 
 }

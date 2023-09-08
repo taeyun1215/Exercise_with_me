@@ -29,7 +29,7 @@ public class OrderJpaEntity implements Serializable {
 
     private Long userId;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
 }

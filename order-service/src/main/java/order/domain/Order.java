@@ -29,10 +29,10 @@ public class Order {
     }
 
     public void complete() {
-        orderStatus = OrderStatus.ORDER_COMPLETE;
+        this.orderStatus = OrderStatus.ORDER_COMPLETE;
     }
 
     public void cancelOrder() {
-        orderStatus = OrderStatus.ORDER_CANCEL;
+        this.orderStatus = OrderStatus.ORDER_CANCEL;
     }
 }
