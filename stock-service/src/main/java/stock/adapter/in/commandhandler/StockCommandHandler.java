@@ -15,7 +15,6 @@ import stock.application.port.in.ReduceStockHandlerUseCase;
 @Slf4j
 @Component
 @AllArgsConstructor
-@Transactional
 public class StockCommandHandler {
 
     @Autowired

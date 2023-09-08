@@ -12,7 +12,7 @@ import java.util.List;
 public class CreateOrderCommand {
 
 //    @TargetAggregateIdentifier
-    private String orderId;
+    private Long orderId;
     private Long userId;
     private String receiverName;
     private String receiverPhone;

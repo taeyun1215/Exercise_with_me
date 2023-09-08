@@ -13,7 +13,7 @@ import java.util.List;
 public class OrderCreatedEvent {
 
     @TargetAggregateIdentifier
-    private final String orderId;
+    private final Long orderId;
 
     private final List<OrderItemInfo> orderItems;
 

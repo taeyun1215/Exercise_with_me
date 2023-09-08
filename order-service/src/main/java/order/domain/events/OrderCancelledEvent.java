@@ -9,6 +9,6 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class OrderCancelledEvent {
 
     @TargetAggregateIdentifier
-    private final String orderId;
+    private final Long orderId;
 
 }

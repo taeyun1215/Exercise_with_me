@@ -43,7 +43,7 @@ public class OrderManagementSaga {
     public void handle(StockReducedEvent event) {
         log.info("Stock successfully reduced for Order ID: " + event.getOrderId() + ". Completing the order.");
         // 재고가 성공적으로 줄어들면 주문 완료 커맨드 전송
-        commandGateway.send(new CompleteOrderCommand(event.getOrderId()));
+        commandGateway.send(new CompleteOrderCommand(event.getOrderId ()));
     }
 
     @SagaEventHandler(associationProperty = "orderId")

@@ -32,9 +32,9 @@ public class CancelOrderService implements CancelOrderUseCase {
         order.cancelOrder();
         saveOrderPort.saveOrder(order);
 
-        List<OrderItem> orderItems = loadOrderItemPort.loadOrderItemByOrderId(orderId);
-        for (OrderItem orderItem : orderItems) {
-            kafkaProducer.increaseStock("increase-stock", orderItem);
-        }
+//        List<OrderItem> orderItems = loadOrderItemPort.loadOrderItemByOrderId(orderId);
+//        for (OrderItem orderItem : orderItems) {
+//            kafkaProducer.increaseStock("increase-stock", orderItem);
+//        }
     }
 }

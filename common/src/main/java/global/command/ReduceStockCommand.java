@@ -12,7 +12,7 @@ import java.util.List;
 public class ReduceStockCommand {
 
     @TargetAggregateIdentifier
-    private String orderId;
+    private Long orderId;
 
     private List<OrderItem> items;
 

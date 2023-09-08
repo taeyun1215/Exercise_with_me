@@ -33,7 +33,7 @@ public class OrderCommandHandler {
 
     @CommandHandler
     public void handle(CancelOrderCommand command) {
-        cancelOrderUseCase.CancelOrder(1L);
+        cancelOrderUseCase.CancelOrder(command.getOrderId());
         log.info("555555");
         eventGateway.publish(new OrderCancelledEvent(command.getOrderId()));
         log.info("Order cancel with ID: " + command.getOrderId());

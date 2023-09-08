@@ -57,6 +57,7 @@ public class ReduceStockService implements ReduceStockUseCase, ReduceStockHandle
         } else {
             stock.reduceStock(orderItem.getCount());
             saveStockPort.saveStock(stock);
+            log.info("재고 감소 성공: " + orderItem.getProductId());
         }
     }
 }
