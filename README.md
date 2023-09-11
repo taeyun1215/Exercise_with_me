@@ -23,4 +23,4 @@
 
 - [배치 프로그램 튜닝](https://velog.io/@devty/배치-프로그램-튜닝)
 
-- [MSA Phase 3. Common Module]()
+- [MSA Phase 3. Common Module](https://velog.io/@devty/MSA-Phase-3.-Common-Module)
