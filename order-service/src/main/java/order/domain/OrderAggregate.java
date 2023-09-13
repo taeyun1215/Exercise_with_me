@@ -1,5 +1,6 @@
 package order.domain;
 
+import global.event.StockReducedEvent;
 import global.event.StockSoldOutEvent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,22 +48,27 @@ public class OrderAggregate {
     }
 
     @EventSourcingHandler
+    public void on(StockReducedEvent event) {
+        this.orderId = event.getOrderId();
+    }
+
+    @EventSourcingHandler
     public void on(StockSoldOutEvent event) {
         this.orderId = event.getOrderId();
         this.orderStatus = OrderStatus.ORDER_CANCEL;
     }
 
-    @CommandHandler
-    public void handle(CompleteOrderCommand command) {
-        Assert.isTrue(orderStatus == OrderStatus.ORDER_CREATED,
-                () -> "Order can only be completed if it's in CREATED state");
-        apply(new OrderCompletedEvent(command.getOrderId()));
-    }
-
-    @EventSourcingHandler
-    public void on(OrderCompletedEvent event) {
-        this.orderStatus = OrderStatus.ORDER_COMPLETE;
-    }
+//    @CommandHandler
+//    public void handle(CompleteOrderCommand command) {
+//        Assert.isTrue(orderStatus == OrderStatus.ORDER_CREATED,
+//                () -> "Order can only be completed if it's in CREATED state");
+//        apply(new OrderCompletedEvent(command.getOrderId()));
+//    }
+//
+//    @EventSourcingHandler
+//    public void on(OrderCompletedEvent event) {
+//        this.orderStatus = OrderStatus.ORDER_COMPLETE;
+//    }
 
 //    @CommandHandler
 //    public void handle(CancelOrderCommand command) {

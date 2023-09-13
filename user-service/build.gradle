@@ -4,10 +4,12 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
-apply from: '../common.gradle'
-
 group = 'user'
 version = '0.0.1-SNAPSHOT'
+
+apply {
+    from("../build.gradle")
+}
 
 java {
     sourceCompatibility = '11'

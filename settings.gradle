@@ -14,5 +14,3 @@ include 'stock-service'
 include 'order-service'
 include 'eureka-service'
 include 'apigateway-service'
-include 'axon-service'
-
