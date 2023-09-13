@@ -8,6 +8,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.7'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'jacoco'
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
@@ -48,9 +49,51 @@ dependencies {
 
     // Axon Framework
     implementation 'org.axonframework:axon-spring-boot-starter:4.8.0' // 최신 버전에 따라 업데이트 필요
+}
 
-//    // XStream
-//    implementation 'com.thoughtworks.xstream:xstream:1.4.16'
+jacoco {
+    toolVersion = '0.8.8'
+}
+
+jacocoTestReport {
+    dependsOn test // 리포트 생성을 위해서는 test가 먼저 완료되어야 함
+    reports {
+        xml.required = false
+        csv.required = false
+        html.required = true
+    }
+    afterEvaldiruate {
+        classDirectories.setFrom(
+                files(classDirectories.files.collect {
+                    fileTree(dir: it, excludes: [
+                            "**/*Application*",
+                            '**/*Request*',
+                            '**/*Response*',
+                            '**/Swagger*',
+                            '**/PasswordEncoderConfig*',
+                            '**/JpaAuditingConfig*',
+                            '**/common/**',
+                            '**/*Builder*',
+                    ])
+                })
+        )
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            excludes = [
+                    "**/*Application*",
+                    '**/*Request*',
+                    '**/*Response*',
+                    '**/Swagger*',
+                    '**/PasswordEncoderConfig*',
+                    '**/JpaAuditingConfig*',
+                    '**/common/**'
+            ]
+        }
+    }
 }
 
 def querydslDir = "$buildDir/generated/querydsl"
