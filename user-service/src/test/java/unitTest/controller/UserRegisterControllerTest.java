@@ -16,7 +16,9 @@ import user.application.port.in.usecase.RegisterUserUseCase;
 import user.domain.User;
 import user.domain.constant.Role;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import javax.persistence.EntityNotFoundException;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -71,6 +73,7 @@ public class UserRegisterControllerTest {
     }
 
     @Test
+    @DisplayName("회원가입 요청에 대한 성공 응답 반환")
     public void shouldRegisterUser() throws Exception {
         /*
         * given
@@ -97,6 +100,24 @@ public class UserRegisterControllerTest {
         verify(registerUserUseCase, times(1)).registerUser(any());
         // UserRegisterController에서 userResponseMapper.mapToRegisterUserResponse()가 1번 실행됐는지 확인하기.
         verify(userResponseMapper, times(1)).mapToRegisterUserResponse(any());
+    }
+
+    @Test
+    @DisplayName("회원가입 요청에 비밀번호가 일치하지 않는 경우 실패 응답 반환 ")
+    public void shouldHandleRegisterUserFailure() throws Exception {
+        // given
+        when(registerUserUseCase.registerUser(any())).thenThrow(new RuntimeException("두개의 비밀번호가 맞지 않습니다."));
+
+        // when
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            userRegisterController.registerUser(request);
+        });
+
+        // then
+        assertNotNull(exception);
+        assertTrue(exception instanceof RuntimeException);
+        assertEquals("두개의 비밀번호가 맞지 않습니다.", exception.getMessage());
+        verify(registerUserUseCase, times(1)).registerUser(any());
     }
 }
 

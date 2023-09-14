@@ -37,7 +37,7 @@ public class UserLogoutControllerTest {
     }
 
     @Test
-    @DisplayName("로그아웃 요청에 세션이 존재하는 경우")
+    @DisplayName("로그아웃 요청에 세션이 존재하는 경우 성공 응답 반환")
     public void shouldLogoutUserWhenSessionExists() {
         // given
         when(request.getSession(false)).thenReturn(session);
@@ -52,7 +52,7 @@ public class UserLogoutControllerTest {
     }
 
     @Test
-    @DisplayName("로그아웃 요청에 세션이 존재하지 않는 경우")
+    @DisplayName("로그아웃 요청에 세션이 존재하지 않는 경우 실패 응답 반환")
     public void shouldHandleLogoutRequestWhenSessionDoesNotExist() {
         // given
         when(request.getSession(false)).thenReturn(null);
