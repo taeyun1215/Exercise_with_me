@@ -21,7 +21,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class UserRegisterControllerUnitTest {
+@DisplayName("UserRegisterController 단위 테스트")
+public class UserRegisterControllerTest {
 
     @Mock
     private RegisterUserUseCase registerUserUseCase;

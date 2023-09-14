@@ -1,47 +1,68 @@
-//package controller;
-//
-//import org.junit.jupiter.api.AfterEach;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.TestInstance;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.test.web.servlet.MockMvc;
-//import org.springframework.transaction.annotation.Transactional;
-//import user.adapter.out.persistence.UserJpaEntity;
-//import user.adapter.out.persistence.UserJpaRepo;
-//import user.domain.constant.Role;
-//
-//@SpringBootTest
-//@AutoConfigureMockMvc
-//@Transactional
-//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-//public class UserLogoutControllerTest {
-//
-//    @Autowired
-//    MockMvc mockMvc;
-//
-//    @Autowired
-//    UserJpaRepo userJpaRepo;
-//
-//    @BeforeEach
-//    public void init() {
-//        UserJpaEntity user = UserJpaEntity.builder()
-//                .username("test111")
-//                .password("비밀번호486!")
-//                .nickname("test")
-//                .phone("010-2415-6806")
-//                .email("test@naver.com")
-//                .role(Role.USER)
-//                .build();
-//
-//        userJpaRepo.save(user);
-//    }
-//
-//    @AfterEach
-//    public void clear() {
-//        // 테스트용 게시글 데이터 삭제
-//        userJpaRepo.deleteAll();
-//    }
-//
-//}
+package unitTest.controller;
+
+import global.utils.ReturnObject;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import user.adapter.in.web.UserLogoutController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+@DisplayName("UserLogoutController 단위 테스트")
+public class UserLogoutControllerTest {
+
+    @Mock
+    private HttpServletRequest request;
+
+    @Mock
+    private HttpSession session;
+
+    @InjectMocks
+    private UserLogoutController userLogoutController;
+
+    @BeforeEach
+    public void init() {
+        when(request.getSession(false)).thenReturn(session);
+    }
+
+    @Test
+    @DisplayName("로그아웃 요청에 세션이 존재하는 경우")
+    public void shouldLogoutUserWhenSessionExists() {
+        // given
+        when(request.getSession(false)).thenReturn(session);
+
+        // when
+        ResponseEntity<ReturnObject> response = userLogoutController.logoutUser(request);
+
+        // then
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(true, response.getBody().isSuccess());
+        verify(session, times(1)).invalidate();
+    }
+
+    @Test
+    @DisplayName("로그아웃 요청에 세션이 존재하지 않는 경우")
+    public void shouldHandleLogoutRequestWhenSessionDoesNotExist() {
+        // given
+        when(request.getSession(false)).thenReturn(null);
+
+        // when
+        ResponseEntity<ReturnObject> response = userLogoutController.logoutUser(request);
+
+        // then
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(true, response.getBody().isSuccess());
+        verify(session, times(0)).invalidate();
+    }
+}
