@@ -5,7 +5,8 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'demo'
+
+rootProject.name = 'ewm'
 include 'user-service'
 include 'mate-service'
 include 'common'
