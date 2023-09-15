@@ -70,14 +70,16 @@ jacocoTestReport {
         classDirectories.setFrom(
                 files(classDirectories.files.collect {
                     fileTree(dir: it, excludes: [
-                            "**/*Application*",
-                            '**/*Request*',
-                            '**/*Response*',
-                            '**/Swagger*',
-                            '**/PasswordEncoderConfig*',
-                            '**/JpaAuditingConfig*',
-                            '**/common/**',
-                            '**/*Builder*',
+                            '**/adapter/in/request/**',
+                            '**/adapter/out/persistence/*JpaEntity*',
+                            '**/adapter/out/persistence/*Mapper*',
+                            '**/adapter/out/response/**',
+                            '**/application/kafka/**',
+                            '**/application/port/**',
+                            '**/domain/constant/**',
+                            '**/domain/constant/**',
+                            '**/HealthCheckController*',
+                            '**/UserServiceApplication*'
                     ])
                 })
         )
@@ -88,13 +90,15 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             excludes = [
-                    "**/*Application*",
-                    '**/*Request*',
-                    '**/*Response*',
-                    '**/Swagger*',
-                    '**/PasswordEncoderConfig*',
-                    '**/JpaAuditingConfig*',
-                    '**/common/**'
+                    '**/adapter/in/request/**',
+                    '**/adapter/out/persistence/*JpaEntity*',
+                    '**/adapter/out/persistence/*Mapper*',
+                    '**/adapter/out/response/**',
+                    '**/application/kafka/**',
+                    '**/application/port/**',
+                    '**/domain/constant/**',
+                    '**/HealthCheckController*',
+                    '**/UserServiceApplication*'
             ]
         }
     }
