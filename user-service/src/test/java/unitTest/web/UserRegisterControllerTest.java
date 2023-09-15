@@ -1,4 +1,4 @@
-package unitTest.controller;
+package unitTest.web;
 
 import global.utils.ReturnObject;
 import org.junit.jupiter.api.*;
@@ -15,8 +15,6 @@ import user.adapter.out.response.RegisterUserResponse;
 import user.application.port.in.usecase.RegisterUserUseCase;
 import user.domain.User;
 import user.domain.constant.Role;
-
-import javax.persistence.EntityNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;

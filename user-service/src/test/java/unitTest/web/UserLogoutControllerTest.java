@@ -1,4 +1,4 @@
-package unitTest.controller;
+package unitTest.web;
 
 import global.utils.ReturnObject;
 import org.junit.jupiter.api.BeforeEach;
