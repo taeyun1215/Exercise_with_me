@@ -35,7 +35,7 @@ public class UserPersistenceAdapter
     @Override
     @Transactional
     public User findByNickname(String nickname) {
-        return userJpaRepo.findByUsername(nickname)
+        return userJpaRepo.findByNickname(nickname)
                 .map(userPersistenceMapper::mapToDomainEntity)
                 .orElse(null);
     }
