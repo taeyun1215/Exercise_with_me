@@ -8,9 +8,10 @@ import user.application.port.out.SaveUserPort;
 import user.application.service.RegisterUserService;
 import user.domain.User;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("RegisterUserService 단위 테스트")
 public class RegisterUserServiceTest {
@@ -20,7 +21,7 @@ public class RegisterUserServiceTest {
 
     @BeforeEach
     void setUp() {
-        saveUserPort = mock(SaveUserPort.class);
+        saveUserPort = new SaveUserPortFake();
         registerUserService = new RegisterUserService(saveUserPort);
     }
 
@@ -35,21 +36,32 @@ public class RegisterUserServiceTest {
 
         User user = registerUserService.registerUser(command);
 
-        verify(saveUserPort).saveUser(any(User.class));
         assertEquals("testuser", user.getUsername());
+        assertTrue(((SaveUserPortFake) saveUserPort).isUserSaved("testuser"));
     }
 
     @Test
     @DisplayName("유저 등록 실패 - 비밀번호 불일치")
     void testRegisterUserPasswordMismatch() {
-        // Given
         RegisterUserCommand command = RegisterUserCommand.builder()
                 .username("testuser")
                 .password("testpassword")
                 .confirmPassword("wrongpassword")
                 .build();
 
-        // When & Then
         assertThrows(RuntimeException.class, () -> registerUserService.registerUser(command));
+    }
+
+    private static class SaveUserPortFake implements SaveUserPort {
+        private Map<String, User> userStorage = new HashMap<>();
+
+        @Override
+        public void saveUser(User user) {
+            userStorage.put(user.getUsername(), user);
+        }
+
+        public boolean isUserSaved(String username) {
+            return userStorage.containsKey(username);
+        }
     }
 }
