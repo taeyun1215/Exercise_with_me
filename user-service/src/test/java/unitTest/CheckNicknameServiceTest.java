@@ -36,6 +36,8 @@ public class CheckNicknameServiceTest {
         assertNull(user);
     }
 
+    // LoadUserPort 인터페이스를 구현한 Fake 클래스
+    // 가짜 구현체 (Fake Implementation)를 사용하는 주요 이유는 단위 테스트를 간소화하고 외부 시스템 또는 구성 요소에 의존하지 않도록 하기 위함.
     private static class LoadUserPortFake implements LoadUserPort {
 
         @Override
