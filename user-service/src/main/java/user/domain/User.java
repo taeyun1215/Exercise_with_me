@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.jetbrains.annotations.TestOnly;
 import user.adapter.out.persistence.UserJpaEntity;
 import user.domain.constant.Role;
 
@@ -35,6 +36,11 @@ public class User implements Serializable {
                 .email(email)
                 .role(role)
                 .build();
+    }
+
+    @TestOnly
+    public void updateUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getRoleValue() {
