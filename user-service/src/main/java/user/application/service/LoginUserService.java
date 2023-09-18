@@ -10,6 +10,7 @@ import user.domain.User;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.Objects;
 
 @Slf4j
 @UseCase
@@ -24,7 +25,7 @@ public class LoginUserService implements LoginUserUseCase {
     public User loginUser(LoginUserRequest loginUserRequest) {
         User findUser = checkUsernameQuery.checkUsername(loginUserRequest.getUsername());
 
-        if (loginUserRequest.getPassword() == findUser.getPassword()) {
+        if (Objects.equals(loginUserRequest.getPassword(), findUser.getPassword())) {
             log.info("로그인한 아이디 : ", findUser.getUsername());
             return findUser;
         }
