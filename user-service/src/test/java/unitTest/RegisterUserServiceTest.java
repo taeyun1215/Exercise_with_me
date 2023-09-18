@@ -37,7 +37,7 @@ public class RegisterUserServiceTest {
         User user = registerUserService.registerUser(command);
 
         assertEquals("testuser", user.getUsername());
-        assertTrue(((SaveUserPortFake) saveUserPort).isUserSaved("testuser"));
+        assertTrue(((SaveUserPortFake) saveUserPort).isUserSaved(user.getUserId()));
     }
 
     @Test
@@ -53,15 +53,18 @@ public class RegisterUserServiceTest {
     }
 
     private static class SaveUserPortFake implements SaveUserPort {
-        private Map<String, User> userStorage = new HashMap<>();
+        private Map<Long, User> userStorage = new HashMap<>();
+        private Long idCounter = 1L;
 
         @Override
         public void saveUser(User user) {
-            userStorage.put(user.getUsername(), user);
+            user.updateUserId(idCounter);
+            userStorage.put(idCounter, user);
+            idCounter++;
         }
 
-        public boolean isUserSaved(String username) {
-            return userStorage.containsKey(username);
+        public boolean isUserSaved(Long userId) {
+            return userStorage.containsKey(userId);
         }
     }
 }
