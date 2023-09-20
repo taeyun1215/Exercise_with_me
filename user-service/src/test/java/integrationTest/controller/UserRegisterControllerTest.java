@@ -25,9 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Transactional
 @AutoConfigureMockMvc
-//@SpringBootTest(classes = UserServiceApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
-//        "spring.profiles.active=test"
-//})
 @ActiveProfiles("test")
 @SpringBootTest(classes = UserServiceApplication.class)
 @DisplayName("UserRegisterControllerTest 통합 테스트")
@@ -38,14 +35,6 @@ public class UserRegisterControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @Autowired
-    private DataSource dataSource;
-
-    @Test
-    public void yourTestMethod() throws SQLException {
-        System.out.println(dataSource.getConnection().getMetaData().getURL());
-    }
 
     @Test
     @DisplayName("회원가입 요청에 대한 성공 응답 반환")
