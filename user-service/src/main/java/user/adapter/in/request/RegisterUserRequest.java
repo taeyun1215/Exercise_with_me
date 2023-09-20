@@ -30,7 +30,7 @@ public class RegisterUserRequest extends SelfValidating<RegisterUserRequest> {
     @NotBlank(message = "비밀번호 확인은 필수 입력 값입니다.")
     private String confirmPassword;
 
-    @Size(min = 2, max = 12, message = "아이디는 2 ~ 12 사이로 입력해주세요.")
+    @Size(min = 2, max = 12, message = "닉네임 2 ~ 12 사이로 입력해주세요.")
     @NotBlank(message = "닉네임은 필수 입력값입니다.")
     private String nickname;
 
