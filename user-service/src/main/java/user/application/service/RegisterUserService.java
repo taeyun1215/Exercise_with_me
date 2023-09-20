@@ -8,6 +8,9 @@ import user.application.port.out.LoadUserPort;
 import user.application.port.out.SaveUserPort;
 import user.domain.User;
 import global.annotation.UseCase;
+import user.domain.exception.NicknameAlreadyExistsException;
+import user.domain.exception.PasswordMismatchException;
+import user.domain.exception.UsernameAlreadyExistsException;
 
 import javax.transaction.Transactional;
 import java.util.Objects;
@@ -25,15 +28,15 @@ public class RegisterUserService implements RegisterUserUseCase {
     @Transactional
     public User registerUser(RegisterUserCommand registerUserCommand) {
         if (!Objects.equals(registerUserCommand.getPassword(), registerUserCommand.getConfirmPassword())) {
-            throw new RuntimeException("두개의 비밀번호가 맞지 않습니다.");
+            throw new PasswordMismatchException("두 개의 비밀번호가 일치하지 않습니다.");
         }
 
         if (loadUserPort.findByUsername(registerUserCommand.getUsername()) != null) {
-            throw new RuntimeException("사용자 이름이 이미 존재합니다.");
+            throw new UsernameAlreadyExistsException("사용자 이름이 이미 존재합니다.");
         }
 
         if (loadUserPort.findByNickname(registerUserCommand.getNickname()) != null) {
-            throw new RuntimeException("닉네임이 이미 존재합니다.");
+            throw new NicknameAlreadyExistsException("닉네임이 이미 존재합니다.");
         }
 
         User saveUser = registerUserCommand.toEntity();
