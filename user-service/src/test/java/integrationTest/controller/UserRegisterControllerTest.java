@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import user.UserServiceApplication;
@@ -19,7 +18,6 @@ import user.adapter.out.persistence.UserJpaRepo;
 import user.domain.constant.Role;
 
 import javax.sql.DataSource;
-
 import java.sql.SQLException;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -42,6 +40,14 @@ public class UserRegisterControllerTest {
 
     @Autowired
     private UserJpaRepo userJpaRepo;
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Test
+    public void checkDatabaseType() throws SQLException {
+        System.out.println(dataSource.getConnection().getMetaData().getDatabaseProductName());
+    }
 
     @BeforeEach
     public void setup() {
@@ -101,7 +107,7 @@ public class UserRegisterControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(registerUserRequest)))
                 .andDo(print())
-                .andExpect(status().isBadRequest()); // 유효하지 않은 요청으로 인해 400 상태 코드를 기대합니다.
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -120,7 +126,7 @@ public class UserRegisterControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(registerUserRequest)))
                 .andDo(print())
-                .andExpect(status().isConflict()); // 유효하지 않은 요청으로 인해 400 상태 코드를 기대합니다.
+                .andExpect(status().isConflict());
     }
 
     @Test
@@ -139,7 +145,7 @@ public class UserRegisterControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(registerUserRequest)))
                 .andDo(print())
-                .andExpect(status().isConflict()); // 유효하지 않은 요청으로 인해 400 상태 코드를 기대합니다.
+                .andExpect(status().isConflict());
     }
 
 }
