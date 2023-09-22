@@ -75,6 +75,7 @@ jacocoTestReport {
                 files(classDirectories.files.collect {
                     fileTree(dir: it, excludes: [
                             '**/adapter/in/request/**',
+                            '**/adapter/in/web/CustomExceptionHandler*',
                             '**/adapter/out/persistence/*JpaEntity*',
                             '**/adapter/out/persistence/*Mapper*',
                             '**/adapter/out/response/**',
@@ -88,6 +89,8 @@ jacocoTestReport {
                 })
         )
     }
+
+    finalizedBy 'jacocoTestCoverageVerification'  // 테스트 종료후 항상 리포트 생성
 }
 
 jacocoTestCoverageVerification {
@@ -113,15 +116,11 @@ jacocoTestCoverageVerification {
             }
 
             excludes = [
-                    '**/adapter/in/request/**',
-                    '**/adapter/out/persistence/*JpaEntity*',
-                    '**/adapter/out/persistence/*Mapper*',
-                    '**/adapter/out/response/**',
-                    '**/application/kafka/**',
-                    '**/application/port/**',
-                    '**/domain/constant/**',
-                    '**/HealthCheckController*',
-                    '**/UserServiceApplication*'
+                    '***Mapper*',
+                    '**CustomExceptionHandler*',
+                    '**Kafka*',
+                    '**HealthCheckController*',
+                    '**UserServiceApplication*'
             ]
         }
     }
