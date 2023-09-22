@@ -93,6 +93,25 @@ jacocoTestReport {
 jacocoTestCoverageVerification {
     violationRules {
         rule {
+            enabled = true
+            element = 'CLASS'
+
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.90
+            }
+            limit {
+                counter = 'LINE'
+                value = 'TOTALCOUNT'
+                maximum = 200
+            }
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0.90
+            }
+
             excludes = [
                     '**/adapter/in/request/**',
                     '**/adapter/out/persistence/*JpaEntity*',
