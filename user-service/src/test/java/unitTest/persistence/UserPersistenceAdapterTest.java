@@ -83,7 +83,7 @@ class UserPersistenceAdapterTest {
     void testFindByNickname() {
         // given
         UserJpaEntity userJpaEntity = new UserJpaEntity();
-        when(userJpaRepo.findByUsername(anyString())).thenReturn(Optional.of(userJpaEntity));
+        when(userJpaRepo.findByNickname(anyString())).thenReturn(Optional.of(userJpaEntity));
         when(userPersistenceMapper.mapToDomainEntity(any(UserJpaEntity.class))).thenReturn(user);
 
         // when

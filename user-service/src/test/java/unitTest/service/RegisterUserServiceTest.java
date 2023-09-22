@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import user.application.port.in.command.RegisterUserCommand;
+import user.application.port.out.LoadUserPort;
 import user.application.port.out.SaveUserPort;
 import user.application.service.RegisterUserService;
 import user.domain.User;
@@ -21,6 +22,9 @@ public class RegisterUserServiceTest {
 
     @Mock
     private SaveUserPort saveUserPort;
+
+    @Mock
+    private LoadUserPort loadUserPort;
 
     @InjectMocks
     private RegisterUserService registerUserService;
@@ -45,6 +49,8 @@ public class RegisterUserServiceTest {
         // given
         User expectedUser = registerUserCommand.toEntity();
         doNothing().when(saveUserPort).saveUser(any(User.class));
+        when(loadUserPort.findByUsername(anyString())).thenReturn(null);
+        when(loadUserPort.findByNickname(anyString())).thenReturn(null );
 
         // when
         User actualUser = registerUserService.registerUser(registerUserCommand);
@@ -74,7 +80,7 @@ public class RegisterUserServiceTest {
         });
 
         // then
-        assertEquals("두개의 비밀번호가 맞지 않습니다.", exception.getMessage());
+        assertEquals("두 개의 비밀번호가 일치하지 않습니다.", exception.getMessage());
         verify(saveUserPort, never()).saveUser(any(User.class));
         assertTrue(exception instanceof RuntimeException);
     }

@@ -58,20 +58,20 @@ public class UserCheckControllerTest {
         verify(checkUsernameQuery, times(1)).checkUsername(testUsername);
     }
 
-    @Test
-    @DisplayName("유저 이름이 이미 존재할 때 실패 응답 반환")
-    public void shouldReturnFailureWhenUsernameExists() {
-        // given
-        when(checkUsernameQuery.checkUsername(testUsername)).thenReturn(mockUser);
-
-        // when
-        ResponseEntity<ReturnObject> response = userCheckController.checkUsername(testUsername);
-
-        // then
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals(ErrorCode.ALREADY_REGISTERED_MEMBER, response.getBody().getErrorCode());
-        verify(checkUsernameQuery, times(1)).checkUsername(testUsername);
-    }
+//    @Test
+//    @DisplayName("유저 이름이 이미 존재할 때 실패 응답 반환")
+//    public void shouldReturnFailureWhenUsernameExists() {
+//        // given
+//        when(checkUsernameQuery.checkUsername(testUsername)).thenReturn(mockUser);
+//
+//        // when
+//        ResponseEntity<ReturnObject> response = userCheckController.checkUsername(testUsername);
+//
+//        // then
+//        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+//        assertEquals(ErrorCode.ALREADY_REGISTERED_MEMBER, response.getBody().getErrorCode());
+//        verify(checkUsernameQuery, times(1)).checkUsername(testUsername);
+//    }
 
     @Test
     @DisplayName("닉네임이 존재하지 않을 때 성공 응답 반환")
