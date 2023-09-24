@@ -28,5 +28,7 @@
 - [MSA Phase 4. Service to Service Communication](https://velog.io/@devty/MSA-Phase-4.-Communication)
 
 - [MSA Phase 5. Transaction](https://velog.io/@devty/MSA-Phase-5.-Transaction-czen7643)
-- 
+
 - [MSA Phase 6. TDD(1) - Unit Test](https://velog.io/@devty/MSA-Phase-6.-TDD1-Unit-Test)
+
+- [MSA Phase 6. TDD(2) - Integration Test](https://velog.io/@devty/MSA-Phase-6.-TDD2-Integration-Test)
