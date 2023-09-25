@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '2.6.1'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'jacoco'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
 group = 'user'
@@ -18,6 +19,11 @@ repositories {
 
 ext {
     set('springCloudVersion', "2021.0.4")
+}
+
+// Spring Rest Docs
+configurations {
+    asciidoctorExt
 }
 
 dependencies {
@@ -52,11 +58,40 @@ dependencies {
 
     // kafka
     implementation 'org.springframework.kafka:spring-kafka'
+
+    // Spring Rest Docs
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+}
+
+// Spring Rest Docs
+ext {
+    snippetsDir = file('build/generated-snippets') // 아래서 사용할 변수
 }
 
 tasks.named('test') {
     useJUnitPlatform()
     finalizedBy 'jacocoTestReport'  // 테스트 종료후 항상 리포트 생성
+    outputs.dir snippetsDir // Spring Rest Docs
+}
+
+// Spring Rest Docs
+asciidoctor {
+    dependsOn test
+    inputs.dir snippetsDir
+    configurations 'asciidoctorExt'
+    doFirst {
+        delete 'src/main/resources/static/docs'
+    }
+}
+
+// Spring Rest Docs
+bootJar {
+    dependsOn asciidoctor
+    copy {
+        from asciidoctor.outputDir
+        into "src/main/resources/static/docs"
+    }
 }
 
 jacoco {
