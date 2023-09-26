@@ -125,7 +125,7 @@ jacocoTestReport {
         )
     }
 
-    finalizedBy 'jacocoTestCoverageVerification'  // 테스트 종료후 항상 리포트 생성
+    finalizedBy 'jacocoTestCoverageVerification'  // 래포트 종료후 커버리지 체크
 }
 
 jacocoTestCoverageVerification {
