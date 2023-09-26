@@ -1,0 +1,17 @@
+= User API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 회원 가입 API
+
+=== Request
+include::{snippets}/user/register-user/request-fields.adoc[]
+
+=== Request
+include::{snippets}/user/register-user/http-request.adoc[]
+
+=== Response
+include::{snippets}/user/register-user/http-response.adoc[]
