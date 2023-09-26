@@ -13,10 +13,11 @@ import javax.ws.rs.core.MediaType;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@DisplayName("회원 가입 API 명세서")
 public class UserRegisterControllerDocumentTest extends ControllerTest {
 
     @Test
-    @DisplayName("회원 가입 API 명세서")
+    @DisplayName("회원 가입 API 성공 시나리오 문서화")
     public void testRegisterUser() throws Exception {
         RegisterUserRequest request = new RegisterUserRequest(
                 "testuser111",
