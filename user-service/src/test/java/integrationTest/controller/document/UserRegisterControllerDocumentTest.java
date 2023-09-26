@@ -1,4 +1,4 @@
-package unitTest.web.document;
+package integrationTest.controller.document;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;

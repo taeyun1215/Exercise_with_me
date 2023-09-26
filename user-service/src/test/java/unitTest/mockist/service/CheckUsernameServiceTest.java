@@ -1,4 +1,4 @@
-package unitTest.service;
+package unitTest.mockist.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package unitTest.web.document;
+package integrationTest.controller.document;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;

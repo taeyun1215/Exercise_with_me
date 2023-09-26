@@ -1,4 +1,4 @@
-package unitTest.persistence;
+package unitTest.mockist.persistence;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

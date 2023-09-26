@@ -1,4 +1,4 @@
-package unitTest;
+package unitTest.classicist.web;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
