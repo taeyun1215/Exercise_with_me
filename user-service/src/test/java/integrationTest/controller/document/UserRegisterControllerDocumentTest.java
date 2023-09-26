@@ -41,6 +41,17 @@ public class UserRegisterControllerDocumentTest extends ControllerTest {
                                 PayloadDocumentation.fieldWithPath("nickname").description("User's nickname"),
                                 PayloadDocumentation.fieldWithPath("phone").description("User's phone number"),
                                 PayloadDocumentation.fieldWithPath("email").description("User's email address")
-                        )));
+                        )
+                        ,PayloadDocumentation.responseFields(
+                                PayloadDocumentation.fieldWithPath("success").description("Operation successful or not"),
+                                PayloadDocumentation.fieldWithPath("data").description("Registered user"),
+                                PayloadDocumentation.fieldWithPath("data.username").description("User's username"),
+                                PayloadDocumentation.fieldWithPath("data.nickname").description("User's nickname"),
+                                PayloadDocumentation.fieldWithPath("data.phone").description("User's phone number"),
+                                PayloadDocumentation.fieldWithPath("data.email").description("User's email address"),
+                                PayloadDocumentation.fieldWithPath("data.role").description("User's role"),
+                                PayloadDocumentation.fieldWithPath("errorCode").description("Error code if any").optional()
+                        )
+                ));
     }
 }

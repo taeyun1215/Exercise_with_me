@@ -22,16 +22,4 @@ public abstract class ControllerTest {
     @Autowired
     protected MockMvc mockMvc;
 
-    @MockBean
-    private RegisterUserUseCase registerUserUseCase;
-
-    @MockBean
-    private UserResponseMapper userResponseMapper;
-
-    @MockBean
-    private CheckUsernameQuery checkUsernameQuery;
-
-    @MockBean
-    private CheckNicknameQuery checkNicknameQuery;
-
 }

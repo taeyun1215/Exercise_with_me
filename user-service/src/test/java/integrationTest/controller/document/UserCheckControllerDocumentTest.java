@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.PayloadDocumentation;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import user.adapter.out.persistence.UserJpaEntity;
 import user.adapter.out.persistence.UserJpaRepo;
 import user.domain.constant.Role;
@@ -16,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Transactional
 @DisplayName("usernmae, nickname 중복 체크 API 명세서")
 public class UserCheckControllerDocumentTest extends ControllerTest {
 
@@ -64,6 +66,7 @@ public class UserCheckControllerDocumentTest extends ControllerTest {
                 .andDo(MockMvcRestDocumentation.document("user/check-username-taken",
                         PayloadDocumentation.responseFields(
                                 PayloadDocumentation.fieldWithPath("success").description("Operation successful or not"),
+                                PayloadDocumentation.fieldWithPath("data").description("Checked username").optional(),
                                 PayloadDocumentation.fieldWithPath("errorCode").description("Error code")
                         )));
     }
@@ -97,6 +100,7 @@ public class UserCheckControllerDocumentTest extends ControllerTest {
                 .andDo(MockMvcRestDocumentation.document("user/check-nickname-taken",
                         PayloadDocumentation.responseFields(
                                 PayloadDocumentation.fieldWithPath("success").description("Operation successful or not"),
+                                PayloadDocumentation.fieldWithPath("data").description("Checked nickname").optional(),
                                 PayloadDocumentation.fieldWithPath("errorCode").description("Error code")
                         )));
     }
