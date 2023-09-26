@@ -9,6 +9,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import user.UserServiceApplication;
 import user.adapter.out.persistence.UserResponseMapper;
+import user.application.port.in.query.CheckNicknameQuery;
+import user.application.port.in.query.CheckUsernameQuery;
 import user.application.port.in.usecase.RegisterUserUseCase;
 
 @AutoConfigureMockMvc
@@ -25,5 +27,11 @@ public abstract class ControllerTest {
 
     @MockBean
     private UserResponseMapper userResponseMapper;
+
+    @MockBean
+    private CheckUsernameQuery checkUsernameQuery;
+
+    @MockBean
+    private CheckNicknameQuery checkNicknameQuery;
 
 }
