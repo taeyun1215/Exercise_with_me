@@ -77,9 +77,9 @@ tasks.named('test') {
 
 // Spring Rest Docs
 asciidoctor {
-    dependsOn test
     inputs.dir snippetsDir
     configurations 'asciidoctorExt'
+    dependsOn test
     doFirst {
         delete 'src/main/resources/static/docs'
     }
