@@ -9,9 +9,29 @@
 
 === Request
 include::{snippets}/user/register-user/request-fields.adoc[]
-
 === Request
 include::{snippets}/user/register-user/http-request.adoc[]
-
 === Response
 include::{snippets}/user/register-user/http-response.adoc[]
+
+== Username 중복 체크 API
+
+=== Request (성공 시나리오)
+include::{snippets}/user/check-username-available/http-request.adoc[]
+=== Response (성공 시나리오)
+include::{snippets}/user/check-username-available/http-response.adoc[]
+=== Request (실패 시나리오)
+include::{snippets}/user/check-username-taken/http-request.adoc[]
+=== Response (실패 시나리오)
+include::{snippets}/user/check-username-taken/http-response.adoc[]
+
+== Nickname 중복 체크 API
+
+=== Request (성공 시나리오)
+include::{snippets}/user/check-nickname-available/http-request.adoc[]
+=== Response (성공 시나리오)
+include::{snippets}/user/check-nickname-available/http-response.adoc[]
+=== Request (실패 시나리오)
+include::{snippets}/user/check-nickname-taken/http-request.adoc[]
+=== Response (실패 시나리오)
+include::{snippets}/user/check-nickname-taken/http-response.adoc[]
