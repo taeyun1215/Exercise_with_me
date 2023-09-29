@@ -35,3 +35,17 @@ include::{snippets}/user/check-nickname-available/http-response.adoc[]
 include::{snippets}/user/check-nickname-taken/http-request.adoc[]
 === Response (실패 시나리오)
 include::{snippets}/user/check-nickname-taken/http-response.adoc[]
+
+== 로그인 API
+
+=== Request (성공 시나리오)
+=== Response (성공 시나리오)
+=== Request (실패 시나리오)
+=== Response (실패 시나리오)
+
+== 로그아웃 API
+
+=== Request (성공 시나리오)
+=== Response (성공 시나리오)
+=== Request (실패 시나리오)
+=== Response (실패 시나리오)
