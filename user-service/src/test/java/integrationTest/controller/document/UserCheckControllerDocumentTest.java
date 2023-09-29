@@ -1,12 +1,12 @@
 package integrationTest.controller.document;
 
+import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.PayloadDocumentation;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import user.adapter.out.persistence.UserJpaEntity;
 import user.adapter.out.persistence.UserJpaRepo;
 import user.domain.constant.Role;
@@ -40,11 +40,11 @@ public class UserCheckControllerDocumentTest extends ControllerTest {
     public void testCheckUsernameAvailable() throws Exception {
         String availableUsername = "existUsername";
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/username/" + availableUsername + "/exists")
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/users/username/" + availableUsername + "/exists")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andDo(MockMvcRestDocumentation.document("user/check-username-available",
+                .andDo(MockMvcRestDocumentationWrapper.document("user/check-username-available",
                         PayloadDocumentation.responseFields(
                                 PayloadDocumentation.fieldWithPath("success").description("Operation successful or not"),
                                 PayloadDocumentation.fieldWithPath("data").description("Checked username"),
@@ -57,11 +57,11 @@ public class UserCheckControllerDocumentTest extends ControllerTest {
     public void testCheckUsernameTaken() throws Exception {
         String takenUsername = "username"; // 중복 사용자 이름
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/username/" + takenUsername + "/exists")
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/users/username/" + takenUsername + "/exists")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andDo(print())
-                .andDo(MockMvcRestDocumentation.document("user/check-username-taken",
+                .andDo(MockMvcRestDocumentationWrapper.document("user/check-username-taken",
                         PayloadDocumentation.responseFields(
                                 PayloadDocumentation.fieldWithPath("success").description("Operation successful or not"),
                                 PayloadDocumentation.fieldWithPath("data").description("Checked username").optional(),
@@ -74,11 +74,11 @@ public class UserCheckControllerDocumentTest extends ControllerTest {
     public void testCheckNicknameAvailable() throws Exception {
         String availableNickname = "existNickname";
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/nickname/" + availableNickname + "/exists")
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/users/nickname/" + availableNickname + "/exists")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andDo(MockMvcRestDocumentation.document("user/check-nickname-available",
+                .andDo(MockMvcRestDocumentationWrapper.document("user/check-nickname-available",
                         PayloadDocumentation.responseFields(
                                 PayloadDocumentation.fieldWithPath("success").description("Operation successful or not"),
                                 PayloadDocumentation.fieldWithPath("data").description("Checked nickname"),
@@ -91,11 +91,11 @@ public class UserCheckControllerDocumentTest extends ControllerTest {
     public void testCheckNicknameTaken() throws Exception {
         String takenNickname = "nickname"; // 중복 닉네임
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/nickname/" + takenNickname + "/exists")
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/users/nickname/" + takenNickname + "/exists")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andDo(print())
-                .andDo(MockMvcRestDocumentation.document("user/check-nickname-taken",
+                .andDo(MockMvcRestDocumentationWrapper.document("user/check-nickname-taken",
                         PayloadDocumentation.responseFields(
                                 PayloadDocumentation.fieldWithPath("success").description("Operation successful or not"),
                                 PayloadDocumentation.fieldWithPath("data").description("Checked nickname").optional(),
