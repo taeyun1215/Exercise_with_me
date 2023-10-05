@@ -38,3 +38,5 @@
 - [MSA Phase 7. API Document(1) - Spring Rest Docs](https://velog.io/@devty/MSA-Phase-7.-API-Document1-Spring-Rest-Docs)
 
 - [MSA Phase 7. API Document(2) - Spring Rest Docs + Swagger UI](https://velog.io/@devty/MSA-Phase-7.-API-Document2-Spring-Rest-Docs-Swagger-UI)
+
+- [MSA Phase 8. DevOps]()
