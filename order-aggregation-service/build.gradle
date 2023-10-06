@@ -23,33 +23,17 @@ dependencies {
     // common module
     implementation project(path: ':common')
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-
-    testImplementation 'junit:junit:4.13.1'
+    implementation 'javax.transaction:javax.transaction-api'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
 
     // Junit5
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
-    // Gson
-    implementation 'com.google.code.gson:gson:2.9.0'
-
     // netflix-eureka
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.1.0'
-
-    // kafka
-    implementation 'org.springframework.kafka:spring-kafka'
-
-    // Axon Framework
-    implementation 'org.axonframework:axon-spring-boot-starter:4.8.0' // 최신 버전에 따라 업데이트 필요
+//    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.1.0'
 }
 
 test {
