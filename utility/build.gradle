@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'utility'
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
+}
+
+test {
+    useJUnitPlatform()
+}
