@@ -35,6 +35,8 @@ public class UserJpaEntity  implements Serializable {
     @Column(nullable = false, unique = true)
     private String email;
 
+    private String address;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;

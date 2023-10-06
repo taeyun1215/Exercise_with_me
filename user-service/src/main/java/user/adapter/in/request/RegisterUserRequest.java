@@ -45,13 +45,17 @@ public class RegisterUserRequest extends SelfValidating<RegisterUserRequest> {
     @NotBlank(message = "이메일은 필수 입력값입니다.")
     private String email;
 
+    @NotBlank(message = "주소는 필수 입력값입니다.")
+    private String address;
+
     public RegisterUserRequest(
             String username,
             String password,
             String confirmPassword,
             String nickname,
             String phone,
-            String email
+            String email,
+            String address
     ) {
         this.username = username;
         this.password = password;
@@ -59,6 +63,7 @@ public class RegisterUserRequest extends SelfValidating<RegisterUserRequest> {
         this.nickname = nickname;
         this.phone = phone;
         this.email = email;
+        this.address = address;
         this.validateSelf();
     }
 

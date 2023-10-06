@@ -34,6 +34,7 @@ public class UserRegisterController {
                 .nickname(registerUserRequest.getNickname())
                 .phone(registerUserRequest.getPhone())
                 .email(registerUserRequest.getEmail())
+                .address(registerUserRequest.getAddress())
                 .build();
 
         User user = registerUserUseCase.registerUser(command);

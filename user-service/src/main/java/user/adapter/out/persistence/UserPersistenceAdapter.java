@@ -9,6 +9,7 @@ import user.application.port.out.UpdateUserStatePort;
 import user.domain.User;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @PersistenceAdapter
@@ -38,6 +39,11 @@ public class UserPersistenceAdapter
         return userJpaRepo.findByNickname(nickname)
                 .map(userPersistenceMapper::mapToDomainEntity)
                 .orElse(null);
+    }
+
+    @Override
+    public List<Long> findUserIdListByAddress(String address) {
+        return userJpaRepo.findUserIdByAddress(address);
     }
 
     @Override

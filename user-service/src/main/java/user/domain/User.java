@@ -22,6 +22,7 @@ public class User implements Serializable {
     private String nickname;
     private String phone;
     private String email;
+    private String address;
     private Role role;
 
     private List<Long> matePostIds;
@@ -34,6 +35,7 @@ public class User implements Serializable {
                 .nickname(nickname)
                 .phone(phone)
                 .email(email)
+                .address(address)
                 .role(role)
                 .build();
     }

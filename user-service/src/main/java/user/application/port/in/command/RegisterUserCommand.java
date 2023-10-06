@@ -15,6 +15,7 @@ public class RegisterUserCommand {
     private String nickname;
     private String phone;
     private String email;
+    private String address;
 
     public User toEntity() {
         return User.builder()
@@ -23,6 +24,7 @@ public class RegisterUserCommand {
                 .nickname(nickname)
                 .phone(phone)
                 .email(email)
+                .address(address)
                 .role(Role.USER)
                 .build();
     }
