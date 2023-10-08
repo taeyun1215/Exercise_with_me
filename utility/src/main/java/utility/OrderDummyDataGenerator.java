@@ -61,7 +61,7 @@ public class OrderDummyDataGenerator {
             for (int i = 0; i < itemCount; i++) {
                 pstmt.setInt(1, random.nextInt(3) + 1);
                 pstmt.setLong(2, orderId);
-                pstmt.setLong(3, (long) random.nextInt(1000) + 1);
+                pstmt.setLong(3, (long) random.nextInt(50) + 1);
 
                 pstmt.executeUpdate();
             }
