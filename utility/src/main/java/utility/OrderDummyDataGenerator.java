@@ -8,6 +8,7 @@ public class OrderDummyDataGenerator {
     private static final String DB_URL = "jdbc:mariadb://localhost:3306/order-db";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "taeyun1215";
+
     private static final String[] ADDRESSES = {"중랑구", "서초구", "강남구"};
     private static final String[] ORDER_STATUS = {"ORDER_CREATED", "ORDER_COMPLETE", "BEING_PREPARED"};
     private static final Random random = new Random();
