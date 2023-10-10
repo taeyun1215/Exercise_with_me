@@ -1,0 +1,19 @@
+server:
+  port: 8086
+  servlet:
+    context-path: /order-aggregation-service
+
+spring:
+  application:
+    name: order-aggregation-service
+  profiles:
+    active: dev
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
