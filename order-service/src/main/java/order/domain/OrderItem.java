@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import order.aggregation.adapter.out.persistence.orderItem.OrderItemJpaEntity;
+import order.adapter.out.persistence.orderItem.OrderItemJpaEntity;
 
 @Getter
 @Builder

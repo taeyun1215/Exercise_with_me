@@ -4,7 +4,7 @@ import global.event.StockReducedEvent;
 import global.event.StockSoldOutEvent;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import order.aggregation.application.port.in.command.CreateOrderCommand;
+import order.application.port.in.command.CreateOrderCommand;
 import order.domain.constant.OrderStatus;
 import order.domain.events.OrderCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
