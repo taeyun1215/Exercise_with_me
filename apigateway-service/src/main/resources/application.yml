@@ -29,3 +29,6 @@ spring:
         - uri: lb://order-service
           predicates:
             - Path=/order-service/**
+        - uri: lb://order-aggregation-service
+          predicates:
+            - Path=/order-aggregation-service/**
