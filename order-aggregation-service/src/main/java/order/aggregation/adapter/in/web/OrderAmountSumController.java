@@ -1,5 +1,6 @@
 package order.aggregation.adapter.in.web;
 
+import global.annotation.WebAdapter;
 import global.utils.ReturnObject;
 import lombok.RequiredArgsConstructor;
 import order.aggregation.adapter.in.request.OrderAmountSumByAddressRequest;
@@ -7,8 +8,12 @@ import order.aggregation.application.port.in.OrderAmountSumByAddressUseCase;
 import order.aggregation.application.port.in.command.OrderAmountSumByAddressCommand;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@WebAdapter
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/orders")
@@ -18,7 +23,7 @@ public class OrderAmountSumController {
 
     @PostMapping("/aggregation/get-order-amount-sum-by-address")
     public ResponseEntity<ReturnObject> OrderAmountSumByAddress(
-            OrderAmountSumByAddressRequest request
+            @RequestBody OrderAmountSumByAddressRequest request
     ) {
         OrderAmountSumByAddressCommand command = OrderAmountSumByAddressCommand.builder()
                 .address(request.getAddress())

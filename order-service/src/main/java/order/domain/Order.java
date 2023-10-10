@@ -1,7 +1,7 @@
 package order.domain;
 
 import lombok.*;
-import order.adapter.out.persistence.order.OrderJpaEntity;
+import order.aggregation.adapter.out.persistence.order.OrderJpaEntity;
 import order.domain.constant.OrderStatus;
 
 @Getter

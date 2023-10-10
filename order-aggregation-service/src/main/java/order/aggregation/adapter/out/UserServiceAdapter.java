@@ -1,6 +1,5 @@
 package order.aggregation.adapter.out;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import global.annotation.ExternalSystemAdapter;
 import global.common.CommonHttpClient;
@@ -8,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import order.aggregation.application.port.out.GetUserPort;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ExternalSystemAdapter
 @RequiredArgsConstructor
