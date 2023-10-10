@@ -1,5 +1,6 @@
 package order.adapter.in.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import global.common.SelfValidating;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
@@ -13,7 +14,7 @@ public class FindOrderCntByUserIdsReqeust extends SelfValidating<FindOrderCntByU
     private List<Long> userIds;
 
     public FindOrderCntByUserIdsReqeust(
-            List<Long> userIds
+            @JsonProperty("userIds") List<Long> userIds
     ) {
         this.userIds = userIds;
         this.validateSelf();

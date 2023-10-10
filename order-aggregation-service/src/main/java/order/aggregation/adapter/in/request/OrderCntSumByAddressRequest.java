@@ -7,11 +7,11 @@ import lombok.Value;
 
 @Value
 @EqualsAndHashCode(callSuper = false)
-public class OrderAmountSumByAddressRequest extends SelfValidating<OrderAmountSumByAddressRequest> {
+public class OrderCntSumByAddressRequest extends SelfValidating<OrderCntSumByAddressRequest> {
 
     private String address;
 
-    public OrderAmountSumByAddressRequest(@JsonProperty("address") String address) {
+    public OrderCntSumByAddressRequest(@JsonProperty("address") String address) {
         this.address = address;
         this.validateSelf();
     }

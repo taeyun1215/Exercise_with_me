@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class OrderAmountSumByAddressCommand {
+public class OrderCntSumByAddressCommand {
 
     private final String address;
 

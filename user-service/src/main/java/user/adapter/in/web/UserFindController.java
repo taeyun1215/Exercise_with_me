@@ -18,7 +18,7 @@ public class UserFindController {
 
     private final FindUserQuery query;
 
-    @PostMapping("/address/{address}")
+    @GetMapping("/address/{address}")
     public ResponseEntity<ReturnObject> findUserIdListByAddress(
             @PathVariable("address") String address
     ) {

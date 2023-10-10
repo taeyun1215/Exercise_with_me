@@ -12,14 +12,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderServiceAdapter implements GetOrderPort {
 
+    ObjectMapper mapper = new ObjectMapper();
     private final CommonHttpClient commonHttpClient;
-    private final String orderServiceUrl = "order-service";
+    private final String orderServiceUrl = "http://localhost:8000/order-service";
 
     @Override
-    public List<Integer> getMoneyByUserIds(List<Long> userIds) {
+    public List<Integer> getOrderCntByUserIds(List<Long> userIds) {
         String url = String.join("/", orderServiceUrl, "/orders/order_cnt");
-        ObjectMapper mapper = new ObjectMapper();
-
         try {
             String jsonResponse = commonHttpClient.sendPostRequest(url, mapper.writeValueAsString(userIds)).body();
 

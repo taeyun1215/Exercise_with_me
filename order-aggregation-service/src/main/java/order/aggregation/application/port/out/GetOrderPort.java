@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface GetOrderPort {
 
-    List<Integer> getMoneyByUserIds(List<Long> userIds);
+    List<Integer> getOrderCntByUserIds(List<Long> userIds);
 
 }

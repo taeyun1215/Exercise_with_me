@@ -3,9 +3,9 @@ package order.aggregation.adapter.in.web;
 import global.annotation.WebAdapter;
 import global.utils.ReturnObject;
 import lombok.RequiredArgsConstructor;
-import order.aggregation.adapter.in.request.OrderAmountSumByAddressRequest;
-import order.aggregation.application.port.in.OrderAmountSumByAddressUseCase;
-import order.aggregation.application.port.in.command.OrderAmountSumByAddressCommand;
+import order.aggregation.adapter.in.request.OrderCntSumByAddressRequest;
+import order.aggregation.application.port.in.OrderCntSumByAddressUseCase;
+import order.aggregation.application.port.in.command.OrderCntSumByAddressCommand;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,19 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/orders")
-public class OrderAmountSumController {
+public class OrderCntSumController {
 
-    private final OrderAmountSumByAddressUseCase orderAmountSumByAddressUseCase;
+    private final OrderCntSumByAddressUseCase orderCntSumByAddressUseCase;
 
-    @PostMapping("/aggregation/get-order-amount-sum-by-address")
-    public ResponseEntity<ReturnObject> OrderAmountSumByAddress(
-            @RequestBody OrderAmountSumByAddressRequest request
+    @PostMapping("/aggregation/get-order-cnt-sum-by-address")
+    public ResponseEntity<ReturnObject> OrderCntSumByAddress(
+            @RequestBody OrderCntSumByAddressRequest request
     ) {
-        OrderAmountSumByAddressCommand command = OrderAmountSumByAddressCommand.builder()
+        OrderCntSumByAddressCommand command = OrderCntSumByAddressCommand.builder()
                 .address(request.getAddress())
                 .build();
 
-        int orderAmountSum = orderAmountSumByAddressUseCase.OrderAmountSumByAddress(command);
+        int orderAmountSum = orderCntSumByAddressUseCase.OrderCntSumByAddress(command);
 
         ReturnObject returnObject = ReturnObject.builder()
                 .success(true)
@@ -37,6 +37,5 @@ public class OrderAmountSumController {
                 .build();
 
         return ResponseEntity.status(HttpStatus.OK).body(returnObject);
-
     }
 }
