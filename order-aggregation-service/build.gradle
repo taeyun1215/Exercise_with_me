@@ -21,7 +21,9 @@ ext {
 
 dependencies {
     // common module
-    implementation project(path: ':common')
+    implementation (project(path: ':common')) {
+        exclude group: 'org.axonframework', module: 'axon-spring-boot-starter'
+    }
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
