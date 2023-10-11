@@ -9,7 +9,9 @@ import order.aggregation.application.port.out.GetOrderPort;
 import order.aggregation.application.port.out.GetUserPort;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -28,19 +30,26 @@ public class OrderAmountSumByAddressService implements OrderCntSumByAddressUseCa
         List<Long> userIds = getUserPort.getUserIdByAddress(command.getAddress());
 
         List<List<Long>> userPartitionList = null;
-        if (userIds.size() > 100) {
-            userPartitionList = partitionList(userIds, 100);
+        if (userIds.size() > 50) {
+            userPartitionList = partitionList(userIds, 50);
         }
 
-        int orderCntSum = 0;
+        List<CompletableFuture<Integer>> futures = new ArrayList<>();
+
         for (List<Long> partitionedList : userPartitionList) {
-            // 100 개씩 요청해서, 값을 계산하기로 설계.
-            List<Integer> orderCntList = getOrderPort.getOrderCntByUserIds(partitionedList);
-
-            for (Integer orderCnt : orderCntList) {
-                orderCntSum += orderCnt;
-            }
+            CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+                List<Integer> orderCntList = getOrderPort.getOrderCntByUserIds(partitionedList);
+                return orderCntList.stream().mapToInt(Integer::intValue).sum();
+            });
+            futures.add(future);
         }
+
+        // Collect and sum the results of all asynchronous computations
+        int orderCntSum = futures.stream()
+                .map(CompletableFuture::join) // wait for each future to complete
+                .mapToInt(Integer::intValue)
+                .sum();
+
         return orderCntSum;
     }
 
@@ -54,5 +63,4 @@ public class OrderAmountSumByAddressService implements OrderCntSumByAddressUseCa
                 .map(indices -> indices.stream().map(list::get).collect(Collectors.toList()))
                 .collect(Collectors.toList());
     }
-
 }
