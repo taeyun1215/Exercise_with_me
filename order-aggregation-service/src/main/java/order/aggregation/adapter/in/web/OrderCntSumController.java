@@ -29,7 +29,12 @@ public class OrderCntSumController {
                 .address(request.getAddress())
                 .build();
 
+        long startTime = System.currentTimeMillis();
+
         int orderAmountSum = orderCntSumByAddressUseCase.OrderCntSumByAddress(command);
+
+        long endTime = System.currentTimeMillis();
+        System.out.println("Order-aggregation-service API Call time: " + (endTime - startTime) + " ms");
 
         ReturnObject returnObject = ReturnObject.builder()
                 .success(true)
