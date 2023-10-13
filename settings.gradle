@@ -16,6 +16,5 @@ include 'order-service'
 include 'eureka-service'
 include 'apigateway-service'
 include 'order-aggregation-service'
-include 'utility'
 include 'order-cqrs-service'
-
+include 'utility'
