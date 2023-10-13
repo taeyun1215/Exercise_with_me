@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import order.adapter.in.request.OrderRegisterRequest;
 import order.application.port.in.RegisterOrderUseCase;
 import order.application.port.in.command.CreateOrderCommand;
-import order.domain.events.OrderCreatedEvent;
+import global.event.OrderCreatedEvent;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

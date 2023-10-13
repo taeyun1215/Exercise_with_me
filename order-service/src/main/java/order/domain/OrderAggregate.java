@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import order.application.port.in.command.CreateOrderCommand;
 import order.domain.constant.OrderStatus;
-import order.domain.events.OrderCreatedEvent;
+import global.event.OrderCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -30,7 +30,7 @@ public class OrderAggregate {
     @CommandHandler
     public OrderAggregate(CreateOrderCommand command) {
         this.orderId = command.getOrderId();
-        apply(new OrderCreatedEvent(command.getOrderId(), command.getOrderItemInfos()));
+        apply(new OrderCreatedEvent(command.getOrderId(), command.getUserId(), command.getOrderItemInfos()));
     }
 
     @EventSourcingHandler

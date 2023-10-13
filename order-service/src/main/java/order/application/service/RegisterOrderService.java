@@ -11,7 +11,7 @@ import order.application.port.out.SaveOrderPort;
 import order.domain.Order;
 import order.domain.OrderItem;
 import order.domain.constant.OrderStatus;
-import order.domain.events.OrderCreatedEvent;
+import global.event.OrderCreatedEvent;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.gateway.EventGateway;
 import org.springframework.beans.factory.annotation.Autowired;

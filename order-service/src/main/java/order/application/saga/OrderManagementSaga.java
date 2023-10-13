@@ -8,7 +8,7 @@ import global.event.StockReducedEvent;
 import global.event.StockSoldOutEvent;
 import order.domain.events.OrderCancelledEvent;
 import order.domain.events.OrderCompletedEvent;
-import order.domain.events.OrderCreatedEvent;
+import global.event.OrderCreatedEvent;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.modelling.saga.EndSaga;
 import org.axonframework.modelling.saga.SagaEventHandler;

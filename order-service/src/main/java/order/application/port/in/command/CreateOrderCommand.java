@@ -2,7 +2,7 @@ package order.application.port.in.command;
 
 import lombok.Builder;
 import lombok.Data;
-import order.domain.events.OrderCreatedEvent;
+import global.event.OrderCreatedEvent;
 
 import java.util.List;
 
