@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'javax.transaction:javax.transaction-api'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
@@ -36,6 +38,9 @@ dependencies {
 
     // netflix-eureka
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.1.0'
+
+    // Axon
+    implementation 'org.axonframework:axon-spring-boot-starter:4.8.0' // 최신 버전에 따라 업데이트 필요
 }
 
 test {
