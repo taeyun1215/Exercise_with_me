@@ -32,6 +32,7 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
     // Junit5
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
