@@ -1,4 +1,4 @@
-package order.domain.events;
+package global.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +14,8 @@ public class OrderCreatedEvent {
 
     @TargetAggregateIdentifier
     private final Long orderId;
+
+    private final Long userId;
 
     private final List<OrderItemInfo> orderItems;
 
