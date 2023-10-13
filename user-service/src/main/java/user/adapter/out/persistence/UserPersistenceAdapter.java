@@ -47,6 +47,11 @@ public class UserPersistenceAdapter
     }
 
     @Override
+    public String findAddressByuserId(Long userId) {
+        return userJpaRepo.findAddressByUserId(userId);
+    }
+
+    @Override
     @Transactional
     public void updateUsername(User user, String username) {
         UserJpaEntity findUserJpaEntity = userJpaRepo.findById(user.getUserId()).orElseThrow(

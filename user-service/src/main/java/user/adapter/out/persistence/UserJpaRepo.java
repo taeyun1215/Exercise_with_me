@@ -15,4 +15,6 @@ public interface UserJpaRepo extends JpaRepository<UserJpaEntity, Long> {
     @Query(value = "SELECT id FROM user WHERE address = :address", nativeQuery = true)
     List<Long> findUserIdByAddress(@Param("address") String address);
 
+    @Query(value = "SELECT address FROM user WHERE id = :userId", nativeQuery = true)
+    String findAddressByUserId(@Param("userId") Long userId);
 }

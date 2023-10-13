@@ -3,6 +3,7 @@ package user.application.service;
 import global.annotation.UseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import user.application.port.in.command.FindAddressByUserIdCommand;
 import user.application.port.in.command.FindUserIdListByAddressCommand;
 import user.application.port.in.query.FindUserQuery;
 import user.application.port.out.LoadUserPort;
@@ -23,4 +24,8 @@ public class FindUserService implements FindUserQuery {
         return loadUserPort.findUserIdListByAddress(command.getAddress());
     }
 
+    @Override
+    public String findAddressByUserId(FindAddressByUserIdCommand command) {
+        return loadUserPort.findAddressByuserId(command.getUserId());
+    }
 }

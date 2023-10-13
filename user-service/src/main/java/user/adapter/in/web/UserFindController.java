@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import user.adapter.in.request.RegisterUserRequest;
+import user.application.port.in.command.FindAddressByUserIdCommand;
 import user.application.port.in.command.FindUserIdListByAddressCommand;
 import user.application.port.in.query.FindUserQuery;
 
@@ -31,6 +32,24 @@ public class UserFindController {
         ReturnObject returnObject = ReturnObject.builder()
                 .success(true)
                 .data(userIds)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(returnObject);
+    }
+
+    @GetMapping("/userId/{userId}")
+    public ResponseEntity<ReturnObject> findAddressByuserId(
+            @PathVariable("userId") Long userId
+    ) {
+        FindAddressByUserIdCommand command = FindAddressByUserIdCommand.builder()
+                .userId(userId)
+                .build();
+
+        String address = query.findAddressByUserId(command);
+
+        ReturnObject returnObject = ReturnObject.builder()
+                .success(true)
+                .data(address)
                 .build();
 
         return ResponseEntity.status(HttpStatus.OK).body(returnObject);
