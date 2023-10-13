@@ -14,6 +14,9 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
+
+    // Axon
+    implementation 'org.axonframework:axon-spring-boot-starter:4.8.0' // 최신 버전에 따라 업데이트 필요
 }
 
 test {
