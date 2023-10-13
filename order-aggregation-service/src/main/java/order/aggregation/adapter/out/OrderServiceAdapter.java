@@ -6,6 +6,8 @@ import global.annotation.ExternalSystemAdapter;
 import global.common.CommonHttpClient;
 import lombok.RequiredArgsConstructor;
 import order.aggregation.application.port.out.GetOrderPort;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.net.http.HttpResponse;
 import java.util.Collections;
