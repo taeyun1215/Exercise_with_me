@@ -19,7 +19,7 @@ public class UserServiceAdapter implements GetUserPort {
 
     @Override
     public String getAddressByUserId(Long userId) {
-        String url = String.join("/", userServiceUrl, "users/address", address);
+        String url = String.join("/", userServiceUrl, "users/userId", String.valueOf(userId));
         try {
             String jsonResponse = commonHttpClient.sendGetRequest(url).body();
 

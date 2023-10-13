@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 
 @EnableDiscoveryClient
 @Import({SecurityConfig.class})
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@SpringBootApplication
 public class OrderCqrsServiceApplication {
 
 	public static void main(String[] args) {
