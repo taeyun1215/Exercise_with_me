@@ -1,8 +1,8 @@
 package utility;
 
-import order.cqrs.domain.command.CreateOrderCommand;
-import order.cqrs.domain.event.OrderCreatedEvent;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import utility.init.CreateOrderCommand;
+import utility.init.OrderCreatedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
