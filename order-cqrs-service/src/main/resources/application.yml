@@ -35,3 +35,7 @@ axon:
   axonserver:
     servers: localhost:8124 # 비워두면 Axon Server에 연결하지 않도록 설정
     enabled: true
+  serializer:
+    events: jackson
+    messages: jackson
+    general: xstream
