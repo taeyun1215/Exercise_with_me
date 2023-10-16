@@ -3,6 +3,7 @@ package order.application.port.in.command;
 import lombok.Builder;
 import lombok.Data;
 import global.event.OrderCreatedEvent;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 

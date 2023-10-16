@@ -26,18 +26,18 @@ public class OrderManagementSaga {
     @Autowired
     private transient CommandGateway commandGateway;
 
-    @StartSaga
-    @SagaEventHandler(associationProperty = "orderId")
-    public void handle(OrderCreatedEvent event) {
-        log.info("OrderCreatedEvent received for Order ID: " + event.getOrderId() + ". Reducing stock for order items.");
-
-        List<ReduceStockCommand.OrderItem> items = event.getOrderItems().stream()
-                .map(orderItemInfo -> new ReduceStockCommand.OrderItem(orderItemInfo.getProductId(), orderItemInfo.getCount()))
-                .collect(Collectors.toList());
-
-        // 주문 생성 후 재고 감소 커맨드 전송
-        commandGateway.send(new ReduceStockCommand(event.getOrderId(), items));
-    }
+//    @StartSaga
+//    @SagaEventHandler(associationProperty = "orderId")
+//    public void handle(OrderCreatedEvent event) {
+//        log.info("OrderCreatedEvent received for Order ID: " + event.getOrderId() + ". Reducing stock for order items.");
+//
+//        List<ReduceStockCommand.OrderItem> items = event.getOrderItems().stream()
+//                .map(orderItemInfo -> new ReduceStockCommand.OrderItem(orderItemInfo.getProductId(), orderItemInfo.getCount()))
+//                .collect(Collectors.toList());
+//
+//        // 주문 생성 후 재고 감소 커맨드 전송
+//        commandGateway.send(new ReduceStockCommand(event.getOrderId(), items));
+//    }
 
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(StockReducedEvent event) {
