@@ -21,6 +21,9 @@ public class OrderCntSumByAddress {
 
     private String address;
 
-    private long orderCnt;
+    private Long orderCnt;
 
+    public Long getOrderCnt() {
+        return this.orderCnt;
+    }
 }
