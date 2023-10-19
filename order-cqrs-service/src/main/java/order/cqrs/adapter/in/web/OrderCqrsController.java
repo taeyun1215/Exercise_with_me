@@ -30,7 +30,7 @@ public class OrderCqrsController {
         Long orderCntSumByAddress = orderCntSumUseCase.orderCntSumByAddress(query);
 
         long endTime = System.currentTimeMillis();
-        System.out.println("Order-aggregation-service API Call time: " + (endTime - startTime) + " ms");
+        System.out.println("Order-CQRS-service API Call time: " + (endTime - startTime) + " ms");
 
         ReturnObject returnObject = ReturnObject.builder()
                 .success(true)
