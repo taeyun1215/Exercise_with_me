@@ -9,7 +9,7 @@ import org.axonframework.queryhandling.QueryHandler;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class OrderCntSumByAddressPersistenceAdapter implements InsertOrderCntStatePort {
+public class OrderCntSumCommandAdapter implements InsertOrderCntStatePort {
 
     private final OrderCntSumByAddressRepo repo;
 
@@ -31,12 +31,5 @@ public class OrderCntSumByAddressPersistenceAdapter implements InsertOrderCntSta
                 .build();
 
         return repo.save(newRecord);
-    }
-
-    @QueryHandler
-    public Long orderCntSumByAddress(OrderCntSumByAddressQuery query) {
-        return repo.findByAddress(query.getAddress())
-                .map(OrderCntSumByAddress::getOrderCnt)
-                .orElse(null);
     }
 }
