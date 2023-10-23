@@ -40,3 +40,5 @@
 - [MSA Phase 7. API Document(2) - Spring Rest Docs + Swagger UI](https://velog.io/@devty/MSA-Phase-7.-API-Document2-Spring-Rest-Docs-Swagger-UI)
 
 - [MSA Phase 8. CQRS](https://velog.io/@devty/MSA-Phase-8.-CQRS)
+  
+- [MSA Phase 9. Transaction Complexity]()
