@@ -41,4 +41,4 @@
 
 - [MSA Phase 8. CQRS](https://velog.io/@devty/MSA-Phase-8.-CQRS)
   
-- [MSA Phase 9. Transaction Complexity]()
+- [MSA Phase 9. Transaction Complexity](https://velog.io/@devty/MSA-Phase-9.-Transaction-Complexity-9xaow1x1)
