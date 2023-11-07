@@ -50,13 +50,9 @@ dependencies {
 
     // Axon Framework
     implementation 'org.axonframework:axon-spring-boot-starter:4.8.0' // 최신 버전에 따라 업데이트 필요
-//    implementation 'org.axonframework:axon-kafka:4.5.8' // 최신 버전에 따라 업데이트 필요
 
-    // XStream
-//    implementation 'com.thoughtworks.xstream:xstream:1.4.16'
-
-    // OXM
-//    implementation 'org.springframework:spring-oxm:5.3.7'
+    // Spring Cache
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
 }
 
 test {
