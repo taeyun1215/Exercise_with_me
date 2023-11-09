@@ -18,3 +18,5 @@ include 'apigateway-service'
 include 'order-aggregation-service'
 include 'order-cqrs-service'
 include 'utility'
+include 'review-service'
+
