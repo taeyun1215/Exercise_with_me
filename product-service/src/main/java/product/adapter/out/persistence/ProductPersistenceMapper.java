@@ -3,6 +3,9 @@ package product.adapter.out.persistence;
 import org.springframework.stereotype.Component;
 import product.domain.Product;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class ProductPersistenceMapper {
 
@@ -20,6 +23,12 @@ public class ProductPersistenceMapper {
                 .categoryId(productJpaEntity.getCategoryId())
                 .userId(productJpaEntity.getUserId())
                 .build();
+    }
+
+    public List<Product> mapToDomainEntities(List<ProductJpaEntity> productJpaEntities) {
+        return productJpaEntities.stream()
+                .map(this::mapToDomainEntity)
+                .collect(Collectors.toList());
     }
 
 }

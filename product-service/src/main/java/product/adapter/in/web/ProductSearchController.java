@@ -26,7 +26,7 @@ public class ProductSearchController {
             @RequestParam("searchQuery") String searchQuery
     ) {
         SearchProductsByQuery query = SearchProductsByQuery.builder()
-                .query(searchQuery)
+                .productName(searchQuery)
                 .build();
 
         List<Product> products = searchProductUseCase.searchProductByQuery(query);

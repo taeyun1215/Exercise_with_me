@@ -21,7 +21,7 @@ public class SearchProductService implements SearchProductUseCase {
 
     @Override
     public List<Product> searchProductByQuery(SearchProductsByQuery query) {
-        return null;
+        return loadProductPort.loadProductByQuery(query);
     }
 
 }

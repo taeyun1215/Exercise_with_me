@@ -26,6 +26,7 @@ public class ProductJpaEntity implements Serializable {
 
     private int price;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     private String description;
