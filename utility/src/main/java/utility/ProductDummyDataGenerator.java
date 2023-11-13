@@ -36,7 +36,7 @@ public class ProductDummyDataGenerator {
         String insertQuery = "INSERT INTO product (name, price, status, description, category_id, user_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
-            int numberOfDummyData = 50;
+            int numberOfDummyData = 100000;
 
             for (int i = 1; i <= numberOfDummyData; i++) {
                 pstmt.setString(1, "Product" + i);
